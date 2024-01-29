@@ -1,6 +1,19 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 
 const LoginForm = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+
+    console.log(email);
+    console.log(password);
+  };
+
   return (
     <div className="flex flex-col items-center justify-center h-screen">
       <div className="bg-slate-200 p-10 rounded-md shadow-lg">
@@ -8,7 +21,7 @@ const LoginForm = () => {
           Login
         </h1>
 
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="text-gray-700 text-md font-medium mb-2">
               Email
@@ -19,6 +32,8 @@ const LoginForm = () => {
               id="email"
               name="email"
               placeholder="mail@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
@@ -32,6 +47,8 @@ const LoginForm = () => {
               id="password"
               name="password"
               placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
 
