@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { FormEvent } from "react";
+import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 const SignUpForm = () => {
@@ -98,7 +99,10 @@ const SignUpForm = () => {
             or
           </div>
 
-          <button className="w-full bg-black text-white py-2 px-4 rounded hover:opacity-75">
+          <button
+            className="w-full bg-black text-white py-2 px-4 rounded hover:opacity-75"
+            onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+          >
             Sign up with Google
           </button>
 

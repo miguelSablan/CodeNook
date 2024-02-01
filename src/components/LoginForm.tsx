@@ -25,7 +25,6 @@ const LoginForm = () => {
 
     if (signInData?.error) {
       console.log(signInData.error);
-      alert("Invalid credentials");
     } else {
       router.refresh();
       router.push("/dashboard");
@@ -81,7 +80,10 @@ const LoginForm = () => {
             or
           </div>
 
-          <button className="w-full bg-black text-white py-2 px-4 rounded hover:opacity-75">
+          <button
+            className="w-full bg-black text-white py-2 px-4 rounded hover:opacity-75"
+            onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+          >
             Sign in with Google
           </button>
 
