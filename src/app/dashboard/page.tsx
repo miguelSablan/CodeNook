@@ -1,9 +1,22 @@
-import React from "react";
+import Navbar from "@/components/Navbar";
+import { authOptions } from "@/lib/auth";
+import { getServerSession } from "next-auth";
 
-const Dashboard = () => {
+const Dashboard = async () => {
+  const session = await getServerSession(authOptions);
+
+  if (session?.user) {
+    return (
+      <main className="flex h-screen flex-col items-center justify-center p-24">
+        <Navbar />
+        <h1 className="text-4xl">Welcome, {session?.user.username}</h1>
+      </main>
+    );
+  }
+
   return (
     <main className="flex h-screen flex-col items-center justify-center p-24">
-      <h1 className="text-4xl">Dashboard</h1>
+      <h1 className="text-4xl">Please login to see this page</h1>
     </main>
   );
 };

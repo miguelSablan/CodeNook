@@ -27,6 +27,7 @@ const LoginForm = () => {
       console.log(signInData.error);
       alert("Invalid credentials");
     } else {
+      router.refresh();
       router.push("/dashboard");
     }
   };
