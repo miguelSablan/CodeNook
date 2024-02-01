@@ -2,16 +2,34 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
+import { FormEvent } from "react";
+import { useRouter } from "next/navigation";
 
 const LoginForm = () => {
+  const router = useRouter();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    console.log(email);
-    console.log(password);
+    const signInData = await signIn("credentials", {
+      email: email,
+      password: password,
+      redirect: false,
+    });
+
+    console.log(signInData);
+
+    if (signInData?.error) {
+      console.log(signInData.error);
+      alert("Invalid credentials");
+    } else {
+      router.refresh();
+      router.push("/dashboard");
+    }
   };
 
   return (

@@ -2,18 +2,36 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { FormEvent } from "react";
+import { useRouter } from "next/navigation";
 
 const SignUpForm = () => {
+  const router = useRouter();
+
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    console.log(username);
-    console.log(email);
-    console.log(password);
+    const response = await fetch("api/user", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: username,
+        email: email,
+        password: password,
+      }),
+    });
+
+    if (response.ok) {
+      router.push("/login");
+    } else {
+      console.error("Registration failed.");
+    }
   };
 
   return (
@@ -81,7 +99,7 @@ const SignUpForm = () => {
           </div>
 
           <button className="w-full bg-black text-white py-2 px-4 rounded hover:opacity-75">
-            Sign in with Google
+            Sign up with Google
           </button>
 
           <p className="text-center text-sm text-gray-600 mt-4">
