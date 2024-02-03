@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import SignOutButton from "./SignOutButton";
 
 const Navbar = async () => {
   const session = await getServerSession(authOptions);
@@ -11,16 +10,13 @@ const Navbar = async () => {
       <Link className="ml-4" href="/">
         Home
       </Link>
-      {session?.user ? (
-        <SignOutButton />
-      ) : (
-        <Link
-          className="mr-4 bg-black text-white py-2 px-4 rounded hover:opacity-75"
-          href="/login"
-        >
-          Login
-        </Link>
-      )}
+
+      <Link
+        className="mr-4 bg-black text-white py-2 px-4 rounded hover:opacity-75"
+        href="/login"
+      >
+        Login
+      </Link>
     </div>
   );
 };
