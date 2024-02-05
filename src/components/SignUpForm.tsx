@@ -1,20 +1,33 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
-import { FormEvent } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const registerSchema = z.object({
+  username: z.string().min(1, "Username is required").max(100),
+  email: z.string().min(1, "Email is required").email("Invalid email"),
+  password: z.string().min(1, "Password is required"),
+});
+
+type RegisterSchema = z.infer<typeof registerSchema>;
 
 const SignUpForm = () => {
   const router = useRouter();
 
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<RegisterSchema>({
+    resolver: zodResolver(registerSchema),
+  });
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const onSubmit: SubmitHandler<RegisterSchema> = async (data) => {
+    console.log(data);
 
     const response = await fetch("api/user", {
       method: "POST",
@@ -22,9 +35,9 @@ const SignUpForm = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        username: username,
-        email: email,
-        password: password,
+        username: data?.username,
+        email: data?.email,
+        password: data?.password,
       }),
     });
 
@@ -42,7 +55,7 @@ const SignUpForm = () => {
           Sign Up
         </h1>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-4">
             <label className="text-gray-700 text-md font-medium mb-2">
               Username
@@ -51,11 +64,14 @@ const SignUpForm = () => {
               className="border rounded w-full py-2 px-3"
               type="text"
               id="username"
-              name="username"
               placeholder="johndoe"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              {...register("username", { required: true })}
             />
+            {errors.username && (
+              <p className="text-md text-red-500 mt-1">
+                {errors.username?.message}
+              </p>
+            )}
           </div>
 
           <div className="mb-4">
@@ -66,11 +82,14 @@ const SignUpForm = () => {
               className="border rounded w-full py-2 px-3"
               type="email"
               id="email"
-              name="email"
               placeholder="mail@example.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              {...register("email", { required: true })}
             />
+            {errors.email && (
+              <p className="text-md text-red-500 mt-1">
+                {errors.email?.message}
+              </p>
+            )}
           </div>
 
           <div className="mb-8">
@@ -81,11 +100,14 @@ const SignUpForm = () => {
               className="border rounded w-full py-2 px-3"
               type="password"
               id="password"
-              name="password"
               placeholder="Enter your password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              {...register("password", { required: true })}
             />
+            {errors.password && (
+              <p className="text-md text-red-500 mt-1">
+                {errors.password?.message}
+              </p>
+            )}
           </div>
 
           <button
