@@ -36,6 +36,7 @@ const LoginForm = () => {
 
     if (signInData?.error) {
       console.log(signInData.error);
+      alert("Invalid email or password. Please try again.");
     } else {
       router.refresh();
       router.push("/dashboard");
