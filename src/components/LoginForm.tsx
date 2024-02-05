@@ -1,31 +1,44 @@
 "use client";
 
-import { useState } from "react";
-import Link from "next/link";
 import { signIn } from "next-auth/react";
-import { FormEvent } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const loginSchema = z.object({
+  email: z.string().min(1, "Email is required").email("Invalid email"),
+  password: z.string().min(1, "Password is required"),
+});
+
+type LoginSchema = z.infer<typeof loginSchema>;
 
 const LoginForm = () => {
   const router = useRouter();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginSchema>({
+    resolver: zodResolver(loginSchema),
+  });
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const onSubmit: SubmitHandler<LoginSchema> = async (data) => {
+    console.log(data);
 
     const signInData = await signIn("credentials", {
-      email: email,
-      password: password,
+      email: data?.email,
+      password: data?.password,
       redirect: false,
     });
 
-    console.log(signInData);
-
     if (signInData?.error) {
       console.log(signInData.error);
+      alert("Invalid email or password. Please try again.");
     } else {
+      router.refresh();
       router.push("/dashboard");
     }
   };
@@ -37,7 +50,7 @@ const LoginForm = () => {
           Login
         </h1>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-4">
             <label className="text-gray-700 text-md font-medium mb-2">
               Email
@@ -46,11 +59,14 @@ const LoginForm = () => {
               className="border rounded w-full py-2 px-3"
               type="email"
               id="email"
-              name="email"
               placeholder="mail@example.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              {...register("email", { required: true })}
             />
+            {errors.email && (
+              <p className="text-md text-red-500 mt-1">
+                {errors.email?.message}
+              </p>
+            )}
           </div>
 
           <div className="mb-8">
@@ -61,11 +77,14 @@ const LoginForm = () => {
               className="border rounded w-full py-2 px-3"
               type="password"
               id="password"
-              name="password"
               placeholder="Enter your password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              {...register("password", { required: true })}
             />
+            {errors.password && (
+              <p className="text-md text-red-500 mt-1">
+                {errors.password?.message}
+              </p>
+            )}
           </div>
 
           <button

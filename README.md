@@ -8,6 +8,8 @@ Full Stack Social Media Web Application built with Next.js
 - [TypeScript](https://www.typescriptlang.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Prisma](https://www.prisma.io/)
+- [React Hook Form](https://react-hook-form.com/)
+- [Zod](https://zod.dev/)
 
 ## How to Run?
 Download the most recent version of [Node.js](https://nodejs.org/en/download/).
