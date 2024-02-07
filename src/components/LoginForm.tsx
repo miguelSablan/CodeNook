@@ -18,6 +18,30 @@ const loginSchema = z.object({
 
 type LoginSchema = z.infer<typeof loginSchema>;
 
+const providers = [
+  {
+    name: "google",
+    color: "white",
+    bgColor: "bg-white",
+    icon: "/google.svg",
+    title: "Sign in with Google",
+  },
+  {
+    name: "github",
+    color: "white",
+    bgColor: "bg-black",
+    icon: "/github.svg",
+    title: "Sign in with Github",
+  },
+  {
+    name: "discord",
+    color: "white",
+    bgColor: "bg-[#5865F2]",
+    icon: "/discord.svg",
+    title: "Sign in with Discord",
+  },
+];
+
 const LoginForm = () => {
   const router = useRouter();
 
@@ -117,44 +141,16 @@ const LoginForm = () => {
           </div>
 
           <div className="flex justify-center gap-4 my-5">
-            <button
-              className="border w-16 p-4 rounded-xl bg-white flex justify-center items-center active:scale-95 active:duration-75 transition-all hover:opacity-75"
-              onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
-              title="Sign in with Google"
-            >
-              <Image
-                src="/google.svg"
-                width={24}
-                height={24}
-                alt="Google Logo"
-              />
-            </button>
-
-            <button
-              className="border w-16 p-4 rounded-xl bg-black flex justify-center items-center active:scale-95 active:duration-75 transition-all hover:opacity-75"
-              onClick={() => signIn("github", { callbackUrl: "/dashboard" })}
-              title="Sign in with Github"
-            >
-              <Image
-                src="/github.svg"
-                width={24}
-                height={24}
-                alt="Google Logo"
-              />
-            </button>
-
-            <button
-              className="border w-16 p-4 rounded-xl bg-[#5865F2] flex justify-center items-center active:scale-95 active:duration-75 transition-all hover:opacity-75"
-              onClick={() => signIn("discord", { callbackUrl: "/dashboard" })}
-              title="Sign in with Discord"
-            >
-              <Image
-                src="/discord.svg"
-                width={24}
-                height={24}
-                alt="Google Logo"
-              />
-            </button>
+            {providers.map(({ name, bgColor, icon, title }, index) => (
+              <button
+                key={index}
+                className={`border w-16 p-4 rounded-xl flex justify-center items-center active:scale-95 active:duration-75 transition-all hover:opacity-75 ${bgColor}`}
+                onClick={() => signIn(name, { callbackUrl: "/dashboard" })}
+                title={title}
+              >
+                <Image src={icon} width={24} height={24} alt={`${name} Logo`} />
+              </button>
+            ))}
           </div>
 
           <p className="text-center text-sm font-medium text-gray-600 mt-8">
