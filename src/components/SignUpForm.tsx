@@ -101,8 +101,8 @@ const SignUpForm = () => {
   };
 
   return (
-    <div className="grid place-items-center h-screen bg-gradient-to-tr from-teal-900 to-teal-400">
-      <div className="bg-white px-5 md:px-10 py-20 shadow-lg rounded-3xl md:w-[450px]">
+    <div className="grid place-items-center min-h-screen bg-gradient-to-tr from-violet-500 to-red-600">
+      <div className="bg-white px-5 md:px-10 py-20 shadow-lg rounded-3xl md:w-[450px] max-w-md">
         {authError && (
           <div className="bg-red-200 text-red-500 p-3 rounded mb-2">
             <p className="text-sm">{authError}</p>
@@ -202,7 +202,7 @@ const SignUpForm = () => {
 
           <p className="text-center text-sm font-medium text-gray-600 mt-8">
             Already have an account?&nbsp;
-            <Link className="text-teal-400 hover:underline" href="/login">
+            <Link className="text-violet-500 hover:underline" href="/login">
               Login here
             </Link>
           </p>
