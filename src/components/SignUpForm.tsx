@@ -19,6 +19,30 @@ const registerSchema = z.object({
 
 type RegisterSchema = z.infer<typeof registerSchema>;
 
+const providers = [
+  {
+    name: "google",
+    color: "white",
+    bgColor: "bg-white",
+    icon: "/google.svg",
+    title: "Sign in with Google",
+  },
+  {
+    name: "github",
+    color: "white",
+    bgColor: "bg-black",
+    icon: "/github.svg",
+    title: "Sign in with Github",
+  },
+  {
+    name: "discord",
+    color: "white",
+    bgColor: "bg-[#5865F2]",
+    icon: "/discord.svg",
+    title: "Sign in with Discord",
+  },
+];
+
 const SignUpForm = () => {
   const router = useRouter();
 
@@ -59,7 +83,7 @@ const SignUpForm = () => {
   };
 
   return (
-    <div className="grid place-items-center h-screen bg-gradient-to-tr from-orange-500 to-pink-500">
+    <div className="grid place-items-center h-screen bg-gradient-to-tr from-teal-900 to-teal-400">
       <div className="bg-white px-5 md:px-10 py-20 shadow-lg rounded-3xl md:w-[450px]">
         <h1 className="text-5xl text-gray-700 font-semibold mb-4">Sign Up</h1>
         <p className="font-medium text-md text-gray-500 my-4">
@@ -139,17 +163,22 @@ const SignUpForm = () => {
             or
           </div>
 
-          <button
-            className="w-full border py-3 px-6 rounded-full flex justify-center items-center gap-3 active:scale-95 active:duration-75 transition-all hover:opacity-75"
-            onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
-          >
-            <Image src="/google.svg" width={24} height={24} alt="Google Logo" />
-            Sign up with Google
-          </button>
+          <div className="flex justify-center gap-4 my-5">
+            {providers.map(({ name, bgColor, icon, title }, index) => (
+              <button
+                key={index}
+                className={`border w-16 p-4 rounded-xl flex justify-center items-center active:scale-95 active:duration-75 transition-all hover:opacity-75 ${bgColor}`}
+                onClick={() => signIn(name, { callbackUrl: "/dashboard" })}
+                title={title}
+              >
+                <Image src={icon} width={24} height={24} alt={`${name} Logo`} />
+              </button>
+            ))}
+          </div>
 
           <p className="text-center text-sm font-medium text-gray-600 mt-8">
             Already have an account?&nbsp;
-            <Link className="text-orange-500 hover:underline" href="/login">
+            <Link className="text-teal-400 hover:underline" href="/login">
               Login here
             </Link>
           </p>
