@@ -193,6 +193,7 @@ const SignUpForm = () => {
                 className={`border w-16 p-4 rounded-xl flex justify-center items-center active:scale-95 active:duration-75 transition-all hover:opacity-75 ${bgColor}`}
                 onClick={() => signIn(name, { callbackUrl: "/dashboard" })}
                 title={title}
+                type="button"
               >
                 <Image src={icon} width={24} height={24} alt={`${name} Logo`} />
               </button>
