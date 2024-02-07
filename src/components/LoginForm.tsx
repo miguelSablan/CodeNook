@@ -54,7 +54,7 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="grid place-items-center h-screen bg-gradient-to-tr from-orange-500 to-pink-500">
+    <div className="grid place-items-center h-screen bg-gradient-to-tr from-teal-900 to-teal-400">
       <div className="bg-white px-5 md:px-10 py-20 shadow-lg rounded-3xl md:w-[450px]">
         <h1 className="text-5xl text-gray-700 font-semibold mb-4">Login</h1>
         <p className="font-medium text-md text-gray-500 my-4">
@@ -116,17 +116,50 @@ const LoginForm = () => {
             or
           </div>
 
-          <button
-            className="w-full border py-3 px-6 rounded-full flex justify-center items-center gap-3 active:scale-95 active:duration-75 transition-all hover:opacity-75"
-            onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
-          >
-            <Image src="/google.svg" width={24} height={24} alt="Google Logo" />
-            Continue with Google
-          </button>
+          <div className="flex justify-center gap-4 my-5">
+            <button
+              className="border w-16 p-4 rounded-xl bg-white flex justify-center items-center active:scale-95 active:duration-75 transition-all hover:opacity-75"
+              onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+              title="Sign in with Google"
+            >
+              <Image
+                src="/google.svg"
+                width={24}
+                height={24}
+                alt="Google Logo"
+              />
+            </button>
+
+            <button
+              className="border w-16 p-4 rounded-xl bg-black flex justify-center items-center active:scale-95 active:duration-75 transition-all hover:opacity-75"
+              onClick={() => signIn("github", { callbackUrl: "/dashboard" })}
+              title="Sign in with Github"
+            >
+              <Image
+                src="/github.svg"
+                width={24}
+                height={24}
+                alt="Google Logo"
+              />
+            </button>
+
+            <button
+              className="border w-16 p-4 rounded-xl bg-[#5865F2] flex justify-center items-center active:scale-95 active:duration-75 transition-all hover:opacity-75"
+              onClick={() => signIn("discord", { callbackUrl: "/dashboard" })}
+              title="Sign in with Discord"
+            >
+              <Image
+                src="/discord.svg"
+                width={24}
+                height={24}
+                alt="Google Logo"
+              />
+            </button>
+          </div>
 
           <p className="text-center text-sm font-medium text-gray-600 mt-8">
             Don&apos;t have an account?&nbsp;
-            <Link className="text-orange-500 hover:underline" href="/signup">
+            <Link className="text-teal-400 hover:underline" href="/signup">
               Sign up
             </Link>
           </p>
