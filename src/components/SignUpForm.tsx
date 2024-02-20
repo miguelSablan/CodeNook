@@ -72,7 +72,7 @@ const SignUpForm = () => {
 
     setLoading(true); // Start loading
 
-    const response = await fetch("api/user", {
+    const response = await fetch("api/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
