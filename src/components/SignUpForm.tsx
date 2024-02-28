@@ -103,15 +103,15 @@ const SignUpForm = () => {
   return (
     <div className="grid place-items-center min-h-screen bg-gradient-to-tr from-violet-500 to-red-600">
       <div className="bg-white px-5 md:px-10 py-20 shadow-lg rounded-3xl md:w-[450px] max-w-md">
+        <h1 className="text-5xl text-gray-700 font-semibold mb-4">Sign Up</h1>
+        <p className="font-medium text-md text-gray-500 my-4">
+          Welcome! Create an account to get started.
+        </p>
         {authError && (
           <div className="bg-red-200 text-red-500 p-3 rounded mb-2">
             <p className="text-sm">{authError}</p>
           </div>
         )}
-        <h1 className="text-5xl text-gray-700 font-semibold mb-4">Sign Up</h1>
-        <p className="font-medium text-md text-gray-500 my-4">
-          Welcome! Create an account to get started.
-        </p>
 
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-4">
