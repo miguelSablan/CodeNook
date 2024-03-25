@@ -84,7 +84,7 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="grid place-items-center min-h-screen bg-gradient-to-tr from-violet-500 to-red-600">
+    <div className="grid place-items-center min-h-screen bg-gradient-to-tr from-blue-600 to-black">
       <div className="bg-white w-[360px] px-5 md:px-10 py-20 shadow-lg rounded-3xl md:w-[450px] max-w-md">
         <h1 className="text-5xl text-gray-700 font-semibold mb-4">Login</h1>
         <p className="font-medium text-md text-gray-500 my-4">
@@ -166,7 +166,7 @@ const LoginForm = () => {
 
           <p className="text-center text-sm font-medium text-gray-600 mt-8">
             Don&apos;t have an account?&nbsp;
-            <Link className="text-violet-500 hover:underline" href="/signup">
+            <Link className="text-blue-600 hover:underline" href="/signup">
               Sign up
             </Link>
           </p>
