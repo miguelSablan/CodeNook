@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
+import Image from "next/image"
 
 export default function Home() {
   return (
@@ -26,6 +27,13 @@ export default function Home() {
           Join now!
         </Link>
       </div>
+      <Image 
+      
+      src="https://img.freepik.com/premium-vector/abstract-technology-tree_732854-8.jpg?w=1380 "
+      alt = "ttt"
+      width = {500}
+      height = {500}
+      />
       {/* https://img.freepik.com/premium-vector/abstract-technology-tree_732854-8.jpg?w=1380 */}
 
       <div className = "mx-auto max-w-6xl px-6 lg:px-8">
