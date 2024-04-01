@@ -11,7 +11,7 @@ export default function Home() {
       <h1 className="font-bold text-5xl md:text-6xl lg:text-7xl">
         Welcome to&nbsp; 
         <span className="text-blue-700">CodeNook! </span>
-        your new portal to the&nbsp;
+        Your new portal to the&nbsp;
         <span className="text-blue-700">world of tech!</span>
         {/* <h2 className = "text-2xl md:text-3xl lg:text-4xl">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloribus qui pariatur, amet possimus cumque labore hic repellat aliquam explicabo! Repudiandae dolore consectetur voluptatem ut magnam eos sequi deserunt facilis cumque.</h2> */}
 
@@ -30,7 +30,7 @@ export default function Home() {
       <Image 
       
       src="https://img.freepik.com/premium-vector/abstract-technology-tree_732854-8.jpg?w=1380 "
-      alt = "ttt"
+      alt = "CodeNook Logo"
       width = {500}
       height = {500}
       />
