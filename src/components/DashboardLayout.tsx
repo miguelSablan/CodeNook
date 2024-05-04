@@ -12,9 +12,7 @@ const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
     return (
       <div className="h-screen flex md:flex-row">
         <Sidebar />
-        <div className="bg-gray-100 flex justify-center items-center flex-1 p-4 text-black border border-dashed min-h-screen overflow-auto">
-          {children}
-        </div>
+        {children}
       </div>
     );
   }

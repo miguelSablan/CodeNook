@@ -22,7 +22,7 @@ const navLinks = [
 ];
 
 const Sidebar = () => {
-  const [toggleCollapse, setToggleCollapse] = useState(false);
+  const [toggleCollapse, setToggleCollapse] = useState(true);
   const [isCollapsible, setIsCollapsible] = useState(false);
 
   const pathname = usePathname();
@@ -37,7 +37,7 @@ const Sidebar = () => {
 
   return (
     <div
-      className={`flex h-screen bg-white justify-between py-6 transition-all duration-200 ease-in-out overflow-hidden ${
+      className={`flex h-screen bg-[#1d1d1d] text-white justify-between py-6 transition-all duration-200 ease-in-out overflow-hidden ${
         toggleCollapse ? "w-80 px-6" : "w-20 px-0"
       }`}
       onMouseEnter={onMouseOver}
@@ -46,9 +46,9 @@ const Sidebar = () => {
       <div className="flex flex-col p-4 justify-between w-full">
         {/* Logo */}
         <div className="flex justify-center items-center p-1 gap-4 w-full">
-          <div className="text-4xl font-bold">
+          <div className="text-4xl font-bold text-white">
             C
-            <span className={`${!toggleCollapse && "hidden"}`}>
+            <span className={`${!toggleCollapse && "hidden"} `}>
               ode<span className="text-blue-600">Nook</span>
             </span>
           </div>
@@ -64,8 +64,8 @@ const Sidebar = () => {
                 href={link.href}
                 className={`w-full flex items-center gap-6 rounded-xl text-3xl font-medium p-3 transition duration-200 ease-in-out ${
                   isActive
-                    ? "bg-blue-600 text-white"
-                    : "hover:text-white hover:bg-blue-600"
+                    ? "bg-white text-[#1d1d1d]"
+                    : "hover:text-[#1d1d1d] hover:bg-white"
                 } `}
                 style={{
                   justifyContent: toggleCollapse ? "flex-start" : "center",
@@ -100,7 +100,7 @@ const Sidebar = () => {
           </button>
 
           <button
-            className={`p-4 rounded bg-white w-full ${
+            className={`p-4 rounded bg-[#1d1d1d] w-full ${
               toggleCollapse && "rotate-180"
             }`}
             onClick={handleSidebarToggle}
