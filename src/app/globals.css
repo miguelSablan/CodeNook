@@ -3,15 +3,15 @@
 @tailwind utilities;
 
 @layer utilities {
-  ::-webkit-scrollbar {
+  .project-scrollbar::-webkit-scrollbar {
     width: 8px;
   }
 
-  ::-webkit-scrollbar-track {
+  .project-scrollbar::-webkit-scrollbar-track {
     background: transparent;
   }
 
-  ::-webkit-scrollbar-thumb {
+  .project-scrollbar::-webkit-scrollbar-thumb {
     background-color: white;
     border-radius: 10px;
   }

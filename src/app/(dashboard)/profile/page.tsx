@@ -124,7 +124,7 @@ const Profile = async () => {
         <p className="text-3xl mb-4 ml-4">Projects</p>
 
         {/* Project Section */}
-        <div className="max-h-screen p-4 overflow-y-auto no-scrollbar">
+        <div className="max-h-screen p-4 overflow-y-auto project-scrollbar">
           <div className="grid grid-cols-3 gap-8">
             {projects.map((project) => (
               <div
