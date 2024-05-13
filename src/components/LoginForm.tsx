@@ -75,7 +75,7 @@ const LoginForm = () => {
       setAuthError("Invalid email or password. Please try again.");
     } else {
       router.refresh();
-      router.push("/feed");
+      router.push("/projects");
     }
   };
 
@@ -155,7 +155,7 @@ const LoginForm = () => {
               <button
                 key={index}
                 className={`border w-16 p-4 rounded-xl flex justify-center items-center active:scale-95 active:duration-75 transition-all hover:opacity-75 ${bgColor}`}
-                onClick={() => signIn(name, { callbackUrl: "/feed" })}
+                onClick={() => signIn(name, { callbackUrl: "/projects" })}
                 title={title}
                 type="button"
               >
