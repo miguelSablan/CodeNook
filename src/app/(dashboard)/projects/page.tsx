@@ -105,47 +105,53 @@ const Dashboard = () => {
               />
             </svg>
           </label>
-
-          <button className="btn btn-primary">Search</button>
         </div>
 
         <div className="grid grid-cols-3 overflow-hidden">
           <div className="col-span-2 overflow-y-auto project-scrollbar">
             <div className="flex flex-col gap-5 p-5">
-              {filteredProjects.map((project) => (
-                <div
-                  key={project.id}
-                  className="flex flex-col gap-6 bg-[#1d1d1d] text-white rounded-box p-6 max-w-auto"
-                >
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm">{project.date}</span>
-                    <div className="flex gap-3">
-                      {project.tags.map((tag, index) => (
-                        <div key={index} className="btn btn-sm btn-primary">
-                          {tag}
-                        </div>
-                      ))}
+              {filteredProjects.length > 0 ? (
+                // Render filtered projects
+                filteredProjects.map((project) => (
+                  <div
+                    key={project.id}
+                    className="flex flex-col gap-6 bg-[#1d1d1d] text-white rounded-box p-6 max-w-auto"
+                  >
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm">{project.date}</span>
+                      <div className="flex gap-3">
+                        {project.tags.map((tag, index) => (
+                          <div key={index} className="btn btn-sm btn-primary">
+                            {tag}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col gap-2">
+                      <h1 className="text-2xl font-bold">{project.title}</h1>
+                      <span>{project.description}</span>
+                    </div>
+
+                    <div className="flex justify-between items-center">
+                      <button className="btn btn-primary">Apply</button>
+                      <div className="btn btn-ghost">
+                        <img
+                          src={project.author.avatarUrl}
+                          alt="Avatar"
+                          className="w-8 rounded-full"
+                        />
+                        {project.author.name}
+                      </div>
                     </div>
                   </div>
-
-                  <div className="flex flex-col gap-2">
-                    <h1 className="text-2xl font-bold">{project.title}</h1>
-                    <span>{project.description}</span>
-                  </div>
-
-                  <div className="flex justify-between items-center">
-                    <button className="btn btn-primary">Apply</button>
-                    <div className="btn btn-ghost">
-                      <img
-                        src={project.author.avatarUrl}
-                        alt="Avatar"
-                        className="w-8 rounded-full"
-                      />
-                      {project.author.name}
-                    </div>
-                  </div>
-                </div>
-              ))}
+                ))
+              ) : (
+                // Display message if no projects match the filter criteria
+                <p className="text-white">
+                  No projects match the filter criteria.
+                </p>
+              )}
             </div>
           </div>
 
