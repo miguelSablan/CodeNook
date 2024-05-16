@@ -60,12 +60,24 @@ const projects = [
 
 const Dashboard = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedTechnology, setSelectedTechnology] = useState("");
   const [filteredProjects, setFilteredProjects] = useState(projects);
+
+  const handleTechnologyChange = (e: any) => {
+    const selectedTech = e.target.value;
+    setSelectedTechnology(selectedTech);
+    filterProjects(selectedTech, searchQuery);
+  };
 
   const handleSearch = (e: any) => {
     const query = e.target.value.toLowerCase();
     setSearchQuery(query);
+    filterProjects(selectedTechnology, query);
+  };
+
+  const filterProjects = (tech: any, query: any) => {
     const filtered = projects.filter((project) => {
+      const techMatch = tech ? project.tags.includes(tech) : true;
       const titleMatch = project.title.toLowerCase().includes(query);
       const descriptionMatch = project.description
         .toLowerCase()
@@ -73,7 +85,8 @@ const Dashboard = () => {
       const tagMatch = project.tags.some((tag) =>
         tag.toLowerCase().includes(query)
       );
-      return titleMatch || descriptionMatch || tagMatch;
+
+      return techMatch && (titleMatch || descriptionMatch || tagMatch);
     });
     setFilteredProjects(filtered);
   };
@@ -113,22 +126,53 @@ const Dashboard = () => {
               <div className="flex flex-col gap-3">
                 <label className="text-white mr-2">Filter by:</label>
 
-                <select className="select select-info select-bordered text-white w-full md:max-w-xs bg-transparent">
-                  <option disabled selected>
+                <select
+                  className="select select-info select-bordered text-white w-full md:max-w-xs bg-transparent"
+                  value={selectedTechnology}
+                  onChange={handleTechnologyChange}
+                >
+                  <option disabled value="" selected>
                     Technologies
                   </option>
-                  <option className="text-black">JavaScript</option>
-                  <option className="text-black">TypeScript</option>
-                  <option className="text-black">Python</option>
-                  <option className="text-black">Java</option>
-                  <option className="text-black">Swift</option>
-                  <option className="text-black">React</option>
-                  <option className="text-black">Vue</option>
-                  <option className="text-black">Angular</option>
-                  <option className="text-black">Node.js</option>
-                  <option className="text-black">Express.js</option>
-                  <option className="text-black">Django</option>
-                  <option className="text-black">Flask</option>
+                  <option className="text-black" value="JavaScript">
+                    JavaScript
+                  </option>
+                  <option className="text-black" value="TypeScript">
+                    TypeScript
+                  </option>
+                  <option className="text-black" value="Python">
+                    Python
+                  </option>
+                  <option className="text-black" value="Java">
+                    Java
+                  </option>
+                  <option className="text-black" value="Swift">
+                    Swift
+                  </option>
+                  <option className="text-black" value="React">
+                    React
+                  </option>
+                  <option className="text-black" value="Tailwind">
+                    Tailwind
+                  </option>
+                  <option className="text-black" value="Vue">
+                    Vue
+                  </option>
+                  <option className="text-black" value="Angular">
+                    Angular
+                  </option>
+                  <option className="text-black" value="Node.js">
+                    Node.js
+                  </option>
+                  <option className="text-black" value="Express.js">
+                    Express.js
+                  </option>
+                  <option className="text-black" value="Django">
+                    Django
+                  </option>
+                  <option className="text-black" value="Flask">
+                    Flask
+                  </option>
                 </select>
 
                 <select className="select select-info select-bordered text-white w-full md:max-w-xs bg-transparent">
