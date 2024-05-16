@@ -1,63 +1,86 @@
-import DashboardLayout from "@/components/DashboardLayout";
+"use client";
+
+import Sidebar from "@/components/Sidebar";
+import { useState } from "react";
+
+const projects = [
+  {
+    id: 1,
+    date: "Jan 14, 2024",
+    title: "E-commerce Website",
+    description:
+      "We are building an innovative e-commerce platform revolutionizing online shopping. We're seeking passionate React developers with expertise in Tailwind CSS and TypeScript to join our frontend team. Help us create a seamless user experience with advanced product search, filters, and a robust authentication system.",
+    tags: ["React", "Tailwind", "TypeScript"],
+    author: {
+      name: "Username",
+      avatarUrl:
+        "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg",
+    },
+  },
+  {
+    id: 2,
+    date: "Jan 12, 2024",
+    title: "Image Processing App",
+    description:
+      "Join us in developing a cutting-edge image processing app powered by Python and OpenCV. We're looking for skilled Python developers with experience in openCV to enhance our image manipulation features, including filters, object detection, and image enhancement. Collaborate with us to create a powerful tool for image professionals and enthusiasts.",
+    tags: ["Python", "openCV"],
+    author: {
+      name: "Username 2",
+      avatarUrl:
+        "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg",
+    },
+  },
+  {
+    id: 3,
+    date: "Jan 11, 2024",
+    title: "Social Media Dashboard",
+    description:
+      "Join our team as a UI/UX designer to develop a dashboard application for managing social media accounts. Integrate APIs for platforms like Twitter, Facebook, and Instagram to fetch data. Display analytics, post scheduling, and engagement metrics for each social media account.",
+    tags: ["UI/UX", "React"],
+    author: {
+      name: "Username 3",
+      avatarUrl:
+        "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg",
+    },
+  },
+  {
+    id: 4,
+    date: "Jan 10, 2024",
+    title: "3D Game",
+    description:
+      "Join our team of game developers to create an immersive 3D gaming experience using Unity. We're seeking Unity experts to design game mechanics, levels, and interactive elements. Contribute to player progression, scoring systems, and in-game rewards to delight gamers worldwide.",
+    tags: ["Unity"],
+    author: {
+      name: "Username 4",
+      avatarUrl:
+        "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg",
+    },
+  },
+];
 
 const Dashboard = () => {
-  const projects = [
-    {
-      id: 1,
-      date: "Jan 14, 2024",
-      title: "E-commerce Website",
-      description:
-        "We are building an innovative e-commerce platform revolutionizing online shopping. We're seeking passionate React developers with expertise in Tailwind CSS and TypeScript to join our frontend team. Help us create a seamless user experience with advanced product search, filters, and a robust authentication system.",
-      tags: ["React", "Tailwind", "TypeScript"],
-      author: {
-        name: "Username",
-        avatarUrl:
-          "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg",
-      },
-    },
-    {
-      id: 2,
-      date: "Jan 12, 2024",
-      title: "Image Processing App",
-      description:
-        "Join us in developing a cutting-edge image processing app powered by Python and OpenCV. We're looking for skilled Python developers with experience in openCV to enhance our image manipulation features, including filters, object detection, and image enhancement. Collaborate with us to create a powerful tool for image professionals and enthusiasts.",
-      tags: ["Python", "openCV"],
-      author: {
-        name: "Username 2",
-        avatarUrl:
-          "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg",
-      },
-    },
-    {
-      id: 3,
-      date: "Jan 11, 2024",
-      title: "Social Media Dashboard",
-      description:
-        "Join our team as a UI/UX designer to develop a dashboard application for managing social media accounts. Integrate APIs for platforms like Twitter, Facebook, and Instagram to fetch data. Display analytics, post scheduling, and engagement metrics for each social media account.",
-      tags: ["UI/UX", "React"],
-      author: {
-        name: "Username 3",
-        avatarUrl:
-          "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg",
-      },
-    },
-    {
-      id: 4,
-      date: "Jan 10, 2024",
-      title: "3D Game",
-      description:
-        "Join our team of game developers to create an immersive 3D gaming experience using Unity. We're seeking Unity experts to design game mechanics, levels, and interactive elements. Contribute to player progression, scoring systems, and in-game rewards to delight gamers worldwide.",
-      tags: ["Unity"],
-      author: {
-        name: "Username 4",
-        avatarUrl:
-          "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg",
-      },
-    },
-  ];
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredProjects, setFilteredProjects] = useState(projects);
+
+  const handleSearch = (e: any) => {
+    const query = e.target.value.toLowerCase();
+    setSearchQuery(query);
+    const filtered = projects.filter((project) => {
+      const titleMatch = project.title.toLowerCase().includes(query);
+      const descriptionMatch = project.description
+        .toLowerCase()
+        .includes(query);
+      const tagMatch = project.tags.some((tag) =>
+        tag.toLowerCase().includes(query)
+      );
+      return titleMatch || descriptionMatch || tagMatch;
+    });
+    setFilteredProjects(filtered);
+  };
 
   return (
-    <DashboardLayout>
+    <div className="h-screen flex md:flex-row">
+      <Sidebar />
       <div className="bg-[#242323] flex flex-col flex-1 p-7 min-h-screen">
         <h1 className="text-white text-4xl p-4">Projects</h1>
 
@@ -67,6 +90,8 @@ const Dashboard = () => {
               type="text"
               className="grow text-black"
               placeholder="Search"
+              value={searchQuery}
+              onChange={handleSearch}
             />
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -87,7 +112,7 @@ const Dashboard = () => {
         <div className="grid grid-cols-3 overflow-hidden">
           <div className="col-span-2 overflow-y-auto project-scrollbar">
             <div className="flex flex-col gap-5 p-5">
-              {projects.map((project) => (
+              {filteredProjects.map((project) => (
                 <div
                   key={project.id}
                   className="flex flex-col gap-6 bg-[#1d1d1d] text-white rounded-box p-6 max-w-auto"
@@ -141,7 +166,7 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-    </DashboardLayout>
+    </div>
   );
 };
 
