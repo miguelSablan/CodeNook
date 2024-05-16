@@ -157,15 +157,41 @@ const Dashboard = () => {
 
           <div className="col-span-1">
             <div className="p-4 h-full">
-              <div className="flex items-center">
+              <div className="flex flex-col gap-3">
                 <label className="text-white mr-2">Filter by:</label>
-                <select className="select select-bordered text-black">
-                  <option>All Categories</option>
-                  <option>Frontend</option>
-                  <option>Backend</option>
-                  <option>UI/UX</option>
-                  <option>AI</option>
-                  <option>VR</option>
+
+                <select className="select select-info select-bordered text-white max-w-xs bg-transparent">
+                  <option disabled selected>
+                    Languages/Frameworks
+                  </option>
+                  <option className="text-black">JavaScript</option>
+                  <option className="text-black">TypeScript</option>
+                  <option className="text-black">Python</option>
+                  <option className="text-black">Java</option>
+                  <option className="text-black">Swift</option>
+                  <option className="text-black">React</option>
+                  <option className="text-black">Vue</option>
+                  <option className="text-black">Angular</option>
+                  <option className="text-black">Node.js</option>
+                  <option className="text-black">Express.js</option>
+                  <option className="text-black">Django</option>
+                  <option className="text-black">Flask</option>
+                </select>
+
+                <select className="select select-info select-bordered text-white max-w-xs bg-transparent">
+                  <option disabled selected>
+                    Role
+                  </option>
+                  <option className="text-black">UI/UX Designer</option>
+                  <option className="text-black">Frontend Developer</option>
+                  <option className="text-black">Backend Developer</option>
+                  <option className="text-black">Full Stack Developer</option>
+                  <option className="text-black">Data Scientist</option>
+                  <option className="text-black">AI/ML Engineer</option>
+                  <option className="text-black">Game Developer</option>
+                  <option className="text-black">Mobile App Developer</option>
+                  <option className="text-black">DevOps Engineer</option>
+                  <option className="text-black">Project Manager</option>
                 </select>
               </div>
             </div>
