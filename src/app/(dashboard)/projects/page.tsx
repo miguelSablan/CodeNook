@@ -81,11 +81,11 @@ const Dashboard = () => {
   return (
     <div className="h-screen flex md:flex-row">
       <Sidebar />
-      <div className="bg-[#242323] flex flex-col flex-1 p-7 min-h-screen">
+      <div className="bg-[#242323] flex flex-col flex-1 p-4 md:p-7">
         <h1 className="text-white text-4xl p-4">Projects</h1>
 
         <div className="flex p-4 gap-3">
-          <label className="input input-bordered flex items-center gap-2 w-1/2">
+          <label className="input input-bordered flex items-center gap-2 w-full md:w-1/2">
             <input
               type="text"
               className="grow text-black"
@@ -107,9 +107,51 @@ const Dashboard = () => {
           </label>
         </div>
 
-        <div className="grid grid-cols-3 overflow-hidden">
-          <div className="col-span-2 overflow-y-auto project-scrollbar">
-            <div className="flex flex-col gap-5 p-5">
+        <div className="grid grid-cols-1 md:grid-cols-5 overflow-hidden">
+          <div className="col-span-1">
+            <div className="p-4 h-full">
+              <div className="flex flex-col gap-3">
+                <label className="text-white mr-2">Filter by:</label>
+
+                <select className="select select-info select-bordered text-white w-full md:max-w-xs bg-transparent">
+                  <option disabled selected>
+                    Technologies
+                  </option>
+                  <option className="text-black">JavaScript</option>
+                  <option className="text-black">TypeScript</option>
+                  <option className="text-black">Python</option>
+                  <option className="text-black">Java</option>
+                  <option className="text-black">Swift</option>
+                  <option className="text-black">React</option>
+                  <option className="text-black">Vue</option>
+                  <option className="text-black">Angular</option>
+                  <option className="text-black">Node.js</option>
+                  <option className="text-black">Express.js</option>
+                  <option className="text-black">Django</option>
+                  <option className="text-black">Flask</option>
+                </select>
+
+                <select className="select select-info select-bordered text-white w-full md:max-w-xs bg-transparent">
+                  <option disabled selected>
+                    Role
+                  </option>
+                  <option className="text-black">UI/UX Designer</option>
+                  <option className="text-black">Frontend Developer</option>
+                  <option className="text-black">Backend Developer</option>
+                  <option className="text-black">Full Stack Developer</option>
+                  <option className="text-black">Data Scientist</option>
+                  <option className="text-black">AI/ML Engineer</option>
+                  <option className="text-black">Game Developer</option>
+                  <option className="text-black">Mobile App Developer</option>
+                  <option className="text-black">DevOps Engineer</option>
+                  <option className="text-black">Project Manager</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div className="col-span-4 overflow-y-auto project-scrollbar">
+            <div className="flex flex-col gap-5 md:p-5">
               {filteredProjects.length > 0 ? (
                 // Render filtered projects
                 filteredProjects.map((project) => (
@@ -117,7 +159,7 @@ const Dashboard = () => {
                     key={project.id}
                     className="flex flex-col gap-6 bg-[#1d1d1d] text-white rounded-box p-6 max-w-auto"
                   >
-                    <div className="flex justify-between items-center">
+                    <div className="flex flex-col md:flex-row justify-between items-center gap-3">
                       <span className="text-sm">{project.date}</span>
                       <div className="flex gap-3">
                         {project.tags.map((tag, index) => (
@@ -129,8 +171,12 @@ const Dashboard = () => {
                     </div>
 
                     <div className="flex flex-col gap-2">
-                      <h1 className="text-2xl font-bold">{project.title}</h1>
-                      <span>{project.description}</span>
+                      <h1 className="text-2xl font-bold text-center md:text-start">
+                        {project.title}
+                      </h1>
+                      <span className="text-center md:text-start">
+                        {project.description}
+                      </span>
                     </div>
 
                     <div className="flex justify-between items-center">
@@ -152,48 +198,6 @@ const Dashboard = () => {
                   No projects match the filter criteria.
                 </p>
               )}
-            </div>
-          </div>
-
-          <div className="col-span-1">
-            <div className="p-4 h-full">
-              <div className="flex flex-col gap-3">
-                <label className="text-white mr-2">Filter by:</label>
-
-                <select className="select select-info select-bordered text-white max-w-xs bg-transparent">
-                  <option disabled selected>
-                    Languages/Frameworks
-                  </option>
-                  <option className="text-black">JavaScript</option>
-                  <option className="text-black">TypeScript</option>
-                  <option className="text-black">Python</option>
-                  <option className="text-black">Java</option>
-                  <option className="text-black">Swift</option>
-                  <option className="text-black">React</option>
-                  <option className="text-black">Vue</option>
-                  <option className="text-black">Angular</option>
-                  <option className="text-black">Node.js</option>
-                  <option className="text-black">Express.js</option>
-                  <option className="text-black">Django</option>
-                  <option className="text-black">Flask</option>
-                </select>
-
-                <select className="select select-info select-bordered text-white max-w-xs bg-transparent">
-                  <option disabled selected>
-                    Role
-                  </option>
-                  <option className="text-black">UI/UX Designer</option>
-                  <option className="text-black">Frontend Developer</option>
-                  <option className="text-black">Backend Developer</option>
-                  <option className="text-black">Full Stack Developer</option>
-                  <option className="text-black">Data Scientist</option>
-                  <option className="text-black">AI/ML Engineer</option>
-                  <option className="text-black">Game Developer</option>
-                  <option className="text-black">Mobile App Developer</option>
-                  <option className="text-black">DevOps Engineer</option>
-                  <option className="text-black">Project Manager</option>
-                </select>
-              </div>
             </div>
           </div>
         </div>
