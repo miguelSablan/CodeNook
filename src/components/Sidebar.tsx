@@ -4,18 +4,18 @@ import { useState } from "react";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faHouse,
   faBriefcase,
   faNewspaper,
   faUser,
   faArrowRight,
   faSignOut,
+  faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
 
 const navLinks = [
-  { id: 1, href: "/feed", label: "Home", icon: faHouse },
+  { id: 1, href: "/projects", label: "Projects", icon: faUsers },
   { id: 2, href: "/jobs", label: "Jobs", icon: faBriefcase },
   { id: 3, href: "/news", label: "News", icon: faNewspaper },
   { id: 4, href: "/profile", label: "Profile", icon: faUser },
