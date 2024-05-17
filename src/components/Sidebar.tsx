@@ -16,6 +16,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { usePathname } from "next/navigation";
 import SignOutButton from "./SignOutButton";
+import User from "./User";
 
 const navLinks = [
   { id: 1, href: "/projects", label: "Projects", icon: faUsers },
@@ -130,8 +131,9 @@ const Sidebar = () => {
               </Link>
             </li>
           </ul>
+
           <div className="flex justify-between items-center p-2 bg-black w-full">
-            <a className="btn btn-ghost" href="/profile">
+            <Link className="btn btn-ghost" href="/profile">
               <img
                 alt="Profile"
                 src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
@@ -142,7 +144,7 @@ const Sidebar = () => {
                 <span className="font-bold text-white">User name</span>
                 <span className="text-sm text-accent">user@email.com</span>
               </div>
-            </a>
+            </Link>
             <SignOutButton />
           </div>
         </div>
@@ -153,15 +155,18 @@ const Sidebar = () => {
         {/* <!-- Header --> */}
         <div className="flex justify-between p-2">
           {/* <!-- Logo --> */}
-          <a className="btn btn-ghost text-2xl">
-            <div className="">
+          <Link className="btn btn-ghost text-2xl" href="/">
+            <div>
               Code<span className="text-blue-600">Nook</span>
             </div>
-          </a>
+          </Link>
 
-          <a className="btn btn-ghost btn-circle text-lg">
+          <button
+            className="btn btn-ghost text-lg"
+            onClick={() => console.log("")}
+          >
             <FontAwesomeIcon icon={faGear} width={24} height={24} />
-          </a>
+          </button>
         </div>
 
         {/* <!-- Body --> */}
@@ -170,45 +175,45 @@ const Sidebar = () => {
           <div className="flex flex-col divide-y divide-base-300">
             <ul className="menu px-0 py-4">
               <li>
-                <a
-                  className={pathname === "/home" ? "active" : ""}
+                <Link
                   href="/home"
+                  className={pathname === "/home" ? "active" : ""}
                 >
                   <FontAwesomeIcon icon={faHouse} width={24} height={24} />
                   Home
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  className={pathname === "/projects" ? "active" : ""}
+                <Link
                   href="/projects"
+                  className={pathname === "/projects" ? "active" : ""}
                 >
                   <FontAwesomeIcon icon={faUsers} width={24} height={24} />
                   Projects
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  className={pathname === "/jobs" ? "active" : ""}
+                <Link
                   href="/jobs"
+                  className={pathname === "/jobs" ? "active" : ""}
                 >
                   <FontAwesomeIcon icon={faSuitcase} width={24} height={24} />
                   Jobs
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  className={pathname === "/news" ? "active" : ""}
+                <Link
                   href="/news"
+                  className={pathname === "/news" ? "active" : ""}
                 >
                   <FontAwesomeIcon icon={faNewspaper} width={24} height={24} />
                   News
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  className={pathname === "/explore" ? "active" : ""}
+                <Link
                   href="/explore"
+                  className={pathname === "/explore" ? "active" : ""}
                 >
                   <FontAwesomeIcon
                     icon={faMagnifyingGlass}
@@ -216,28 +221,34 @@ const Sidebar = () => {
                     height={24}
                   />
                   Explore
-                </a>
+                </Link>
               </li>
             </ul>
 
             <ul className="menu px-0 py-4">
               <li>
-                <a className={pathname === "/github" ? "active-link" : ""}>
+                <Link
+                  className={pathname === "/github" ? "active" : ""}
+                  href="/"
+                >
                   <FontAwesomeIcon icon={faUsers} width={24} height={24} />
                   GitHub
-                </a>
+                </Link>
               </li>
               <li>
-                <a className={pathname === "/facebook" ? "active-link" : ""}>
+                <Link
+                  className={pathname === "/facebook" ? "active" : ""}
+                  href="/"
+                >
                   <FontAwesomeIcon icon={faUsers} width={24} height={24} />
                   Facebook
-                </a>
+                </Link>
               </li>
               <li>
-                <a className={pathname === "/help" ? "active-link" : ""}>
+                <Link className={pathname === "/help" ? "active" : ""} href="/">
                   <FontAwesomeIcon icon={faInfoCircle} width={24} height={24} />
                   Help
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -245,7 +256,7 @@ const Sidebar = () => {
 
         {/* <!-- Footer --> */}
         <div className="flex justify-between items-center p-2 bg-black">
-          <a className="btn btn-ghost" href="/profile">
+          <Link className="btn btn-ghost" href="/profile">
             <img
               alt="Profile"
               src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
@@ -256,7 +267,7 @@ const Sidebar = () => {
               <span className="font-bold text-white">User name</span>
               <span className="text-sm text-accent">user@email.com</span>
             </div>
-          </a>
+          </Link>
           <SignOutButton />
         </div>
       </aside>
