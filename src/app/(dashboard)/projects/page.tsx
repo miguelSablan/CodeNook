@@ -127,7 +127,7 @@ const Dashboard = () => {
                 <label className="text-white mr-2">Filter by:</label>
 
                 <select
-                  className="select select-info select-bordered text-white w-full md:max-w-xs bg-transparent"
+                  className="select select-primary select-bordered text-white w-full md:max-w-xs bg-transparent"
                   value={selectedTechnology}
                   onChange={handleTechnologyChange}
                 >
@@ -175,7 +175,7 @@ const Dashboard = () => {
                   </option>
                 </select>
 
-                <select className="select select-info select-bordered text-white w-full md:max-w-xs bg-transparent">
+                <select className="select select-primary select-bordered text-white w-full md:max-w-xs bg-transparent">
                   <option disabled selected>
                     Role
                   </option>
