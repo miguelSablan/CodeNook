@@ -6,15 +6,15 @@ import { faSignOut } from "@fortawesome/free-solid-svg-icons";
 
 const SignOutButton = () => {
   return (
-    <button
-      className="flex gap-6 w-full items-center rounded-2xl uppercase text-2xl font-medium p-3 transition duration-200 ease-in-out transform hover:bg-white hover:text-gray-800"
+    <a
+      className="btn btn-primary btn-sm mr-3"
+      title="Logout"
       onClick={() => {
         signOut({ redirect: true, callbackUrl: "/" });
       }}
     >
-      <FontAwesomeIcon icon={faSignOut} width={30} />
-      Logout
-    </button>
+      <FontAwesomeIcon icon={faSignOut} width={24} height={24} />
+    </a>
   );
 };
 
