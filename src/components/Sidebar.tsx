@@ -10,6 +10,11 @@ import {
   faArrowRight,
   faSignOut,
   faUsers,
+  faHouse,
+  faFire,
+  faSuitcase,
+  faMagnifyingGlass,
+  faGear,
 } from "@fortawesome/free-solid-svg-icons";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
@@ -22,93 +27,129 @@ const navLinks = [
 ];
 
 const Sidebar = () => {
-  const [toggleCollapse, setToggleCollapse] = useState(true);
-  const [isCollapsible, setIsCollapsible] = useState(false);
-
+  const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
 
-  const onMouseOver = () => {
-    setIsCollapsible(!isCollapsible);
-  };
-
   const handleSidebarToggle = () => {
-    setToggleCollapse(!toggleCollapse);
+    setIsOpen(!isOpen);
   };
 
   return (
-    <div
-      className={`flex h-screen bg-[#1d1d1d] text-white justify-between py-6 transition-all duration-200 ease-in-out overflow-hidden ${
-        toggleCollapse ? "w-80 px-6" : "w-20 px-0"
-      }`}
-      onMouseEnter={onMouseOver}
-      onMouseLeave={onMouseOver}
-    >
-      <div className="flex flex-col p-4 justify-between w-full">
-        {/* Logo */}
-        <div className="flex justify-center items-center p-1 gap-4 w-full">
-          <div className="text-4xl font-bold text-white">
-            C
-            <span className={`${!toggleCollapse && "hidden"} `}>
-              ode<span className="text-blue-600">Nook</span>
-            </span>
+    <div className="flex">
+      <aside className="h-screen sticky top-0 flex flex-col bg-[#1d1d1d] text-white overflow-y-auto">
+        {/* <!-- Header --> */}
+        <div className="flex justify-between p-2">
+          {/* <!-- Logo --> */}
+          <a className="btn btn-ghost text-2xl">
+            <div className="">
+              Code<span className="text-blue-600">Nook</span>
+            </div>
+          </a>
+
+          <a className="btn btn-ghost btn-circle text-lg">
+            <FontAwesomeIcon icon={faGear} width={24} height={24} />
+          </a>
+        </div>
+
+        {/* <!-- Body --> */}
+        <div className="flex flex-col px-6 pt-4 grow">
+          {/* <!-- Links --> */}
+          <div className="flex flex-col divide-y divide-base-300">
+            <ul className="menu px-0 py-4">
+              <li>
+                <a
+                  className={pathname === "/home" ? "active" : ""}
+                  href="/home"
+                >
+                  <FontAwesomeIcon icon={faHouse} width={24} height={24} />
+                  Home
+                </a>
+              </li>
+              <li>
+                <a
+                  className={pathname === "/projects" ? "active" : ""}
+                  href="/projects"
+                >
+                  <FontAwesomeIcon icon={faUsers} width={24} height={24} />
+                  Projects
+                </a>
+              </li>
+              <li>
+                <a
+                  className={pathname === "/jobs" ? "active" : ""}
+                  href="/jobs"
+                >
+                  <FontAwesomeIcon icon={faSuitcase} width={24} height={24} />
+                  Jobs
+                </a>
+              </li>
+              <li>
+                <a
+                  className={pathname === "/news" ? "active" : ""}
+                  href="/news"
+                >
+                  <FontAwesomeIcon icon={faNewspaper} width={24} height={24} />
+                  News
+                </a>
+              </li>
+              <li>
+                <a
+                  className={pathname === "/explore" ? "active" : ""}
+                  href="/explore"
+                >
+                  <FontAwesomeIcon
+                    icon={faMagnifyingGlass}
+                    width={24}
+                    height={24}
+                  />
+                  Explore
+                </a>
+              </li>
+            </ul>
+
+            <ul className="menu px-0 py-4">
+              <li>
+                <a className={pathname === "/github" ? "active-link" : ""}>
+                  <FontAwesomeIcon icon={faUsers} width={24} height={24} />
+                  GitHub
+                </a>
+              </li>
+              <li>
+                <a className={pathname === "/facebook" ? "active-link" : ""}>
+                  <FontAwesomeIcon icon={faUsers} width={24} height={24} />
+                  Facebook
+                </a>
+              </li>
+              <li>
+                <a className={pathname === "/youtube" ? "active-link" : ""}>
+                  <FontAwesomeIcon icon={faUsers} width={24} height={24} />
+                  YouTube
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
 
-        {/* Menu Items */}
-        <div className="flex flex-col gap-2">
-          {navLinks.map((link, index) => {
-            const isActive = pathname === link.href;
-            return (
-              <Link
-                key={index}
-                href={link.href}
-                className={`w-full flex items-center gap-6 rounded-xl text-3xl font-medium p-3 transition duration-200 ease-in-out ${
-                  isActive
-                    ? "bg-white text-[#1d1d1d]"
-                    : "hover:text-[#1d1d1d] hover:bg-white"
-                } `}
-                style={{
-                  justifyContent: toggleCollapse ? "flex-start" : "center",
-                  transition: "justify-content 0.2s ease-in-out",
-                }}
-              >
-                <FontAwesomeIcon icon={link.icon} width={20} />
-                {toggleCollapse && (
-                  <span className="text-base ml-2">{link.label}</span>
-                )}
-              </Link>
-            );
-          })}
-        </div>
+        {/* <!-- Footer --> */}
+        <div className="flex justify-between items-center p-2 bg-black">
+          <a className="btn btn-ghost" href="/profile">
+            <img
+              alt="Profile"
+              src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+              className="w-8 rounded-full"
+            />
 
-        {/* Logout */}
-        <div className="flex">
-          <button
-            className={`${
-              !toggleCollapse && "hidden"
-            } flex gap-6 w-full justify-center items-center rounded-2xl text-2xl font-medium p-4 transition duration-200 ease-in-out transform hover:bg-white hover:text-gray-800`}
-            onClick={() => {
-              signOut({ redirect: true, callbackUrl: "/" });
-            }}
-            style={{
-              justifyContent: toggleCollapse ? "flex-start" : "center",
-              transition: "justify-content 0.2s ease-in-out",
-            }}
-          >
-            <FontAwesomeIcon icon={faSignOut} width={30} />
-            {toggleCollapse && <span className="text-base ml-2">Logout</span>}
-          </button>
+            <div className="flex flex-col text-start">
+              <span className="font-bold text-white">User name</span>
+              <span className="text-sm text-accent">user@email.com</span>
+            </div>
+          </a>
 
-          <button
-            className={`p-4 rounded bg-[#1d1d1d] w-full ${
-              toggleCollapse && "rotate-180"
-            }`}
-            onClick={handleSidebarToggle}
-          >
-            <FontAwesomeIcon icon={faArrowRight} />
-          </button>
+          <a className="btn btn-primary btn-sm mr-3" title="Logout">
+            <FontAwesomeIcon icon={faSignOut} width={24} height={24} />
+          </a>
         </div>
-      </div>
+      </aside>
     </div>
   );
 };
