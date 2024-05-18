@@ -256,18 +256,7 @@ const Sidebar = () => {
 
         {/* <!-- Footer --> */}
         <div className="flex justify-between items-center p-2 bg-black">
-          <Link className="btn btn-ghost" href="/profile">
-            <img
-              alt="Profile"
-              src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-              className="w-8 rounded-full"
-            />
-
-            <div className="flex flex-col text-start">
-              <span className="font-bold text-white">User name</span>
-              <span className="text-sm text-accent">user@email.com</span>
-            </div>
-          </Link>
+          <User />
           <SignOutButton />
         </div>
       </aside>

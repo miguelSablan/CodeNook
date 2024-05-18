@@ -7,7 +7,7 @@ import { faSignOut } from "@fortawesome/free-solid-svg-icons";
 const SignOutButton = () => {
   return (
     <a
-      className="btn btn-primary btn-sm mr-3"
+      className="btn btn-primary btn-sm"
       title="Logout"
       onClick={() => {
         signOut({ redirect: true, callbackUrl: "/" });
