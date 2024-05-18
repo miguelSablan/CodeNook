@@ -92,7 +92,7 @@ const LoginForm = () => {
             Welcome back! Please enter your details.
           </p>
           {authError && (
-            <div className="bg-red-200 text-red-500 p-3 rounded mb-2">
+            <div className="bg-error p-3 rounded mb-2">
               <p className="text-sm">{authError}</p>
             </div>
           )}
@@ -101,7 +101,11 @@ const LoginForm = () => {
               <label className="text-gray-400 text-md font-medium mb-2">
                 Email
               </label>
-              <label className="input input-bordered input-primary w-full bg-transparent flex items-center gap-2">
+              <label
+                className={`input input-bordered input-primary ${
+                  errors.email && "input-error"
+                } w-full bg-transparent flex items-center gap-2`}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 16 16"
@@ -132,7 +136,11 @@ const LoginForm = () => {
                 Password
               </label>
               <div className="relative mt-1">
-                <label className="input input-bordered input-primary w-full bg-transparent flex items-center gap-2">
+                <label
+                  className={`input input-bordered input-primary ${
+                    errors.password && "input-error"
+                  } w-full bg-transparent flex items-center gap-2`}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 16 16"
@@ -179,7 +187,9 @@ const LoginForm = () => {
                 <button
                   key={index}
                   className={`w-16 p-4 rounded-xl flex justify-center items-center active:scale-95 active:duration-75 transition-all hover:opacity-75 ${bgColor}`}
-                  onClick={() => signIn(name, { callbackUrl: "/dashboard/projects" })}
+                  onClick={() =>
+                    signIn(name, { callbackUrl: "/dashboard/projects" })
+                  }
                   title={title}
                   type="button"
                 >

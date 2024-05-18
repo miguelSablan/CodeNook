@@ -42,7 +42,7 @@ const User = () => {
         </div>
       )}
 
-      <div className="flex flex-col text-start w-[150px]">
+      <div className="flex flex-col text-start md:w-[150px]">
         <span className="font-bold text-white truncate">{userName}</span>
         <span className="text-sm text-accent truncate">{userEmail}</span>
       </div>

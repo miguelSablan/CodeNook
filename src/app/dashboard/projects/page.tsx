@@ -58,7 +58,7 @@ const projects = [
   },
 ];
 
-const Dashboard = () => {
+const Projects = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedTechnology, setSelectedTechnology] = useState("");
   const [filteredProjects, setFilteredProjects] = useState(projects);
@@ -250,4 +250,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Projects;

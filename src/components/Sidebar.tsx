@@ -63,7 +63,7 @@ const Sidebar = () => {
           </svg>
         </label>
 
-        <div className="text-2xl">
+        <div className="text-3xl">
           Code<span className="text-blue-600">Nook</span>
         </div>
 
