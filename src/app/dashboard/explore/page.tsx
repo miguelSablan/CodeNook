@@ -19,6 +19,7 @@ interface User {
 const Explore = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     async function fetchData() {
@@ -31,6 +32,8 @@ const Explore = () => {
         setUsers(data);
       } catch (error) {
         console.error("Error:", error);
+      } finally {
+        setLoading(false);
       }
     }
     fetchData();
@@ -71,33 +74,41 @@ const Explore = () => {
           </label>
         </div>
 
-        <ul className="max-w-max p-4 flex flex-col gap-3">
-          {filteredUsers.map((user) => (
-            <div
-              className="flex justify-between gap-3 items-center"
-              key={user.id}
-            >
-              {user.name || user.email}
-              {user.image ? (
-                <Image
-                  src={user.image}
-                  className="rounded-full"
-                  alt="avatar"
-                  height="32"
-                  width="32"
-                  priority
-                />
-              ) : (
-                <div className="rounded-full bg-primary flex-shrink-0 h-8 w-8 text-white text-lg leading-24 flex items-center justify-center">
-                  <span className="text-white">
-                    {user.name?.charAt(0).toUpperCase() ||
-                      user.email?.charAt(0).toUpperCase()}
-                  </span>
+        {loading ? (
+          <p className="p-4 text-lg">Loading...</p>
+        ) : (
+          <div className="max-h-screen p-4 overflow-y-auto project-scrollbar">
+            <div className="grid grid-cols-5 gap-8">
+              {filteredUsers.map((user) => (
+                <div
+                  className="flex justify-between gap-3 items-center"
+                  key={user.id}
+                >
+                  <div className="flex gap-3 bg-black border rounded-md p-3 justify-center items-center">
+                    {user.name}
+                    {user.image ? (
+                      <Image
+                        src={user.image}
+                        className="rounded-full"
+                        alt="avatar"
+                        height="32"
+                        width="32"
+                        priority
+                      />
+                    ) : (
+                      <div className="rounded-full bg-primary flex-shrink-0 h-8 w-8 text-white text-lg leading-24 flex items-center justify-center">
+                        <span className="text-white">
+                          {user.name?.charAt(0).toUpperCase() ||
+                            user.email?.charAt(0).toUpperCase()}
+                        </span>
+                      </div>
+                    )}
+                  </div>
                 </div>
-              )}
+              ))}
             </div>
-          ))}
-        </ul>
+          </div>
+        )}
       </div>
     </div>
   );
