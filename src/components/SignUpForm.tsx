@@ -227,7 +227,7 @@ const SignUpForm = () => {
                 <button
                   key={index}
                   className={`w-16 p-4 rounded-xl flex justify-center items-center active:scale-95 active:duration-75 transition-all hover:opacity-75 ${bgColor}`}
-                  onClick={() => signIn(name, { callbackUrl: "/projects" })}
+                  onClick={() => signIn(name, { callbackUrl: "dashboard/projects" })}
                   title={title}
                   type="button"
                 >
