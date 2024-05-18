@@ -78,8 +78,8 @@ const Sidebar = () => {
           <ul className="menu w-full p-4">
             <li>
               <Link
-                href="/home"
-                className={pathname === "/home" ? "active" : ""}
+                href="/dashboard/home"
+                className={pathname === "/dashboard/home" ? "active" : ""}
                 onClick={handleSidebarToggle}
               >
                 <FontAwesomeIcon icon={faHouse} width={24} height={24} />
@@ -88,8 +88,8 @@ const Sidebar = () => {
             </li>
             <li>
               <Link
-                href="/projects"
-                className={pathname === "/projects" ? "active" : ""}
+                href="/dashboard/projects"
+                className={pathname === "/dashboard/projects" ? "active" : ""}
                 onClick={handleSidebarToggle}
               >
                 <FontAwesomeIcon icon={faUsers} width={24} height={24} />
@@ -98,8 +98,8 @@ const Sidebar = () => {
             </li>
             <li>
               <Link
-                href="/jobs"
-                className={pathname === "/jobs" ? "active" : ""}
+                href="/dashboard/jobs"
+                className={pathname === "/dashboard/jobs" ? "active" : ""}
                 onClick={handleSidebarToggle}
               >
                 <FontAwesomeIcon icon={faSuitcase} width={24} height={24} />
@@ -108,8 +108,8 @@ const Sidebar = () => {
             </li>
             <li>
               <Link
-                href="/news"
-                className={pathname === "/news" ? "active" : ""}
+                href="/dashboard/news"
+                className={pathname === "/dashboard/news" ? "active" : ""}
                 onClick={handleSidebarToggle}
               >
                 <FontAwesomeIcon icon={faNewspaper} width={24} height={24} />
@@ -118,8 +118,8 @@ const Sidebar = () => {
             </li>
             <li>
               <Link
-                href="/explore"
-                className={pathname === "/explore" ? "active" : ""}
+                href="/dashboard/explore"
+                className={pathname === "/dashboard/explore" ? "active" : ""}
                 onClick={handleSidebarToggle}
               >
                 <FontAwesomeIcon
@@ -133,18 +133,7 @@ const Sidebar = () => {
           </ul>
 
           <div className="flex justify-between items-center p-2 bg-black w-full">
-            <Link className="btn btn-ghost" href="/profile">
-              <img
-                alt="Profile"
-                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-                className="w-8 rounded-full"
-              />
-
-              <div className="flex flex-col text-start">
-                <span className="font-bold text-white">User name</span>
-                <span className="text-sm text-accent">user@email.com</span>
-              </div>
-            </Link>
+            <User />
             <SignOutButton />
           </div>
         </div>
@@ -176,8 +165,8 @@ const Sidebar = () => {
             <ul className="menu px-0 py-4">
               <li>
                 <Link
-                  href="/home"
-                  className={pathname === "/home" ? "active" : ""}
+                  href="/dashboard/home"
+                  className={pathname === "/dashboard/home" ? "active" : ""}
                 >
                   <FontAwesomeIcon icon={faHouse} width={24} height={24} />
                   Home
@@ -185,8 +174,8 @@ const Sidebar = () => {
               </li>
               <li>
                 <Link
-                  href="/projects"
-                  className={pathname === "/projects" ? "active" : ""}
+                  href="/dashboard/projects"
+                  className={pathname === "/dashboard/projects" ? "active" : ""}
                 >
                   <FontAwesomeIcon icon={faUsers} width={24} height={24} />
                   Projects
@@ -194,8 +183,8 @@ const Sidebar = () => {
               </li>
               <li>
                 <Link
-                  href="/jobs"
-                  className={pathname === "/jobs" ? "active" : ""}
+                  href="/dashboard/jobs"
+                  className={pathname === "/dashboard/jobs" ? "active" : ""}
                 >
                   <FontAwesomeIcon icon={faSuitcase} width={24} height={24} />
                   Jobs
@@ -203,8 +192,8 @@ const Sidebar = () => {
               </li>
               <li>
                 <Link
-                  href="/news"
-                  className={pathname === "/news" ? "active" : ""}
+                  href="/dashboard/news"
+                  className={pathname === "/dashboard/news" ? "active" : ""}
                 >
                   <FontAwesomeIcon icon={faNewspaper} width={24} height={24} />
                   News
@@ -212,8 +201,8 @@ const Sidebar = () => {
               </li>
               <li>
                 <Link
-                  href="/explore"
-                  className={pathname === "/explore" ? "active" : ""}
+                  href="/dashboard/explore"
+                  className={pathname === "/dashboard/explore" ? "active" : ""}
                 >
                   <FontAwesomeIcon
                     icon={faMagnifyingGlass}
@@ -228,7 +217,7 @@ const Sidebar = () => {
             <ul className="menu px-0 py-4">
               <li>
                 <Link
-                  className={pathname === "/github" ? "active" : ""}
+                  className={pathname === "/dashboard/github" ? "active" : ""}
                   href="/"
                 >
                   <FontAwesomeIcon icon={faUsers} width={24} height={24} />
@@ -237,7 +226,7 @@ const Sidebar = () => {
               </li>
               <li>
                 <Link
-                  className={pathname === "/facebook" ? "active" : ""}
+                  className={pathname === "/dashboard/facebook" ? "active" : ""}
                   href="/"
                 >
                   <FontAwesomeIcon icon={faUsers} width={24} height={24} />
@@ -245,7 +234,10 @@ const Sidebar = () => {
                 </Link>
               </li>
               <li>
-                <Link className={pathname === "/help" ? "active" : ""} href="/">
+                <Link
+                  className={pathname === "/dashboard/help" ? "active" : ""}
+                  href="/"
+                >
                   <FontAwesomeIcon icon={faInfoCircle} width={24} height={24} />
                   Help
                 </Link>

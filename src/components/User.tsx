@@ -26,7 +26,7 @@ const User = () => {
   const userEmail = user.user.email || user.user.email || "";
 
   return (
-    <Link className="btn btn-ghost" href="/profile">
+    <Link className="btn btn-ghost" href="/dashboard/profile">
       {userImage ? (
         <Image
           src={userImage}
