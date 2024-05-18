@@ -8,7 +8,11 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowLeft,
+  faEye,
+  faEyeSlash,
+} from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 
 const registerSchema = z.object({
@@ -103,6 +107,13 @@ const SignUpForm = () => {
 
   return (
     <div className="grid grid-cols-1 min-h-screen place-items-center bg-[#242323] md:grid-cols-2">
+      <div className="absolute left-3 top-4 sm:left-6 sm:top-6">
+        <Link href="/" className="group flex items-center gap-2 sm:gap-4">
+          <FontAwesomeIcon icon={faArrowLeft} color="white" />
+          <h1 className="text-white">Home</h1>
+        </Link>
+      </div>
+
       <div className="col-span-1">
         <div className="text-white w-[360px] md:w-[450px] max-w-md">
           <h1 className="text-5xl font-semibold mb-4">Sign Up</h1>
