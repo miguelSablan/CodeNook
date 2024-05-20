@@ -118,16 +118,12 @@ const Sidebar = () => {
             </li>
             <li>
               <Link
-                href="/dashboard/explore"
-                className={pathname === "/dashboard/explore" ? "active" : ""}
+                href="/dashboard/users"
+                className={pathname === "/dashboard/users" ? "active" : ""}
                 onClick={handleSidebarToggle}
               >
-                <FontAwesomeIcon
-                  icon={faMagnifyingGlass}
-                  width={24}
-                  height={24}
-                />
-                Explore
+                <FontAwesomeIcon icon={faUser} width={24} height={24} />
+                People
               </Link>
             </li>
           </ul>
@@ -201,15 +197,11 @@ const Sidebar = () => {
               </li>
               <li>
                 <Link
-                  href="/dashboard/explore"
-                  className={pathname === "/dashboard/explore" ? "active" : ""}
+                  href="/dashboard/users"
+                  className={pathname === "/dashboard/users" ? "active" : ""}
                 >
-                  <FontAwesomeIcon
-                    icon={faMagnifyingGlass}
-                    width={24}
-                    height={24}
-                  />
-                  Explore
+                  <FontAwesomeIcon icon={faUser} width={24} height={24} />
+                  People
                 </Link>
               </li>
             </ul>
