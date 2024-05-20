@@ -75,7 +75,7 @@ const Users = () => {
         </div>
 
         {loading ? (
-          <p className="p-4 text-lg">Loading...</p>
+          <p className="p-4 text-lg text-white">Loading...</p>
         ) : (
           <div className="max-h-screen p-4 overflow-y-auto project-scrollbar">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
