@@ -1,8 +1,7 @@
-import DashboardLayout from "@/components/DashboardLayout";
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
-import Link from "next/link";
 import Image from "next/image";
+import Sidebar from "@/components/Sidebar";
 
 const Profile = async () => {
   const session = await getServerSession(authOptions);
@@ -56,7 +55,8 @@ const Profile = async () => {
   ];
 
   return (
-    <DashboardLayout>
+    <div className="h-screen flex md:flex-row">
+      <Sidebar />
       <div className="bg-[#242323] p-7 flex flex-col flex-1 text-white min-h-screen">
         {/* User Section */}
         <div className="w-full h-80 p-10 flex flex-col gap-5">
@@ -146,7 +146,7 @@ const Profile = async () => {
           </div>
         </div>
       </div>
-    </DashboardLayout>
+    </div>
   );
 };
 
