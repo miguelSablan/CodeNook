@@ -16,7 +16,7 @@ interface User {
   image: string | null;
 }
 
-const Explore = () => {
+const Users = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
@@ -42,14 +42,14 @@ const Explore = () => {
   const filteredUsers = users.filter(
     (user) =>
       user.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      user.email?.toLowerCase().includes(searchQuery.toLowerCase())
+      user.username?.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
     <div className="h-screen flex md:flex-row">
       <Sidebar />
       <div className="bg-[#242323] flex flex-col flex-1 p-4 md:p-7 text-white">
-        <h1 className="text-white text-4xl p-4">Explore</h1>
+        <h1 className="text-white text-4xl p-4">Users</h1>
 
         <div className="flex p-4 gap-3">
           <label className="input input-bordered flex items-center gap-2 w-full md:w-1/2">
@@ -78,31 +78,39 @@ const Explore = () => {
           <p className="p-4 text-lg">Loading...</p>
         ) : (
           <div className="max-h-screen p-4 overflow-y-auto project-scrollbar">
-            <div className="grid grid-cols-5 gap-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               {filteredUsers.map((user) => (
                 <div
-                  className="flex justify-between gap-3 items-center"
+                  className="col-span-1 flex justify-center items-center"
                   key={user.id}
                 >
-                  <div className="flex gap-3 bg-black border rounded-md p-3 justify-center items-center">
-                    {user.name}
+                  <div className="h-56 w-52 flex flex-col justify-center items-center gap-3 bg-black rounded-lg p-3">
                     {user.image ? (
                       <Image
                         src={user.image}
                         className="rounded-full"
                         alt="avatar"
-                        height="32"
-                        width="32"
+                        height="64"
+                        width="64"
                         priority
                       />
                     ) : (
-                      <div className="rounded-full bg-primary flex-shrink-0 h-8 w-8 text-white text-lg leading-24 flex items-center justify-center">
+                      <div className="rounded-full bg-primary flex-shrink-0 h-16 w-16 text-white text-4xl leading-24 flex items-center justify-center">
                         <span className="text-white">
                           {user.name?.charAt(0).toUpperCase() ||
                             user.email?.charAt(0).toUpperCase()}
                         </span>
                       </div>
                     )}
+                    <div className="text-center flex flex-col gap-1">
+                      <div className="leading-3 font-bold text-gray-300">
+                        {user.name}
+                      </div>
+                      <div className="flex-wrap text-gray-400">
+                        @{user.username || "username"}
+                      </div>
+                    </div>
+                    <button className="btn btn-primary">Connect</button>
                   </div>
                 </div>
               ))}
@@ -114,4 +122,4 @@ const Explore = () => {
   );
 };
 
-export default Explore;
+export default Users;

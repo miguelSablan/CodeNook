@@ -44,7 +44,7 @@ export async function POST(req: Request) {
         username,
         email,
         password: hashedPassword,
-        name: username + " lastName",
+        name: email.split("@")[0],
       },
     });
     const { password: newUserPassword, ...rest } = newUser;
