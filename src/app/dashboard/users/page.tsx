@@ -48,7 +48,7 @@ const Users = () => {
   return (
     <div className="h-screen flex md:flex-row">
       <Sidebar />
-      <div className="bg-[#242323] flex flex-col flex-1 p-4 md:p-7 text-white">
+      <div className="bg-[#242323] flex flex-col flex-1 p-4 pt-20 md:p-7">
         <h1 className="text-white text-4xl p-4">Users</h1>
 
         <div className="flex p-4 gap-3">
