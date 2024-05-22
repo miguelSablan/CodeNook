@@ -9,10 +9,11 @@ import {
   faUser,
   faUsers,
   faHouse,
-  faSuitcase,
-  faMagnifyingGlass,
-  faGear,
   faInfoCircle,
+  faBell,
+  faComments,
+  faList,
+  faCodeBranch,
 } from "@fortawesome/free-solid-svg-icons";
 import { usePathname } from "next/navigation";
 import SignOutButton from "./SignOutButton";
@@ -37,7 +38,7 @@ const Sidebar = () => {
     <div>
       {/* Mobile Navbar */}
       <div className="lg:hidden fixed top-0 left-0 w-full bg-[#1d1d1d] text-white flex justify-between items-center p-4 z-10">
-        <label className="btn btn-circle border-none swap swap-rotate max-w-max">
+        <label className="btn btn-circle border-none swap swap-rotate">
           <input
             type="checkbox"
             checked={isOpen}
@@ -46,8 +47,8 @@ const Sidebar = () => {
           <svg
             className="swap-off fill-current"
             xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
+            width="32"
+            height="32"
             viewBox="0 0 512 512"
           >
             <path d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z" />
@@ -55,21 +56,40 @@ const Sidebar = () => {
           <svg
             className="swap-on fill-current"
             xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
+            width="32"
+            height="32"
             viewBox="0 0 512 512"
           >
             <polygon points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49" />
           </svg>
         </label>
 
-        <div className="text-3xl">
-          Code<span className="text-blue-600">Nook</span>
-        </div>
+        <Link className="btn btn-ghost text-3xl" href="/">
+          <FontAwesomeIcon icon={faCodeBranch} />
+          <div>
+            <span className="text-blue-600">Code</span>Nook
+          </div>
+        </Link>
 
-        <button>
-          <FontAwesomeIcon icon={faGear} width={24} height={24} />
-        </button>
+        <div className="btn btn-ghost btn-circle">
+          <div className="indicator">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-7 w-7"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+              />
+            </svg>
+            <span className="badge badge-sm badge-primary indicator-item"></span>
+          </div>
+        </div>
       </div>
 
       {/* Horizontal Navbar for Mobile */}
@@ -94,16 +114,6 @@ const Sidebar = () => {
               >
                 <FontAwesomeIcon icon={faUsers} width={24} height={24} />
                 Projects
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/dashboard/jobs"
-                className={pathname === "/dashboard/jobs" ? "active" : ""}
-                onClick={handleSidebarToggle}
-              >
-                <FontAwesomeIcon icon={faSuitcase} width={24} height={24} />
-                Jobs
               </Link>
             </li>
             <li>
@@ -141,17 +151,31 @@ const Sidebar = () => {
         <div className="flex justify-between p-2">
           {/* <!-- Logo --> */}
           <Link className="btn btn-ghost text-2xl" href="/">
+            <FontAwesomeIcon icon={faCodeBranch} />
             <div>
-              Code<span className="text-blue-600">Nook</span>
+              <span className="text-blue-600">Code</span>Nook
             </div>
           </Link>
 
-          <button
-            className="btn btn-ghost text-lg"
-            onClick={() => console.log("")}
-          >
-            <FontAwesomeIcon icon={faGear} width={24} height={24} />
-          </button>
+          <div className="btn btn-ghost btn-circle">
+            <div className="indicator">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+                />
+              </svg>
+              <span className="badge badge-xs badge-primary indicator-item"></span>
+            </div>
+          </div>
         </div>
 
         {/* <!-- Body --> */}
@@ -179,15 +203,6 @@ const Sidebar = () => {
               </li>
               <li>
                 <Link
-                  href="/dashboard/jobs"
-                  className={pathname === "/dashboard/jobs" ? "active" : ""}
-                >
-                  <FontAwesomeIcon icon={faSuitcase} width={24} height={24} />
-                  Jobs
-                </Link>
-              </li>
-              <li>
-                <Link
                   href="/dashboard/news"
                   className={pathname === "/dashboard/news" ? "active" : ""}
                 >
@@ -209,20 +224,20 @@ const Sidebar = () => {
             <ul className="menu px-0 py-4">
               <li>
                 <Link
-                  className={pathname === "/dashboard/github" ? "active" : ""}
-                  href="/"
+                  className={pathname === "/dashboard/posts" ? "active" : ""}
+                  href="/dashboard/posts"
                 >
-                  <FontAwesomeIcon icon={faUsers} width={24} height={24} />
-                  GitHub
+                  <FontAwesomeIcon icon={faList} width={24} height={24} />
+                  My Posts
                 </Link>
               </li>
               <li>
                 <Link
-                  className={pathname === "/dashboard/facebook" ? "active" : ""}
-                  href="/"
+                  className={pathname === "/dashboard/chats" ? "active" : ""}
+                  href="/dashboard/chats"
                 >
-                  <FontAwesomeIcon icon={faUsers} width={24} height={24} />
-                  Facebook
+                  <FontAwesomeIcon icon={faComments} width={24} height={24} />
+                  Chats
                 </Link>
               </li>
               <li>

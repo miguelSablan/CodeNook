@@ -75,7 +75,7 @@ const Users = () => {
         </div>
 
         {loading ? (
-          <p className="p-4 text-lg text-white">Loading...</p>
+          <p className="flex justify-center items-center h-full text-white"><span className="loading loading-spinner loading-lg"></span></p>
         ) : (
           <div className="max-h-screen p-4 overflow-y-auto project-scrollbar">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
