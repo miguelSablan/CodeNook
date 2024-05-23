@@ -57,10 +57,10 @@ const Profile = async () => {
   return (
     <div className="h-screen flex md:flex-row">
       <Sidebar />
-      <div className="bg-[#242323] p-7 flex flex-col flex-1 text-white min-h-screen">
+      <div className="bg-[#242323] p-4 pt-20 md:p-7 flex flex-col flex-1 text-white min-h-screen">
         {/* User Section */}
-        <div className="w-full h-80 p-10 flex flex-col gap-5">
-          <div className="flex items-center">
+        <div className="w-full md:h-80 md:p-10 flex flex-col gap-5">
+          <div className="flex flex-col md:flex-row items-center text-center md:text-start gap-3 md:gap-0">
             {/* Profile Image */}
             <div>
               {userImage ? (
@@ -73,8 +73,8 @@ const Profile = async () => {
                   priority
                 />
               ) : (
-                <div className="rounded-full bg-blue-500 flex-shrink-0 h-36 w-36 text-white text-5xl leading-24 flex items-center justify-center">
-                  <span className=" text-white">
+                <div className="rounded-full bg-blue-500 flex-shrink-0 h-32 w-32 text-white text-5xl leading-24 flex items-center justify-center">
+                  <span className="text-white">
                     {userName.charAt(0).toUpperCase()}
                   </span>
                 </div>
@@ -109,9 +109,9 @@ const Profile = async () => {
             </button>
           </div>
 
-          <div className="flex flex-col h-60 p-4">
-            <p className="mb-2">Skills:</p>
-            <div className="flex flex-wrap gap-2">
+          <div className="flex flex-col md:h-60 p-4">
+            <p className="mb-2 text-center md:text-start">Skills:</p>
+            <div className="flex flex-wrap gap-2 justify-center md:justify-start">
               {skills.map((skill, index) => (
                 <p key={index} className="badge badge-primary">
                   {skill}
@@ -121,15 +121,17 @@ const Profile = async () => {
           </div>
         </div>
 
-        <p className="text-3xl mb-4 ml-4">Projects</p>
+        <p className="text-3xl md:mb-4 md:ml-4 text-center md:text-start">
+          Projects
+        </p>
 
         {/* Project Section */}
         <div className="max-h-screen p-4 overflow-y-auto project-scrollbar">
-          <div className="grid grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-8">
             {projects.map((project) => (
               <div
                 key={project.id}
-                className="card w-96 bg-base-100 shadow-xl col-span-1 justify-self-center"
+                className="card md:w-96 bg-base-100 shadow-xl col-span-1 justify-self-center"
               >
                 <figure>
                   <img src={project.imageUrl} alt={project.title} />
