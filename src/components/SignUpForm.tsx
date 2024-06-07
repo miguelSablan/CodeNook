@@ -73,8 +73,6 @@ const SignUpForm = () => {
   });
 
   const onSubmit: SubmitHandler<RegisterSchema> = async (data) => {
-    console.log(data);
-
     setLoading(true); // Start loading
 
     const response = await fetch("api/register", {

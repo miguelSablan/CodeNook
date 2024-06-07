@@ -62,8 +62,6 @@ const LoginForm = () => {
   });
 
   const onSubmit: SubmitHandler<LoginSchema> = async (data) => {
-    console.log(data);
-
     setLoading(true); // Start loading
 
     const signInData = await signIn("credentials", {
