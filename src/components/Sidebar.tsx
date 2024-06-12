@@ -4,13 +4,10 @@ import { useState } from "react";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faBriefcase,
   faNewspaper,
   faUser,
   faUsers,
   faHouse,
-  faInfoCircle,
-  faBell,
   faComments,
   faList,
   faCodeBranch,
@@ -20,10 +17,12 @@ import SignOutButton from "./SignOutButton";
 import User from "./User";
 
 const navLinks = [
-  { id: 1, href: "/projects", label: "Projects", icon: faUsers },
-  { id: 2, href: "/jobs", label: "Jobs", icon: faBriefcase },
-  { id: 3, href: "/news", label: "News", icon: faNewspaper },
-  { id: 4, href: "/profile", label: "Profile", icon: faUser },
+  { id: 1, href: "/dashboard/home", label: "Home", icon: faHouse },
+  { id: 2, href: "/dashboard/projects", label: "Projects", icon: faUsers },
+  { id: 3, href: "/dashboard/news", label: "News", icon: faNewspaper },
+  { id: 4, href: "/dashboard/users", label: "People", icon: faUser },
+  { id: 5, href: "/dashboard/posts", label: "My Posts", icon: faList },
+  { id: 6, href: "/dashboard/chats", label: "Chats", icon: faComments },
 ];
 
 const Sidebar = () => {
@@ -96,46 +95,18 @@ const Sidebar = () => {
       {isOpen && (
         <div className="lg:hidden fixed top-16 left-0 w-full bg-[#1d1d1d] text-white flex flex-col items-start z-10">
           <ul className="menu w-full p-4">
-            <li>
-              <Link
-                href="/dashboard/home"
-                className={pathname === "/dashboard/home" ? "active" : ""}
-                onClick={handleSidebarToggle}
-              >
-                <FontAwesomeIcon icon={faHouse} width={24} height={24} />
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/dashboard/projects"
-                className={pathname === "/dashboard/projects" ? "active" : ""}
-                onClick={handleSidebarToggle}
-              >
-                <FontAwesomeIcon icon={faUsers} width={24} height={24} />
-                Projects
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/dashboard/news"
-                className={pathname === "/dashboard/news" ? "active" : ""}
-                onClick={handleSidebarToggle}
-              >
-                <FontAwesomeIcon icon={faNewspaper} width={24} height={24} />
-                News
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/dashboard/users"
-                className={pathname === "/dashboard/users" ? "active" : ""}
-                onClick={handleSidebarToggle}
-              >
-                <FontAwesomeIcon icon={faUser} width={24} height={24} />
-                People
-              </Link>
-            </li>
+            {navLinks.map((link) => (
+              <li key={link.id}>
+                <Link
+                  href={link.href}
+                  className={pathname === link.href ? "active" : ""}
+                  onClick={handleSidebarToggle}
+                >
+                  <FontAwesomeIcon icon={link.icon} width={24} height={24} />
+                  {link.label}
+                </Link>
+              </li>
+            ))}
           </ul>
 
           <div className="flex justify-between items-center p-2 bg-black w-full">
@@ -147,9 +118,9 @@ const Sidebar = () => {
 
       {/* Sidebar for Desktop */}
       <aside className="hidden lg:flex h-screen sticky top-0 flex-col bg-[#1d1d1d] text-white overflow-y-auto">
-        {/* <!-- Header --> */}
+        {/* Header */}
         <div className="flex justify-between p-2">
-          {/* <!-- Logo --> */}
+          {/* Logo */}
           <Link className="btn btn-ghost text-2xl" href="/">
             <FontAwesomeIcon icon={faCodeBranch} />
             <div>
@@ -178,82 +149,41 @@ const Sidebar = () => {
           </div>
         </div>
 
-        {/* <!-- Body --> */}
+        {/* Body */}
         <div className="flex flex-col px-6 pt-4 grow">
-          {/* <!-- Links --> */}
+          {/* Links */}
           <div className="flex flex-col divide-y divide-base-300">
             <ul className="menu px-0 py-4">
-              <li>
-                <Link
-                  href="/dashboard/home"
-                  className={pathname === "/dashboard/home" ? "active" : ""}
-                >
-                  <FontAwesomeIcon icon={faHouse} width={24} height={24} />
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/dashboard/projects"
-                  className={pathname === "/dashboard/projects" ? "active" : ""}
-                >
-                  <FontAwesomeIcon icon={faUsers} width={24} height={24} />
-                  Projects
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/dashboard/news"
-                  className={pathname === "/dashboard/news" ? "active" : ""}
-                >
-                  <FontAwesomeIcon icon={faNewspaper} width={24} height={24} />
-                  News
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/dashboard/users"
-                  className={pathname === "/dashboard/users" ? "active" : ""}
-                >
-                  <FontAwesomeIcon icon={faUser} width={24} height={24} />
-                  People
-                </Link>
-              </li>
+              {navLinks.slice(0, 4).map((link) => (
+                <li key={link.id}>
+                  <Link
+                    href={link.href}
+                    className={pathname === link.href ? "active" : ""}
+                  >
+                    <FontAwesomeIcon icon={link.icon} width={24} height={24} />
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
 
             <ul className="menu px-0 py-4">
-              <li>
-                <Link
-                  className={pathname === "/dashboard/posts" ? "active" : ""}
-                  href="/dashboard/posts"
-                >
-                  <FontAwesomeIcon icon={faList} width={24} height={24} />
-                  My Posts
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className={pathname === "/dashboard/chats" ? "active" : ""}
-                  href="/dashboard/chats"
-                >
-                  <FontAwesomeIcon icon={faComments} width={24} height={24} />
-                  Chats
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className={pathname === "/dashboard/help" ? "active" : ""}
-                  href="/"
-                >
-                  <FontAwesomeIcon icon={faInfoCircle} width={24} height={24} />
-                  Help
-                </Link>
-              </li>
+              {navLinks.slice(4).map((link) => (
+                <li key={link.id}>
+                  <Link
+                    href={link.href}
+                    className={pathname === link.href ? "active" : ""}
+                  >
+                    <FontAwesomeIcon icon={link.icon} width={24} height={24} />
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
 
-        {/* <!-- Footer --> */}
+        {/* Footer */}
         <div className="flex justify-between items-center p-2 bg-black">
           <User />
           <SignOutButton />
