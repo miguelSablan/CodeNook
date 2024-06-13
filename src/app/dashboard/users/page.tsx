@@ -2,6 +2,7 @@
 
 import Sidebar from "@/components/Sidebar";
 import Image from "next/image";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 interface User {
@@ -24,7 +25,7 @@ const Users = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch("/api/allUsers");
+        const response = await fetch("/api/user");
         if (!response.ok) {
           throw new Error("Error fetching users");
         }
@@ -75,7 +76,9 @@ const Users = () => {
         </div>
 
         {loading ? (
-          <p className="flex justify-center items-center h-full text-white"><span className="loading loading-spinner loading-lg"></span></p>
+          <p className="flex justify-center items-center h-full text-white">
+            <span className="loading loading-spinner loading-lg"></span>
+          </p>
         ) : (
           <div className="max-h-screen p-4 overflow-y-auto project-scrollbar">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
@@ -84,7 +87,10 @@ const Users = () => {
                   className="col-span-1 flex justify-center items-center"
                   key={user.id}
                 >
-                  <div className="h-56 w-52 flex flex-col justify-center items-center gap-3 bg-black rounded-lg p-3">
+                  <Link
+                    href={`/dashboard/users/${user.id}`}
+                    className="h-56 w-52 flex flex-col justify-center items-center gap-3 bg-black rounded-lg p-3"
+                  >
                     {user.image ? (
                       <Image
                         src={user.image}
@@ -111,7 +117,7 @@ const Users = () => {
                       </div>
                     </div>
                     <button className="btn btn-primary">Connect</button>
-                  </div>
+                  </Link>
                 </div>
               ))}
             </div>
