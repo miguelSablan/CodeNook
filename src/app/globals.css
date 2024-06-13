@@ -15,4 +15,8 @@
     background-color: white;
     border-radius: 10px;
   }
+
+  html {
+    scrollbar-gutter: auto !important;
+  }
 }
