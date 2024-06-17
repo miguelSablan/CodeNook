@@ -22,17 +22,17 @@ const FooterTest = () => {
             </aside>
             
             <div>
-                <nav className="flex gap-4">
-                    <a className="btn btn-ghost btn-sm btn-circle">                
+                <nav className="flex gap-0">
+                    <a className="btn btn-ghost btn-md btn-circle">                
                         <img src = "/github.svg"></img>
                     </a>
-                    <a className="btn btn-ghost btn-sm btn-circle">
+                    <a className="btn btn-ghost btn-md btn-circle">
                         <img src = "/google.svg"></img>
                     </a>
-                    <a className="btn btn-ghost btn-sm btn-circle">
+                    <a className="btn btn-ghost btn-md btn-circle">
                         <img src = "/discord.svg"></img>
                     </a>
-                    <a className="btn btn-ghost btn-sm btn-circle">
+                    <a className="btn btn-ghost btn-md btn-circle">
                         <img src = "/next.svg"></img>
                     </a>
                 </nav>
