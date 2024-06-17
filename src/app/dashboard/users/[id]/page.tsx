@@ -143,6 +143,8 @@ export default function User({ params }: { params: { id: string } }) {
               </h1>
               <p className="text-md">{bio}</p>
             </div>
+
+            <button className="btn btn-primary">Connect</button>
           </div>
 
           <div className="flex flex-col md:h-60 p-4">
