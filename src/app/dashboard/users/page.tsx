@@ -87,37 +87,39 @@ const Users = () => {
                   className="col-span-1 flex justify-center items-center"
                   key={user.id}
                 >
-                  <Link
-                    href={`/dashboard/users/${user.id}`}
-                    className="h-56 w-52 flex flex-col justify-center items-center gap-3 bg-black rounded-lg p-3"
-                  >
-                    {user.image ? (
-                      <Image
-                        src={user.image}
-                        className="rounded-full"
-                        alt="avatar"
-                        height="64"
-                        width="64"
-                        priority
-                      />
-                    ) : (
-                      <div className="rounded-full bg-primary flex-shrink-0 h-16 w-16 text-white text-4xl leading-24 flex items-center justify-center">
-                        <span className="text-white">
-                          {user.name?.charAt(0).toUpperCase() ||
-                            user.email?.charAt(0).toUpperCase()}
-                        </span>
-                      </div>
-                    )}
+                  <div className="h-56 w-52 flex flex-col justify-center items-center gap-3 bg-black rounded-lg p-3">
+                    <Link href={`/dashboard/users/${user.id}`}>
+                      {user.image ? (
+                        <Image
+                          src={user.image}
+                          className="rounded-full"
+                          alt="avatar"
+                          height="64"
+                          width="64"
+                          priority
+                        />
+                      ) : (
+                        <div className="rounded-full bg-primary flex-shrink-0 h-16 w-16 text-white text-4xl leading-24 flex items-center justify-center">
+                          <span className="text-white">
+                            {user.name?.charAt(0).toUpperCase() ||
+                              user.email?.charAt(0).toUpperCase()}
+                          </span>
+                        </div>
+                      )}
+                    </Link>
                     <div className="text-center flex flex-col gap-1">
-                      <div className="leading-3 font-bold text-gray-300">
+                      <Link
+                        href={`/dashboard/users/${user.id}`}
+                        className="leading-3 font-bold text-gray-300 hover:underline"
+                      >
                         {user.name}
-                      </div>
+                      </Link>
                       <div className="flex-wrap text-gray-400">
                         @{user.username || "username"}
                       </div>
                     </div>
                     <button className="btn btn-primary">Connect</button>
-                  </Link>
+                  </div>
                 </div>
               ))}
             </div>
