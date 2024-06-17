@@ -3,9 +3,9 @@ import { faCodeBranch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 
-const App = () => {
+const FooterTest = () => {
     return (
-        <footer className="flex flex-col sm:flex-row gap-8 justify-between p-10 bg-base-200">    
+        <footer className=" flex flex-col sm:flex-row gap-64 justify-between p-10 bg-base-200">    
             <aside>
                 <div>
                     <Link className="" href="/">
@@ -20,23 +20,26 @@ const App = () => {
                     <small>Copyright © 2024 - All rights reserved</small>
                 </div>
             </aside>
-   
-            <nav className="flex gap-4">
-                <a className="btn btn-ghost btn-sm btn-circle">                
-                    <img src = "/github.svg"></img>
-                </a>
-                <a className="btn btn-ghost btn-sm btn-circle">
-                    <img src = "/google.svg"></img>
-                </a>
-                <a className="btn btn-ghost btn-sm btn-circle">
-                    <img src = "/discord.svg"></img>
-                </a>
-                <a className="btn btn-ghost btn-sm btn-circle">
-                    <img src = "/next.svg"></img>
-                </a>
-            </nav>
-</footer>
+            
+            <div>
+                <nav className="flex gap-4">
+                    <a className="btn btn-ghost btn-sm btn-circle">                
+                        <img src = "/github.svg"></img>
+                    </a>
+                    <a className="btn btn-ghost btn-sm btn-circle">
+                        <img src = "/google.svg"></img>
+                    </a>
+                    <a className="btn btn-ghost btn-sm btn-circle">
+                        <img src = "/discord.svg"></img>
+                    </a>
+                    <a className="btn btn-ghost btn-sm btn-circle">
+                        <img src = "/next.svg"></img>
+                    </a>
+                </nav>
+            </div>    
+        </footer>
+        
     );
 };
 
-export default App;
+export default FooterTest;
