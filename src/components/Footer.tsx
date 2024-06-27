@@ -30,8 +30,8 @@ const Footer = () => {
 
         );
     const findClass = () => {
-        if (hasScrolled) return 'invisible';
-        else return 'visible';
+        if (hasScrolled) return 'visible ease-out duration-300';
+        else return 'visible transition-opacity opacity-100 ease-in duration 300';
     }
 
     return (
