@@ -1,13 +1,18 @@
 "use client"
 import React from 'react';
 import { useEffect, useState } from "react";
+import FooterTest from './FooterTest';
 import Navbar from './Navbar';
 import { prototype } from 'events';
 
 const Footer = () => {
 
     const [hasScrolled, setHasScrolled] = useState(false);
-
+    const showFooter = ((b: boolean) => {
+        if (b) return (<FooterTest/>);
+        else return (<div className = {""}></div>);
+    }
+    );
     useEffect(() => {
         const handleScrolling = () => {
             
@@ -26,11 +31,8 @@ const Footer = () => {
 
 
     return (
-        <div className = {`flex fixed h-14 items-center justify-between md:justify-around z-10 w-full py-2 bottom-10
-            ${hasScrolled ? "border-b border-s-zinc-200" : ""}`        
-        }         
-        >            
-        </div>
+        
+        showFooter(hasScrolled)
     );
 };
 

@@ -60,7 +60,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <FooterTest />
+      <Footer />
     </main>
   );
 }
