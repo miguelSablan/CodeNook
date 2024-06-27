@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import FooterTest from './FooterTest';
 import Navbar from './Navbar';
 import { prototype } from 'events';
+import clsx from  'clsx';
 
 const Footer = () => {
 
@@ -28,11 +29,16 @@ const Footer = () => {
     }
 
         );
-
+    const findClass = () => {
+        if (hasScrolled) return 'invisible';
+        else return 'visible';
+    }
 
     return (
         
-        showFooter(hasScrolled)
+            <FooterTest/>
+        
+        
     );
 };
 

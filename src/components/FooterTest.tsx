@@ -1,3 +1,4 @@
+"use client"
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import {
   faFacebook,
@@ -7,11 +8,42 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { faCodeBranch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import clsx from "clsx";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 const FooterTest = () => {
+
+  const [hasScrolled, setHasScrolled] = useState(false);
+    const showFooter = ((b: boolean) => {
+        if (b) return (<FooterTest/>);
+        else return (<div className = {""}></div>);
+    }
+    );
+    useEffect(() => {
+        const handleScrolling = () => {
+            
+            // if (window.scrollY < window.screen)
+            const scrolledToBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight;
+            if (scrolledToBottom) setHasScrolled(true);
+            else setHasScrolled(false);
+            console.log("Have we scrolled to the bottom? " + scrolledToBottom);
+            console.log("Has scrolled?: " + hasScrolled);
+        }
+        window.addEventListener("scroll", handleScrolling);
+        return () => window.removeEventListener("scroll", handleScrolling);
+    }
+
+        );
+    const findClass = () => {
+        if (hasScrolled) return 'visible';
+        else return 'invisible';
+    }
+
+
   return (
-    <footer className="flex flex-col sm:flex-row gap-8 justify-between p-10 bg-black w-full">
+    
+    <footer className={clsx(findClass(),"flex flex-col sm:flex-row gap-8 justify-between p-10 bg-black w-full")}>
       <aside>
         <Link className="text-3xl flex items-center gap-2 font-bold" href="/">
           <FontAwesomeIcon icon={faCodeBranch} />
@@ -53,6 +85,7 @@ const FooterTest = () => {
         </Link>
       </nav>
     </footer>
+    
   );
 };
 
