@@ -21,7 +21,7 @@ export const Post = ({
   language,
 }: PostProps) => {
   return (
-    <div className="relative bg-[#242323] rounded-lg p-4 mb-4 border border-gray-500 hover:border-gray-400 text-gray-100 transition">
+    <div className="relative bg-[#1d1d1d] rounded-lg p-4 mb-4 border border-gray-500 hover:border-gray-400 text-gray-100 transition">
       <FontAwesomeIcon
         icon={faArrowUpRightFromSquare}
         color="white"
