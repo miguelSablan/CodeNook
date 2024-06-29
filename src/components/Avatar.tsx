@@ -26,7 +26,7 @@ const Avatar = () => {
           priority
         />
       ) : (
-        <div className="rounded-full bg-blue-500 h-full w-full text-white text-5xl leading-[128px] flex items-center justify-center">
+        <div className="rounded-full bg-blue-500 h-full w-full text-white text-lg leading-[128px] flex items-center justify-center">
           <span className="text-white">{userName.charAt(0).toUpperCase()}</span>
         </div>
       )}
