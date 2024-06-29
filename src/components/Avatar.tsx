@@ -15,22 +15,22 @@ const Avatar = () => {
   const userName = user.user.name || user.user.username || "";
 
   return (
-    <>
+    <div className="h-10 w-10 flex-shrink-0">
       {userImage ? (
         <Image
           src={userImage}
-          className="rounded-full flex-shrink-0"
-          alt="avatar"
-          height="40"
-          width="40"
+          className="rounded-full"
+          alt={`${userName}'s avatar`}
+          height="128"
+          width="128"
           priority
         />
       ) : (
-        <div className="rounded-full bg-primary flex-shrink-0 h-10 w-10 text-white text-lg leading-24 flex items-center justify-center">
+        <div className="rounded-full bg-blue-500 h-full w-full text-white text-5xl leading-[128px] flex items-center justify-center">
           <span className="text-white">{userName.charAt(0).toUpperCase()}</span>
         </div>
       )}
-    </>
+    </div>
   );
 };
 
