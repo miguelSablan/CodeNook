@@ -4,6 +4,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import prisma from "./prisma";
 import { compare } from "bcrypt";
+import { v4 as uuidv4 } from "uuid";
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -59,15 +60,23 @@ export const authOptions: NextAuthOptions = {
           }
         }
 
-        return {
-          id: existingUser.id,
-          username: existingUser.username,
-          email: existingUser.email,
-        };
+        return existingUser;
       },
     }),
   ],
   callbacks: {
+    async signIn({ user, account }) {
+      // Check if the user signed up with Google
+      if (account && account.provider === "google") {
+        // Extract the email local part (before the @ sign)
+        const username = `${user.email!.split("@")[0]}_${uuidv4().slice(0, 4)}`;
+
+        // Update the user's username
+        user.username = username;
+      }
+
+      return true;
+    },
     async jwt({ token, user }) {
       if (user) {
         return {
