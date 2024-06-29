@@ -4,12 +4,10 @@ import { useState } from "react";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faNewspaper,
-  faUser,
   faUsers,
-  faHouse,
+  faFileCode,
+  faCommentDots,
   faComments,
-  faList,
   faCodeBranch,
 } from "@fortawesome/free-solid-svg-icons";
 import { usePathname } from "next/navigation";
@@ -17,12 +15,10 @@ import SignOutButton from "./SignOutButton";
 import User from "./User";
 
 const navLinks = [
-  { id: 1, href: "/dashboard/home", label: "Home", icon: faHouse },
-  { id: 2, href: "/dashboard/projects", label: "Projects", icon: faUsers },
-  { id: 3, href: "/dashboard/news", label: "News", icon: faNewspaper },
-  { id: 4, href: "/dashboard/users", label: "People", icon: faUser },
-  { id: 5, href: "/dashboard/posts", label: "My Posts", icon: faList },
-  { id: 6, href: "/dashboard/chats", label: "Chats", icon: faComments },
+  { id: 1, href: "/dashboard/projects", label: "Projects", icon: faFileCode },
+  { id: 2, href: "/dashboard/forums", label: "Forums", icon: faCommentDots },
+  { id: 3, href: "/dashboard/chats", label: "Chats", icon: faComments },
+  { id: 4, href: "/dashboard/users", label: "People", icon: faUsers },
 ];
 
 const Sidebar = () => {
@@ -155,20 +151,6 @@ const Sidebar = () => {
           <div className="flex flex-col divide-y divide-base-300">
             <ul className="menu px-0 py-4">
               {navLinks.slice(0, 4).map((link) => (
-                <li key={link.id}>
-                  <Link
-                    href={link.href}
-                    className={pathname === link.href ? "active" : ""}
-                  >
-                    <FontAwesomeIcon icon={link.icon} width={24} height={24} />
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-
-            <ul className="menu px-0 py-4">
-              {navLinks.slice(4).map((link) => (
                 <li key={link.id}>
                   <Link
                     href={link.href}
