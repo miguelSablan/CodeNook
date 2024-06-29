@@ -22,8 +22,8 @@ const User = () => {
   }
 
   const userImage = user.user.image !== "" ? user.user.image : undefined;
-  const userName = user.user.name || user.user.username || "";
-  const userEmail = user.user.email || user.user.email || "";
+  const name = user.user.name || "name";
+  const username = user.user.username || "username";
 
   return (
     <Link className="btn btn-ghost" href="/dashboard/profile">
@@ -38,13 +38,13 @@ const User = () => {
         />
       ) : (
         <div className="rounded-full bg-blue-500 flex-shrink-0 h-8 w-8 text-white text-lg leading-24 flex items-center justify-center">
-          <span className="text-white">{userName.charAt(0).toUpperCase()}</span>
+          <span className="text-white">{username.charAt(0).toUpperCase()}</span>
         </div>
       )}
 
       <div className="flex flex-col text-start md:w-[150px]">
-        <span className="font-bold text-white truncate">{userName}</span>
-        <span className="text-sm text-accent truncate">{userEmail}</span>
+        <span className="font-bold text-white">{name}</span>
+        <span className="text-sm text-accent">@{username}</span>
       </div>
     </Link>
   );
