@@ -1,3 +1,4 @@
+// lib/auth.ts
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -82,6 +83,7 @@ export const authOptions: NextAuthOptions = {
         return {
           ...token,
           username: user.username,
+          id: user.id,
         };
       }
       return token;
@@ -92,6 +94,7 @@ export const authOptions: NextAuthOptions = {
         user: {
           ...session.user,
           username: token.username,
+          id: token.id,
         },
       };
     },
