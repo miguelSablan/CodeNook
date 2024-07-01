@@ -7,14 +7,19 @@ import EditProfileModal from "@/components/EditProfileModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 
-type User = {
-  name: string;
-  username: string;
-  email: string;
-  image: string;
-  bio: string;
-  skills: string[];
-};
+interface User {
+  id: string;
+  username: string | null;
+  password: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+  name: string | null;
+  email: string | null;
+  emailVerified: Date | null;
+  image: string | null;
+  bio: string | null;
+  skills: string[] | null;
+}
 
 const Profile = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -24,19 +29,12 @@ const Profile = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch("/api/profile", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-
-        if (response.ok) {
-          const userData = await response.json();
-          setUser(userData);
-        } else {
-          setError("Failed to fetch user data");
+        const response = await fetch("/api/profile");
+        if (!response.ok) {
+          throw new Error("Error fetching users");
         }
+        const userData = await response.json();
+        setUser(userData);
       } catch (error) {
         setError("Error fetching user data");
       } finally {
@@ -179,7 +177,7 @@ const Profile = () => {
           <div className="flex flex-col md:h-60 p-4">
             <p className="mb-2 text-center md:text-start">Skills:</p>
             <div className="flex flex-wrap gap-2 justify-center md:justify-start">
-              {skills.map((skill, index) => (
+              {skills?.map((skill, index) => (
                 <p key={index} className="badge badge-primary">
                   {skill}
                 </p>
@@ -221,7 +219,7 @@ const Profile = () => {
         userEmail={email || ""}
         userImage={image || ""}
         userBio={bio || ""}
-        userSkills={skills}
+        userSkills={skills || []}
       />
     </div>
   );
