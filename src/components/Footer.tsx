@@ -21,8 +21,9 @@ const Footer = () => {
         const handleScrolling = () => {
             
             // if (window.scrollY < window.screen)
-            const scrolledToBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight;
-            if (scrolledToBottom) setHasScrolled(true);
+            const scrolledToBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight-1;
+            //if page is not scrollable, scrollY will be 0, show footer anyway
+            if (scrolledToBottom || window.scrollY == 0) setHasScrolled(true);
             else setHasScrolled(false);
         }
         window.addEventListener("scroll", handleScrolling);
