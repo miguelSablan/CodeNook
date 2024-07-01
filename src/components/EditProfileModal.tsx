@@ -20,6 +20,57 @@ export default function EditProfileModal({
   const [email, setEmail] = useState(userEmail);
   const [image, setImage] = useState(userImage);
   const [bio, setBio] = useState(userBio);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+
+    // Basic form validation
+    if (!name || !username || !email) {
+      setError("Please fill in all required fields.");
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+    setSuccess(null);
+
+    // Prepare data for API request
+    const formData = {
+      name,
+      username,
+      email,
+      bio,
+      // profile picture
+    };
+
+    try {
+      const response = await fetch("/api/profile/update", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        const updatedProfile = await response.json();
+        console.log("Profile updated successfully:", updatedProfile);
+        setSuccess("Profile updated successfully!");
+      } else {
+        const errorData = await response.json();
+        console.error("Failed to update profile:", errorData);
+        setError(errorData.error || "Failed to update profile");
+      }
+    } catch (error) {
+      console.error("Error updating profile:", error);
+      setError("An error occurred while updating the profile.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <dialog id="my_modal_1" className="modal">
@@ -30,7 +81,11 @@ export default function EditProfileModal({
           </button>
         </form>
         <h3 className="font-bold text-xl text-white">Edit Profile</h3>
-        <form className="space-y-4">
+        <div className="space-y-4">
+          {/* Error and Success Messages */}
+          {error && <p className="text-error">{error}</p>}
+          {success && <p className="text-success">{success}</p>}
+
           {/* Name Field */}
           <div className="form-control">
             <label className="label">
@@ -73,17 +128,6 @@ export default function EditProfileModal({
             />
           </div>
 
-          {/* Profile Picture Field */}
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text text-white">Profile Picture</span>
-            </label>
-            <input
-              type="file"
-              className="file-input file-input-bordered file-input-primary w-full"
-            />
-          </div>
-
           {/* Bio Field */}
           <div className="form-control">
             <label className="label">
@@ -99,11 +143,15 @@ export default function EditProfileModal({
 
           {/* Modal Actions */}
           <div className="modal-action">
-            <button type="submit" className="btn btn-primary">
-              Save
+            <button
+              type="button"
+              className={`btn btn-primary`}
+              onClick={handleSubmit}
+            >
+              {loading ? "Saving..." : "Save"}
             </button>
           </div>
-        </form>
+        </div>
       </div>
     </dialog>
   );
