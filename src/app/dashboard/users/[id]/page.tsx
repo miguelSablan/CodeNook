@@ -15,6 +15,7 @@ interface User {
   emailVerified: Date | null;
   image: string | null;
   bio: string | null;
+  skills: string[] | null;
 }
 
 export default function User({ params }: { params: { id: string } }) {
@@ -62,8 +63,6 @@ export default function User({ params }: { params: { id: string } }) {
       </div>
     );
   }
-
-  const skills = ["Java", "Python", "HTML", "CSS", "JavaScript", "React.js"]; // Replace with actual user skills if available
 
   const projects = [
     {
@@ -150,7 +149,7 @@ export default function User({ params }: { params: { id: string } }) {
           <div className="flex flex-col md:h-60 p-4">
             <p className="mb-2 text-center md:text-start">Skills:</p>
             <div className="flex flex-wrap gap-2 justify-center md:justify-start">
-              {skills.map((skill, index) => (
+              {user.skills?.map((skill, index) => (
                 <p key={index} className="badge badge-primary">
                   {skill}
                 </p>
