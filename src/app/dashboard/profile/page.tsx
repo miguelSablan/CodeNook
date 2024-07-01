@@ -13,6 +13,7 @@ type User = {
   email: string;
   image: string;
   bio: string;
+  skills: string[];
 };
 
 const Profile = () => {
@@ -76,9 +77,8 @@ const Profile = () => {
     email = "",
     image,
     bio = "Bio",
+    skills = [],
   } = user;
-
-  const skills = ["Java", "Python", "HTML", "CSS", "JavaScript", "React.js"];
 
   const projects = [
     {
@@ -221,6 +221,7 @@ const Profile = () => {
         userEmail={email || ""}
         userImage={image || ""}
         userBio={bio || ""}
+        userSkills={skills}
       />
     </div>
   );
