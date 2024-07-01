@@ -1,16 +1,53 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Sidebar from "@/components/Sidebar";
-import { useSession } from "next-auth/react";
 import EditProfileModal from "@/components/EditProfileModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 
-const Profile = () => {
-  const { data: user } = useSession();
+type User = {
+  name: string;
+  username: string;
+  email: string;
+  image: string;
+  bio: string;
+  skills: string[];
+};
 
-  if (!user) {
+const Profile = () => {
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch("/api/profile", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (response.ok) {
+          const userData = await response.json();
+          setUser(userData);
+        } else {
+          setError("Failed to fetch user data");
+        }
+      } catch (error) {
+        setError("Error fetching user data");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
+  if (loading) {
     return (
       <div className="h-screen flex md:flex-row">
         <Sidebar />
@@ -21,12 +58,27 @@ const Profile = () => {
     );
   }
 
-  const name = user.user.name || "john doe";
-  const userName = user.user.username || "username";
-  const userEmail = user.user.email || "";
-  const userImage = user.user.image !== "" ? user.user.image : undefined;
-  const bio = "Full-Stack Developer";
-  const skills = ["Java", "Python", "HTML", "CSS", "JavaScript", "React.js"];
+  if (!user) {
+    return (
+      <div className="h-screen flex md:flex-row">
+        <Sidebar />
+        <div className="bg-[#242323] p-4 pt-20 md:p-7 flex flex-col flex-1 text-white min-h-screen">
+          <h1 className="font-bold text-white text-center">
+            {error || "Failed to load user data"}
+          </h1>
+        </div>
+      </div>
+    );
+  }
+
+  const {
+    name = "john doe",
+    username = "username",
+    email = "",
+    image,
+    bio = "Bio",
+    skills = [],
+  } = user;
 
   const projects = [
     {
@@ -79,19 +131,20 @@ const Profile = () => {
           <div className="flex flex-col md:flex-row items-center text-center md:text-start gap-3 md:gap-0">
             {/* Profile Image */}
             <div className="h-32 w-32 flex-shrink-0">
-              {userImage ? (
+              {image ? (
                 <Image
-                  src={userImage}
+                  src={image}
                   className="rounded-full"
-                  alt={`${userName}'s avatar`}
+                  alt={`${username}'s avatar`}
                   height="128"
                   width="128"
                   priority
+                  layout="intrinsic"
                 />
               ) : (
                 <div className="rounded-full bg-blue-500 h-full w-full text-white text-5xl leading-[128px] flex items-center justify-center">
                   <span className="text-white">
-                    {userName.charAt(0).toUpperCase()}
+                    {username?.charAt(0).toUpperCase()}
                   </span>
                 </div>
               )}
@@ -102,7 +155,7 @@ const Profile = () => {
               <p className="text-3xl">{name}</p>
 
               <h1 className="text-gray-400 text-md mb-2 font-semibold">
-                @{userName}
+                @{username}
               </h1>
 
               <p className="text-md">{bio}</p>
@@ -163,11 +216,12 @@ const Profile = () => {
         </div>
       </div>
       <EditProfileModal
-        userFullName={name}
-        userName={userName}
-        userEmail={userEmail}
-        userImage={userImage || ""}
-        userBio={bio}
+        userFullName={name || ""}
+        userName={username || ""}
+        userEmail={email || ""}
+        userImage={image || ""}
+        userBio={bio || ""}
+        userSkills={skills}
       />
     </div>
   );
