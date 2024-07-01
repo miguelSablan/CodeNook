@@ -7,7 +7,7 @@ export async function PUT(req: Request) {
   try {
     // Parse the request body
     const body = await req.json();
-    const { username, name, bio, email } = body;
+    const { username, name, bio, email, skills } = body;
 
     // Authenticate the user
     const session = await getServerSession({ req, ...authOptions });
@@ -51,6 +51,7 @@ export async function PUT(req: Request) {
         name,
         bio,
         email,
+        skills: { set: skills },
       },
     });
 

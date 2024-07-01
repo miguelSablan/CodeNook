@@ -6,6 +6,7 @@ interface EditProfileModalProps {
   userEmail: string;
   userImage: string;
   userBio: string;
+  userSkills: string[];
 }
 
 export default function EditProfileModal({
@@ -14,15 +15,18 @@ export default function EditProfileModal({
   userEmail,
   userImage,
   userBio,
+  userSkills,
 }: EditProfileModalProps) {
   const [name, setName] = useState(userFullName);
   const [username, setUsername] = useState(userName);
   const [email, setEmail] = useState(userEmail);
   const [image, setImage] = useState(userImage);
   const [bio, setBio] = useState(userBio);
+  const [skills, setSkills] = useState<string[]>(userSkills);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const [newSkill, setNewSkill] = useState("");
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -42,8 +46,9 @@ export default function EditProfileModal({
       name,
       username,
       email,
+      //image, TODO: allow images to change
       bio,
-      // profile picture
+      skills,
     };
 
     try {
@@ -70,6 +75,17 @@ export default function EditProfileModal({
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleAddSkill = () => {
+    if (newSkill.trim() && !skills.includes(newSkill.trim())) {
+      setSkills([...skills, newSkill.trim()]);
+      setNewSkill("");
+    }
+  };
+
+  const handleRemoveSkill = (skillToRemove: string) => {
+    setSkills(skills.filter((skill) => skill !== skillToRemove));
   };
 
   return (
@@ -139,6 +155,46 @@ export default function EditProfileModal({
               onChange={(e) => setBio(e.target.value)}
               className="textarea textarea-bordered w-full"
             ></textarea>
+          </div>
+
+          {/* Skills Field */}
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text text-white">Skills</span>
+            </label>
+            <div className="flex items-center space-x-2">
+              <input
+                type="text"
+                placeholder="Add Skills"
+                value={newSkill}
+                onChange={(e) => setNewSkill(e.target.value)}
+                className="input input-bordered flex-grow"
+              />
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={handleAddSkill}
+              >
+                Add
+              </button>
+            </div>
+            <div className="mt-2 space-x-2">
+              {skills.map((skill, index) => (
+                <div
+                  key={index}
+                  className="inline-flex items-center px-2 py-1 bg-gray-700 rounded-lg"
+                >
+                  <span className="text-white">{skill}</span>
+                  <button
+                    type="button"
+                    className="ml-2 text-white"
+                    onClick={() => handleRemoveSkill(skill)}
+                  >
+                    ✕
+                  </button>
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Modal Actions */}
