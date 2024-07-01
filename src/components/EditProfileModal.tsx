@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { z } from "zod";
 
 interface EditProfileModalProps {
   userFullName: string;
@@ -8,6 +9,16 @@ interface EditProfileModalProps {
   userBio: string;
   userSkills: string[];
 }
+
+const profileSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  username: z.string().min(1, "Username is required"),
+  email: z.string().email("Invalid email address"),
+  bio: z.string().optional(),
+  skills: z.array(z.string()).optional(),
+});
+
+type ProfileData = z.infer<typeof profileSchema>;
 
 export default function EditProfileModal({
   userFullName,
@@ -31,25 +42,24 @@ export default function EditProfileModal({
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    // Basic form validation
-    if (!name || !username || !email) {
-      setError("Please fill in all required fields.");
+    const formData: ProfileData = {
+      name,
+      username,
+      email,
+      bio,
+      skills,
+    };
+
+    // Validate form data
+    const validation = profileSchema.safeParse(formData);
+    if (!validation.success) {
+      setError(validation.error.errors.map(err => err.message).join(", "));
       return;
     }
 
     setLoading(true);
     setError(null);
     setSuccess(null);
-
-    // Prepare data for API request
-    const formData = {
-      name,
-      username,
-      email,
-      //image, TODO: allow images to change
-      bio,
-      skills,
-    };
 
     try {
       const response = await fetch("/api/profile/update", {
