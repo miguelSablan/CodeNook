@@ -18,7 +18,7 @@ const Footer = () => {
     const [hasScrolled, setHasScrolled] = useState(false);
     
     useEffect(() => {
-        const handleScrolling = () => {
+        const handleScrolling = () : undefined => {
             
             // if (window.scrollY < window.screen)
             const scrolledToBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight-1;
