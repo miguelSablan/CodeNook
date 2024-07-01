@@ -14,6 +14,7 @@ interface User {
   email: string | null;
   emailVerified: Date | null;
   image: string | null;
+  bio: string | null;
 }
 
 export default function User({ params }: { params: { id: string } }) {
@@ -62,7 +63,6 @@ export default function User({ params }: { params: { id: string } }) {
     );
   }
 
-  const bio = "Full-Stack Developer"; // Replace with actual user bio if available
   const skills = ["Java", "Python", "HTML", "CSS", "JavaScript", "React.js"]; // Replace with actual user skills if available
 
   const projects = [
@@ -141,7 +141,7 @@ export default function User({ params }: { params: { id: string } }) {
               <h1 className="text-gray-400 text-md mb-2 font-semibold">
                 @{user.username || "username"}
               </h1>
-              <p className="text-md">{bio}</p>
+              <p className="text-md">{user.bio}</p>
             </div>
 
             <button className="btn btn-primary">Connect</button>
