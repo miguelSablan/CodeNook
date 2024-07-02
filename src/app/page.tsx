@@ -1,10 +1,11 @@
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
 import Image from "next/image";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
-    <main className="flex flex-col min-h-screen items-center justify-center md:p-24 overflow-auto bg-[#1d1d1d] text-white">
+    <main className="flex flex-col min-h-screen items-center justify-center md:pt-24 overflow-auto bg-[#1d1d1d] text-white">
       <Navbar />
       <div className="w-full max-w-screen-xl px-2.5 md:px-20 pb-28 pt-28 flex flex-col items-center justify-center text-center sm:pt-40">
         <h1 className="font-bold text-5xl md:text-6xl lg:text-7xl">
@@ -58,6 +59,7 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <Footer />
     </main>
   );
 }
