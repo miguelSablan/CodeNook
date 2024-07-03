@@ -1,9 +1,23 @@
 "use client";
 
 import Sidebar from "@/components/Sidebar";
-import { useState } from "react";
+import { useState, ChangeEvent } from "react";
 
-const projects = [
+interface Author {
+  name: string;
+  avatarUrl: string;
+}
+
+interface Project {
+  id: number;
+  date: string;
+  title: string;
+  description: string;
+  tags: string[];
+  author: Author;
+}
+
+const projects: Project[] = [
   {
     id: 1,
     date: "Jan 14, 2024",
@@ -59,30 +73,38 @@ const projects = [
 ];
 
 const Projects = () => {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedTechnology, setSelectedTechnology] = useState("");
-  const [filteredProjects, setFilteredProjects] = useState(projects);
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [selectedTechnology, setSelectedTechnology] = useState<string>("");
+  const [selectedRole, setSelectedRole] = useState<string>("");
+  const [filteredProjects, setFilteredProjects] = useState<Project[]>(projects);
 
-  const handleTechnologyChange = (e: any) => {
-    const selectedTech = e.target.value;
+  const handleTechnologyChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const selectedTech: string = e.target.value;
     setSelectedTechnology(selectedTech);
     filterProjects(selectedTech, searchQuery);
   };
 
-  const handleSearch = (e: any) => {
-    const query = e.target.value.toLowerCase();
+  const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
+    const query: string = e.target.value.toLowerCase();
     setSearchQuery(query);
     filterProjects(selectedTechnology, query);
   };
 
-  const filterProjects = (tech: any, query: any) => {
-    const filtered = projects.filter((project) => {
-      const techMatch = tech ? project.tags.includes(tech) : true;
-      const titleMatch = project.title.toLowerCase().includes(query);
-      const descriptionMatch = project.description
+  const handleResetFilters = () => {
+    setSelectedTechnology("");
+    setSelectedRole("");
+    setSearchQuery("");
+    setFilteredProjects(projects);
+  };
+
+  const filterProjects = (tech: string, query: string) => {
+    const filtered: Project[] = projects.filter((project) => {
+      const techMatch: boolean = tech ? project.tags.includes(tech) : true;
+      const titleMatch: boolean = project.title.toLowerCase().includes(query);
+      const descriptionMatch: boolean = project.description
         .toLowerCase()
         .includes(query);
-      const tagMatch = project.tags.some((tag) =>
+      const tagMatch: boolean = project.tags.some((tag: string) =>
         tag.toLowerCase().includes(query)
       );
 
@@ -97,7 +119,10 @@ const Projects = () => {
       <div className="bg-[#242323] flex flex-col flex-1 p-4 pt-20 md:p-7">
         <h1 className="text-white text-4xl p-4">Projects</h1>
 
-        <div className="flex p-4 gap-3">
+        <div className="flex flex-col md:flex-row p-4 gap-3">
+          <button className="btn btn-primary" onClick={handleResetFilters}>
+            Reset Filters
+          </button>
           <label className="input input-bordered flex items-center gap-2 w-full md:w-1/2">
             <input
               type="text"
@@ -131,64 +156,54 @@ const Projects = () => {
                   value={selectedTechnology}
                   onChange={handleTechnologyChange}
                 >
-                  <option disabled value="" selected>
+                  <option disabled value="">
                     Technologies
                   </option>
-                  <option className="text-black" value="JavaScript">
-                    JavaScript
-                  </option>
-                  <option className="text-black" value="TypeScript">
-                    TypeScript
-                  </option>
-                  <option className="text-black" value="Python">
-                    Python
-                  </option>
-                  <option className="text-black" value="Java">
-                    Java
-                  </option>
-                  <option className="text-black" value="Swift">
-                    Swift
-                  </option>
-                  <option className="text-black" value="React">
-                    React
-                  </option>
-                  <option className="text-black" value="Tailwind">
-                    Tailwind
-                  </option>
-                  <option className="text-black" value="Vue">
-                    Vue
-                  </option>
-                  <option className="text-black" value="Angular">
-                    Angular
-                  </option>
-                  <option className="text-black" value="Node.js">
-                    Node.js
-                  </option>
-                  <option className="text-black" value="Express.js">
-                    Express.js
-                  </option>
-                  <option className="text-black" value="Django">
-                    Django
-                  </option>
-                  <option className="text-black" value="Flask">
-                    Flask
-                  </option>
+                  {[
+                    "JavaScript",
+                    "TypeScript",
+                    "Python",
+                    "Java",
+                    "Swift",
+                    "React",
+                    "Tailwind",
+                    "Vue",
+                    "Angular",
+                    "Node.js",
+                    "Express.js",
+                    "Django",
+                    "Flask",
+                  ].map((tech) => (
+                    <option key={tech} className="text-black" value={tech}>
+                      {tech}
+                    </option>
+                  ))}
                 </select>
 
-                <select className="select select-primary select-bordered text-white w-full md:max-w-xs bg-transparent">
-                  <option disabled selected>
+                <select
+                  className="select select-primary select-bordered text-white w-full md:max-w-xs bg-transparent"
+                  value={selectedRole}
+                  onChange={(e) => setSelectedRole(e.target.value)}
+                >
+                  <option disabled value="">
                     Role
                   </option>
-                  <option className="text-black">UI/UX Designer</option>
-                  <option className="text-black">Frontend Developer</option>
-                  <option className="text-black">Backend Developer</option>
-                  <option className="text-black">Full Stack Developer</option>
-                  <option className="text-black">Data Scientist</option>
-                  <option className="text-black">AI/ML Engineer</option>
-                  <option className="text-black">Game Developer</option>
-                  <option className="text-black">Mobile App Developer</option>
-                  <option className="text-black">DevOps Engineer</option>
-                  <option className="text-black">Project Manager</option>
+                  {[
+                    "UI/UX Designer",
+                    "Frontend Developer",
+                    "Backend Developer",
+                    "Full Stack Developer",
+                    "Data Scientist",
+                    "AI/ML Engineer",
+                    "Game Developer",
+                    "Mobile App Developer",
+                    "DevOps Engineer",
+                    "Project Manager",
+                  ].map((role) => (
+                    <option key={role} className="text-black" value={role}>
+                      {role}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>
@@ -207,7 +222,7 @@ const Projects = () => {
                       <span className="text-sm">{project.date}</span>
                       <div className="flex gap-3">
                         {project.tags.map((tag, index) => (
-                          <div key={index} className="btn btn-sm btn-primary">
+                          <div key={index} className="badge badge-primary">
                             {tag}
                           </div>
                         ))}
