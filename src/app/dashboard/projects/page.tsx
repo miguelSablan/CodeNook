@@ -14,6 +14,7 @@ interface Project {
   title: string;
   description: string;
   tags: string[];
+  role: string;
   author: Author;
 }
 
@@ -25,6 +26,7 @@ const projects: Project[] = [
     description:
       "We are building an innovative e-commerce platform revolutionizing online shopping. We're seeking passionate React developers with expertise in Tailwind CSS and TypeScript to join our frontend team. Help us create a seamless user experience with advanced product search, filters, and a robust authentication system.",
     tags: ["React", "Tailwind", "TypeScript"],
+    role: "Frontend Developer",
     author: {
       name: "Username",
       avatarUrl:
@@ -38,6 +40,7 @@ const projects: Project[] = [
     description:
       "Join us in developing a cutting-edge image processing app powered by Python and OpenCV. We're looking for skilled Python developers with experience in openCV to enhance our image manipulation features, including filters, object detection, and image enhancement. Collaborate with us to create a powerful tool for image professionals and enthusiasts.",
     tags: ["Python", "openCV"],
+    role: "Backend Developer",
     author: {
       name: "Username 2",
       avatarUrl:
@@ -51,6 +54,7 @@ const projects: Project[] = [
     description:
       "Join our team as a UI/UX designer to develop a dashboard application for managing social media accounts. Integrate APIs for platforms like Twitter, Facebook, and Instagram to fetch data. Display analytics, post scheduling, and engagement metrics for each social media account.",
     tags: ["UI/UX", "React"],
+    role: "UI/UX Designer",
     author: {
       name: "Username 3",
       avatarUrl:
@@ -64,6 +68,7 @@ const projects: Project[] = [
     description:
       "Join our team of game developers to create an immersive 3D gaming experience using Unity. We're seeking Unity experts to design game mechanics, levels, and interactive elements. Contribute to player progression, scoring systems, and in-game rewards to delight gamers worldwide.",
     tags: ["Unity"],
+    role: "Game Developer",
     author: {
       name: "Username 4",
       avatarUrl:
@@ -81,13 +86,19 @@ const Projects = () => {
   const handleTechnologyChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const selectedTech: string = e.target.value;
     setSelectedTechnology(selectedTech);
-    filterProjects(selectedTech, searchQuery);
+    filterProjects(selectedTech, searchQuery, selectedRole);
+  };
+
+  const handleRoleChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const selectedRole: string = e.target.value;
+    setSelectedRole(selectedRole);
+    filterProjects(selectedTechnology, searchQuery, selectedRole);
   };
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     const query: string = e.target.value.toLowerCase();
     setSearchQuery(query);
-    filterProjects(selectedTechnology, query);
+    filterProjects(selectedTechnology, query, selectedRole);
   };
 
   const handleResetFilters = () => {
@@ -97,7 +108,7 @@ const Projects = () => {
     setFilteredProjects(projects);
   };
 
-  const filterProjects = (tech: string, query: string) => {
+  const filterProjects = (tech: string, query: string, role: string) => {
     const filtered: Project[] = projects.filter((project) => {
       const techMatch: boolean = tech ? project.tags.includes(tech) : true;
       const titleMatch: boolean = project.title.toLowerCase().includes(query);
@@ -107,8 +118,11 @@ const Projects = () => {
       const tagMatch: boolean = project.tags.some((tag: string) =>
         tag.toLowerCase().includes(query)
       );
+      const roleMatch: boolean = role ? project.role === role : true;
 
-      return techMatch && (titleMatch || descriptionMatch || tagMatch);
+      return (
+        techMatch && (titleMatch || descriptionMatch || tagMatch) && roleMatch
+      );
     });
     setFilteredProjects(filtered);
   };
@@ -183,7 +197,7 @@ const Projects = () => {
                 <select
                   className="select select-primary select-bordered text-white w-full md:max-w-xs bg-transparent"
                   value={selectedRole}
-                  onChange={(e) => setSelectedRole(e.target.value)}
+                  onChange={handleRoleChange}
                 >
                   <option disabled value="">
                     Role
