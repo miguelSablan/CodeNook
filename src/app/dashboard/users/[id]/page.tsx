@@ -168,7 +168,7 @@ export default function User({ params }: { params: { id: string } }) {
             {projects.map((project) => (
               <div
                 key={project.id}
-                className="card md:w-96 bg-base-100 shadow-xl col-span-1 justify-self-center"
+                className="card bg-base-100 shadow-xl col-span-1 justify-self-center"
               >
                 <figure>
                   <img src={project.imageUrl} alt={project.title} />
