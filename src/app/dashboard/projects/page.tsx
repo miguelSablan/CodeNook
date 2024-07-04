@@ -230,39 +230,37 @@ const Projects = () => {
                 filteredProjects.map((project) => (
                   <div
                     key={project.id}
-                    className="flex flex-col gap-6 bg-[#1d1d1d] text-white rounded-box p-6 max-w-auto"
+                    className="bg-[#2c2c2c] text-white rounded-box p-5 cursor-pointer"
                   >
-                    <div className="flex flex-col md:flex-row justify-between items-center gap-3">
-                      <span className="text-sm">{project.date}</span>
-                      <div className="flex gap-3">
-                        {project.tags.map((tag, index) => (
-                          <div key={index} className="badge badge-primary">
-                            {tag}
-                          </div>
-                        ))}
+                    <h1 className="text-white text-2xl font-bold">
+                      {project.title}
+                    </h1>
+
+                    <div className="flex items-center gap-3 mt-3">
+                      <img
+                        src={project.author.avatarUrl}
+                        alt="Author"
+                        className="w-10 h-10 rounded-full"
+                      />
+                      <div>
+                        <p className="font-semibold">{project.author.name}</p>
+                        <p className="text-gray-400 text-sm">{project.date}</p>
                       </div>
                     </div>
 
-                    <div className="flex flex-col gap-2">
-                      <h1 className="text-2xl font-bold text-center md:text-start">
-                        {project.title}
-                      </h1>
-                      <span className="text-center md:text-start">
-                        {project.description}
-                      </span>
-                    </div>
+                    <p className="text-gray-300 mt-3">{project.description}</p>
 
-                    <div className="flex justify-between items-center">
-                      <button className="btn btn-primary">Apply</button>
-                      <div className="btn btn-ghost">
-                        <img
-                          src={project.author.avatarUrl}
-                          alt="Avatar"
-                          className="w-8 rounded-full"
-                        />
-                        {project.author.name}
-                      </div>
+                    <div className="flex flex-wrap gap-2 mt-3">
+                      {project.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="badge badge-neutral text-white"
+                        >
+                          {tag}
+                        </span>
+                      ))}
                     </div>
+                    <button className="btn btn-primary mt-3">Apply</button>
                   </div>
                 ))
               ) : (
