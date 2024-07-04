@@ -22,13 +22,13 @@ const projects: Project[] = [
   {
     id: 1,
     date: "Jan 14, 2024",
-    title: "E-commerce Website",
+    title: "MindSync: Neural Interface Project",
     description:
-      "We are building an innovative e-commerce platform revolutionizing online shopping. We're seeking passionate React developers with expertise in Tailwind CSS and TypeScript to join our frontend team. Help us create a seamless user experience with advanced product search, filters, and a robust authentication system.",
-    tags: ["React", "Tailwind", "TypeScript"],
+      "Join our team to develop MindSync, a groundbreaking neural interface project aiming to enhance cognitive interaction and immersive experiences. We are seeking Frontend Developers to collaborate with neuroscientists and engineers to pioneer the future of human-computer interfaces.",
+    tags: ["React", "TypeScript", "Node.js"],
     role: "Frontend Developer",
     author: {
-      name: "Username",
+      name: "Alice Nguyen",
       avatarUrl:
         "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg",
     },
@@ -36,13 +36,13 @@ const projects: Project[] = [
   {
     id: 2,
     date: "Jan 12, 2024",
-    title: "Image Processing App",
+    title: "EcoEats: Eco-Friendly Delivery Platform",
     description:
-      "Join us in developing a cutting-edge image processing app powered by Python and OpenCV. We're looking for skilled Python developers with experience in openCV to enhance our image manipulation features, including filters, object detection, and image enhancement. Collaborate with us to create a powerful tool for image professionals and enthusiasts.",
-    tags: ["Python", "openCV"],
-    role: "Backend Developer",
+      "Join EcoEats to develop a sustainable eco-friendly delivery platform, promoting green consumer habits and integrating carbon footprint tracking. We are seeking Full Stack Developers to help revolutionize the food delivery industry with innovative green technology solutions.",
+    tags: ["Vue", "Node.js", "Express.js"],
+    role: "Full Stack Developer",
     author: {
-      name: "Username 2",
+      name: "Bob Smith",
       avatarUrl:
         "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg",
     },
@@ -50,13 +50,13 @@ const projects: Project[] = [
   {
     id: 3,
     date: "Jan 11, 2024",
-    title: "Social Media Dashboard",
+    title: "NeuroSpark: AI-powered Analytics Dashboard",
     description:
-      "Join our team as a UI/UX designer to develop a dashboard application for managing social media accounts. Integrate APIs for platforms like Twitter, Facebook, and Instagram to fetch data. Display analytics, post scheduling, and engagement metrics for each social media account.",
-    tags: ["UI/UX", "React"],
-    role: "UI/UX Designer",
+      "Build NeuroSpark, an AI-powered analytics dashboard to automate data insights and visualize predictive analytics for business intelligence. We are seeking Backend Developers to empower businesses with actionable insights and data-driven decision-making capabilities.",
+    tags: ["Python", "Flask"],
+    role: "Backend Developer",
     author: {
-      name: "Username 3",
+      name: "Elena Rodriguez",
       avatarUrl:
         "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg",
     },
@@ -64,13 +64,83 @@ const projects: Project[] = [
   {
     id: 4,
     date: "Jan 10, 2024",
-    title: "3D Game",
+    title: "NomadNest: Remote Work Platform",
     description:
-      "Join our team of game developers to create an immersive 3D gaming experience using Unity. We're seeking Unity experts to design game mechanics, levels, and interactive elements. Contribute to player progression, scoring systems, and in-game rewards to delight gamers worldwide.",
-    tags: ["Unity"],
-    role: "Game Developer",
+      "Develop NomadNest, a global remote work platform fostering collaboration and interactive workspaces. We are seeking Frontend Developers to connect remote workers worldwide and create a seamless virtual office environment.",
+    tags: ["Angular", "Node.js"],
+    role: "Frontend Developer",
     author: {
-      name: "Username 4",
+      name: "Michael Johnson",
+      avatarUrl:
+        "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg",
+    },
+  },
+  {
+    id: 5,
+    date: "Jan 9, 2024",
+    title: "GenoQuest: Genetic Research App",
+    description:
+      "Create GenoQuest, a genetic research app exploring genomic data and developing tools for genomic analysis. We are seeking iOS Developers to contribute to advancements in genetic research and personalized medicine.",
+    tags: ["Swift", "SwiftUI"],
+    role: "iOS Developer",
+    author: {
+      name: "Sophie Brown",
+      avatarUrl:
+        "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg",
+    },
+  },
+  {
+    id: 6,
+    date: "Jan 8, 2024",
+    title: "HealthHub: Personal Wellness Tracker",
+    description:
+      "Develop HealthHub, a personal wellness tracker app to monitor health metrics and track fitness goals. We are seeking Frontend Developers to empower users to achieve their health and wellness objectives with personalized insights and analytics.",
+    tags: ["React", "Tailwind"],
+    role: "Frontend Developer",
+    author: {
+      name: "Emma Thompson",
+      avatarUrl:
+        "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg",
+    },
+  },
+  {
+    id: 7,
+    date: "Jan 7, 2024",
+    title: "CodeLink: Real-time Code Collaboration",
+    description:
+      "Build CodeLink, an online platform for real-time code collaboration and pair programming. We are seeking Full Stack Developers to enhance developer productivity and streamline software development processes with collaborative coding tools.",
+    tags: ["React", "TypeScript", "Node.js", "MongoDB"],
+    role: "Full Stack Developer",
+    author: {
+      name: "Oliver Davis",
+      avatarUrl:
+        "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg",
+    },
+  },
+  {
+    id: 8,
+    date: "Jan 6, 2024",
+    title: "StreamView: Live Video Streaming App",
+    description:
+      "Develop StreamView, a live video streaming app with interactive viewer engagement features. We are seeking Backend Developers to create dynamic and engaging live streaming experiences for users across different platforms.",
+    tags: ["Node.js", "Express.js"],
+    role: "Backend Developer",
+    author: {
+      name: "Liam Wilson",
+      avatarUrl:
+        "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg",
+    },
+  },
+  {
+    id: 9,
+    date: "Jan 5, 2024",
+    title: "HealthHero: AI-driven Healthcare Companion",
+    description:
+      "Build HealthHero, an AI-driven healthcare companion app offering AI diagnostics and personalized health recommendations. We are seeking Full Stack Developers to empower users with proactive health monitoring and personalized wellness plans.",
+    tags: ["React Native", "Node.js"],
+    role: "Full Stack Developer",
+    author: {
+      name: "Sophia Clark",
       avatarUrl:
         "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg",
     },
