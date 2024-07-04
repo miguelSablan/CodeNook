@@ -227,121 +227,107 @@ const Projects = () => {
               />
             </svg>
           </label>
+
+          <select
+            className="select select-primary select-bordered text-white bg-transparent"
+            value={selectedTechnology}
+            onChange={handleTechnologyChange}
+          >
+            <option disabled value="">
+              Filter by Technologies
+            </option>
+            {[
+              "JavaScript",
+              "TypeScript",
+              "Python",
+              "Java",
+              "Swift",
+              "React",
+              "Tailwind",
+              "Vue",
+              "Angular",
+              "Node.js",
+              "Express.js",
+              "Django",
+              "Flask",
+            ].map((tech) => (
+              <option key={tech} className="text-black" value={tech}>
+                {tech}
+              </option>
+            ))}
+          </select>
+
+          <select
+            className="select select-primary select-bordered text-white bg-transparent"
+            value={selectedRole}
+            onChange={handleRoleChange}
+          >
+            <option disabled value="">
+              Filter by Role
+            </option>
+            {[
+              "UI/UX Designer",
+              "Frontend Developer",
+              "Backend Developer",
+              "Full Stack Developer",
+              "AI/ML Engineer",
+              "Game Developer",
+              "Mobile App Developer",
+              "iOS Developer",
+            ].map((role) => (
+              <option key={role} className="text-black" value={role}>
+                {role}
+              </option>
+            ))}
+          </select>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-5 overflow-hidden">
-          <div className="col-span-1">
-            <div className="p-4 h-full">
-              <div className="flex flex-col gap-3">
-                <label className="text-white mr-2">Filter by:</label>
-
-                <select
-                  className="select select-primary select-bordered text-white w-full md:max-w-xs bg-transparent"
-                  value={selectedTechnology}
-                  onChange={handleTechnologyChange}
-                >
-                  <option disabled value="">
-                    Technologies
-                  </option>
-                  {[
-                    "JavaScript",
-                    "TypeScript",
-                    "Python",
-                    "Java",
-                    "Swift",
-                    "React",
-                    "Tailwind",
-                    "Vue",
-                    "Angular",
-                    "Node.js",
-                    "Express.js",
-                    "Django",
-                    "Flask",
-                  ].map((tech) => (
-                    <option key={tech} className="text-black" value={tech}>
-                      {tech}
-                    </option>
-                  ))}
-                </select>
-
-                <select
-                  className="select select-primary select-bordered text-white w-full md:max-w-xs bg-transparent"
-                  value={selectedRole}
-                  onChange={handleRoleChange}
-                >
-                  <option disabled value="">
-                    Role
-                  </option>
-                  {[
-                    "UI/UX Designer",
-                    "Frontend Developer",
-                    "Backend Developer",
-                    "Full Stack Developer",
-                    "Data Scientist",
-                    "AI/ML Engineer",
-                    "Game Developer",
-                    "Mobile App Developer",
-                    "DevOps Engineer",
-                    "Project Manager",
-                  ].map((role) => (
-                    <option key={role} className="text-black" value={role}>
-                      {role}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
+        {filteredProjects.length === 0 ? (
+          <div className="text-white text-center py-10 flex items-center justify-center w-full">
+            No projects found.
           </div>
+        ) : (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 p-4 overflow-y-auto project-scrollbar">
+            {filteredProjects.map((project) => (
+              <div
+                key={project.id}
+                className="bg-[#2c2c2c] text-white rounded-box p-5 cursor-pointer shadow-md flex flex-col"
+              >
+                <h2 className="text-2xl font-bold mb-2">{project.title}</h2>
 
-          <div className="col-span-4 overflow-y-auto project-scrollbar">
-            <div className="flex flex-col gap-5 md:p-5">
-              {filteredProjects.length > 0 ? (
-                // Render filtered projects
-                filteredProjects.map((project) => (
-                  <div
-                    key={project.id}
-                    className="bg-[#2c2c2c] text-white rounded-box p-5 cursor-pointer"
-                  >
-                    <h1 className="text-white text-2xl font-bold">
-                      {project.title}
-                    </h1>
-
-                    <div className="flex items-center gap-3 mt-3">
-                      <img
-                        src={project.author.avatarUrl}
-                        alt="Author"
-                        className="w-10 h-10 rounded-full"
-                      />
-                      <div>
-                        <p className="font-semibold">{project.author.name}</p>
-                        <p className="text-gray-400 text-sm">{project.date}</p>
-                      </div>
-                    </div>
-
-                    <p className="text-gray-300 mt-3">{project.description}</p>
-
-                    <div className="flex flex-wrap gap-2 mt-3">
-                      {project.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="badge badge-neutral text-white"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                    <button className="btn btn-primary mt-3">Apply</button>
+                <div className="flex items-center mb-2">
+                  <img
+                    src={project.author.avatarUrl}
+                    alt={project.author.name}
+                    className="w-10 h-10 rounded-full mr-3"
+                  />
+                  <div>
+                    <p className="text-sm font-semibold">
+                      {project.author.name}
+                    </p>
+                    <p className="text-sm text-gray-400">{project.date}</p>
                   </div>
-                ))
-              ) : (
-                // Display message if no projects match the filter criteria
-                <p className="text-white">
-                  No projects match the filter criteria.
-                </p>
-              )}
-            </div>
+                </div>
+
+                <p className="text-gray-300 mb-3">{project.description}</p>
+
+                <div className="mb-3">
+                  {project.tags.map((tag, index) => (
+                    <span
+                      key={index}
+                      className="badge badge-ghost text-sm mr-2 mb-2"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <button className="btn btn-primary mt-auto self-start">
+                  Apply
+                </button>
+              </div>
+            ))}
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
