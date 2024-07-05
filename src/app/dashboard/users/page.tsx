@@ -50,13 +50,13 @@ const Users = () => {
     <div className="h-screen flex md:flex-row">
       <Sidebar />
       <div className="bg-[#242323] flex flex-col flex-1 p-4 pt-20 md:p-7">
-        <h1 className="text-white text-4xl p-4">Users</h1>
+        <h1 className="text-white text-4xl p-4 font-bold">Users</h1>
 
         <div className="flex p-4 gap-3">
           <label className="input input-bordered flex items-center gap-2 w-full md:w-1/2">
             <input
               type="text"
-              placeholder="Search users..."
+              placeholder="Search Users"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="grow text-black"
@@ -81,44 +81,47 @@ const Users = () => {
           </p>
         ) : (
           <div className="max-h-screen p-4 overflow-y-auto project-scrollbar">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
               {filteredUsers.map((user) => (
                 <div
                   className="col-span-1 flex justify-center items-center"
                   key={user.id}
                 >
-                  <div className="h-56 w-52 flex flex-col justify-center items-center gap-3 bg-black rounded-lg p-3">
-                    <Link href={`/dashboard/users/${user.id}`}>
-                      {user.image ? (
-                        <Image
-                          src={user.image}
-                          className="rounded-full"
-                          alt="avatar"
-                          height="64"
-                          width="64"
-                          priority
-                        />
-                      ) : (
-                        <div className="rounded-full bg-primary flex-shrink-0 h-16 w-16 text-white text-4xl leading-24 flex items-center justify-center">
-                          <span className="text-white">
-                            {user.name?.charAt(0).toUpperCase() ||
-                              user.email?.charAt(0).toUpperCase()}
-                          </span>
-                        </div>
-                      )}
-                    </Link>
-                    <div className="text-center flex flex-col gap-1">
-                      <Link
-                        href={`/dashboard/users/${user.id}`}
-                        className="leading-3 font-bold text-gray-300 hover:underline"
-                      >
-                        {user.name}
+                  <div className="drop-shadow-sm min-w-64 min-h-80">
+                    <div className="flex flex-col items-center gap-4 rounded-t-3xl bg-gradient-to-r from-blue-200/50 to-blue-300/50 dark:from-blue-600/50 dark:to-blue-800/50 py-8 w-full">
+                      <Link href={`/dashboard/users/${user.id}`}>
+                        {user.image ? (
+                          <Image
+                            src={user.image}
+                            className="rounded-full"
+                            alt="avatar"
+                            height="96"
+                            width="96"
+                            priority
+                          />
+                        ) : (
+                          <div className="rounded-full bg-primary flex-shrink-0 h-24 w-24 text-white text-5xl leading-24 flex items-center justify-center">
+                            <span className="text-white">
+                              {user.name?.charAt(0).toUpperCase() ||
+                                user.email?.charAt(0).toUpperCase()}
+                            </span>
+                          </div>
+                        )}
                       </Link>
-                      <div className="flex-wrap text-gray-400">
-                        @{user.username || "username"}
-                      </div>
+
+                      <button className="btn btn-primary">Connect</button>
                     </div>
-                    <button className="btn btn-primary">Connect</button>
+
+                    <div className="flex flex-col items-center rounded-b-3xl bg-[#2c2c2c] text-white py-8 w-full">
+                      <h2 className="px-2 text-2xl font-semibold">
+                        <Link href={`/dashboard/users/${user.id}`}>
+                          {user.name}
+                        </Link>
+                      </h2>
+                      <p className="mb-4 px-2 text-gray-400">
+                        @{user.username || "username"}
+                      </p>
+                    </div>
                   </div>
                 </div>
               ))}
