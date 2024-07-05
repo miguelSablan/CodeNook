@@ -146,11 +146,11 @@ const Sidebar = () => {
         </div>
 
         {/* Body */}
-        <div className="flex flex-col px-6 pt-4 grow">
+        <div className="flex flex-col px-4 grow">
           {/* Links */}
           <div className="flex flex-col divide-y divide-base-300">
             <ul className="menu px-0 py-4">
-              {navLinks.slice(0, 4).map((link) => (
+              {navLinks.map((link) => (
                 <li key={link.id}>
                   <Link
                     href={link.href}
