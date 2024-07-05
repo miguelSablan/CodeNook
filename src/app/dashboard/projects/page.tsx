@@ -291,7 +291,7 @@ const Projects = () => {
             {filteredProjects.map((project) => (
               <div
                 key={project.id}
-                className="bg-[#2c2c2c] text-white rounded-box p-5 cursor-pointer shadow-md flex flex-col"
+                className="bg-[#2c2c2c] text-white rounded-box p-5 cursor-pointer shadow-md flex flex-col border border-gray-900 hover:border-gray-400 transition"
               >
                 <h2 className="text-2xl font-bold mb-2">{project.title}</h2>
 
