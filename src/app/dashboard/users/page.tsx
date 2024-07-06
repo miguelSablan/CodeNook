@@ -4,6 +4,7 @@ import Sidebar from "@/components/Sidebar";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import { SkeletonCard } from "@/components/SkeletonCard";
 
 interface User {
   id: string;
@@ -76,9 +77,18 @@ const Users = () => {
         </div>
 
         {loading ? (
-          <p className="flex justify-center items-center h-full text-white">
-            <span className="loading loading-spinner loading-lg"></span>
-          </p>
+          <div className="max-h-screen p-4 overflow-y-auto project-scrollbar">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+              {Array.from({ length: 8 }).map((_, index) => (
+                <div
+                  className="col-span-1 flex justify-center items-center"
+                  key={index}
+                >
+                  <SkeletonCard />
+                </div>
+              ))}
+            </div>
+          </div>
         ) : (
           <div className="max-h-screen p-4 overflow-y-auto project-scrollbar">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
