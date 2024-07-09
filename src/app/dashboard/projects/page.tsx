@@ -211,7 +211,7 @@ const Projects = () => {
             <input
               type="text"
               className="grow text-black"
-              placeholder="Search"
+              placeholder="Search by title or description"
               value={searchQuery}
               onChange={handleSearch}
             />
@@ -287,7 +287,7 @@ const Projects = () => {
             No projects found.
           </div>
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 p-4 overflow-y-auto project-scrollbar">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 overflow-y-auto project-scrollbar">
             {filteredProjects.map((project) => (
               <div
                 key={project.id}
