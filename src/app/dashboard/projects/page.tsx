@@ -1,7 +1,8 @@
 "use client";
 
+import { ProjectCardSkeleton } from "@/components/ProjectCardSkeleton";
 import Sidebar from "@/components/Sidebar";
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent, useEffect } from "react";
 
 interface Author {
   name: string;
@@ -151,7 +152,16 @@ const Projects = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [selectedTechnology, setSelectedTechnology] = useState<string>("");
   const [selectedRole, setSelectedRole] = useState<string>("");
-  const [filteredProjects, setFilteredProjects] = useState<Project[]>(projects);
+  const [filteredProjects, setFilteredProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    // Simulate API call
+    setTimeout(() => {
+      setFilteredProjects(projects);
+      setLoading(false);
+    }, 2000);
+  }, []);
 
   const handleTechnologyChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const selectedTech: string = e.target.value;
@@ -201,7 +211,7 @@ const Projects = () => {
     <div className="h-screen flex md:flex-row">
       <Sidebar />
       <div className="bg-[#242323] flex flex-col flex-1 p-4 pt-20 md:p-7">
-        <h1 className="text-white text-4xl p-4">Projects</h1>
+        <h1 className="text-white text-4xl p-4 font-bold">Projects</h1>
 
         <div className="flex flex-col md:flex-row p-4 gap-3">
           <button className="btn btn-primary" onClick={handleResetFilters}>
@@ -282,7 +292,13 @@ const Projects = () => {
           </select>
         </div>
 
-        {filteredProjects.length === 0 ? (
+        {loading ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 overflow-y-auto project-scrollbar">
+            {Array.from({ length: 9 }).map((_, index) => (
+              <ProjectCardSkeleton key={index} />
+            ))}
+          </div>
+        ) : filteredProjects.length === 0 ? (
           <div className="text-white text-center py-10 flex items-center justify-center w-full">
             No projects found.
           </div>
