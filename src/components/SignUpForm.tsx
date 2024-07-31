@@ -114,7 +114,7 @@ const SignUpForm = () => {
 
       <div className="col-span-1">
         <div className="text-white w-[360px] md:w-[450px] max-w-md">
-          <h1 className="text-5xl font-semibold mb-4">Sign Up</h1>
+          <h1 className="text-5xl font-bold mb-4">Sign Up</h1>
           <p className="font-medium text-md text-gray-400 my-4">
             Welcome! Create an account to get started.
           </p>
