@@ -9,6 +9,7 @@ import {
   faCommentDots,
   faComments,
   faCodeBranch,
+  faClipboardList,
 } from "@fortawesome/free-solid-svg-icons";
 import { usePathname } from "next/navigation";
 import SignOutButton from "./SignOutButton";
@@ -18,7 +19,8 @@ const navLinks = [
   { id: 1, href: "/dashboard/projects", label: "Projects", icon: faFileCode },
   { id: 2, href: "/dashboard/forums", label: "Forums", icon: faCommentDots },
   { id: 3, href: "/dashboard/chats", label: "Chats", icon: faComments },
-  { id: 4, href: "/dashboard/users", label: "People", icon: faUsers },
+  { id: 4, href: "/dashboard/users", label: "Users", icon: faUsers },
+  { id: 5, href: "/dashboard/applications", label: "Applications", icon: faClipboardList },
 ];
 
 const Sidebar = () => {
