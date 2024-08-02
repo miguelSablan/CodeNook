@@ -1,5 +1,8 @@
+"use client";
+
 import Sidebar from "@/components/Sidebar";
-import React from "react";
+import EditListingModal from "@/components/EditListingModal";
+import { useState } from "react";
 
 const myListings = [
   {
@@ -72,6 +75,16 @@ const myApplications = [
 ];
 
 const Applications = () => {
+  const [selectedProject, setSelectedProject] = useState(null);
+
+  const handleEdit = (project: any) => {
+    setSelectedProject(project);
+    const modal = document.getElementById("edit_listing_modal") as HTMLFormElement;
+    if (modal) {
+      modal.showModal();
+    }
+  };
+
   return (
     <div className="h-screen flex md:flex-row">
       <Sidebar />
@@ -137,10 +150,13 @@ const Applications = () => {
                       <div className="flex-grow"></div>
 
                       <div className="mt-4 flex">
-                        <button className="btn btn-secondary ">
+                        <button className="btn btn-secondary">
                           View Applicants
                         </button>
-                        <button className="btn btn-primary ml-2">
+                        <button
+                          className="btn btn-primary ml-2"
+                          onClick={() => handleEdit(project)}
+                        >
                           Edit Post
                         </button>
                       </div>
@@ -206,6 +222,7 @@ const Applications = () => {
           </div>
         </div>
       </div>
+      <EditListingModal project={selectedProject} />
     </div>
   );
 };
