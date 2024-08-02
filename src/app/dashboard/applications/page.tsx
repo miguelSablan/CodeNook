@@ -2,6 +2,8 @@
 
 import Sidebar from "@/components/Sidebar";
 import EditListingModal from "@/components/EditListingModal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 
 const myListings = [
@@ -79,21 +81,21 @@ const Applications = () => {
 
   const handleEdit = (project: any) => {
     setSelectedProject(project);
-    const modal = document.getElementById("edit_listing_modal") as HTMLFormElement;
+    const modal = document.getElementById(
+      "edit_listing_modal"
+    ) as HTMLFormElement;
     if (modal) {
       modal.showModal();
     }
   };
 
   return (
-    <div className="h-screen flex md:flex-row">
+    <div className="min-h-screen flex md:flex-row">
       <Sidebar />
-      <div className="bg-[#242323] flex flex-1 flex-col min-h-screen text-white">
-        <div className="p-6">
-          <h1 className="text-3xl font-bold mb-4">Applications</h1>
-        </div>
+      <div className="bg-[#242323] flex flex-1 flex-col p-4 pt-20 md:p-7 min-h-screen text-white">
+        <h1 className="text-4xl p-4 font-bold">Applications</h1>
 
-        <div className="flex flex-col flex-1 p-6">
+        <div className="flex flex-col flex-1 p-4">
           {/* Tabs Section */}
           <div className="overflow-x-auto">
             <div role="tablist" className="tabs tabs-bordered">
@@ -223,6 +225,12 @@ const Applications = () => {
         </div>
       </div>
       <EditListingModal project={selectedProject} />
+      <div className="fixed bottom-8 right-8">
+        <button className="btn btn-primary">
+          <FontAwesomeIcon icon={faPlus} color="white" />
+          Create Listing
+        </button>
+      </div>
     </div>
   );
 };
