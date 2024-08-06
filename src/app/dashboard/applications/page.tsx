@@ -3,6 +3,7 @@
 import Sidebar from "@/components/Sidebar";
 import EditListingModal from "@/components/EditListingModal";
 import ViewApplicantsModal from "@/components/ViewApplicantsModal";
+import CreateListingModal from "@/components/CreateListingModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
@@ -100,6 +101,15 @@ const Applications = () => {
     setSelectedProject(project);
     const modal = document.getElementById(
       "view_applicants_modal"
+    ) as HTMLFormElement;
+    if (modal) {
+      modal.showModal();
+    }
+  };
+
+  const handleCreate = () => {
+    const modal = document.getElementById(
+      "create_listing_modal"
     ) as HTMLFormElement;
     if (modal) {
       modal.showModal();
@@ -246,8 +256,9 @@ const Applications = () => {
       </div>
       <EditListingModal project={selectedProject} />
       <ViewApplicantsModal applicants={selectedProject?.applicants || []} />
+      <CreateListingModal />
       <div className="fixed bottom-8 right-8">
-        <button className="btn btn-primary">
+        <button className="btn btn-primary" onClick={() => handleCreate()}>
           <FontAwesomeIcon icon={faPlus} color="white" />
           Create Listing
         </button>
