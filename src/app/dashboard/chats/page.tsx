@@ -9,21 +9,21 @@ const users = [
     id: 1,
     name: "User 1",
     avatar:
-      "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg",
+      "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
     recentMessage: "Hello, how are you?",
   },
   {
     id: 2,
     name: "User 2",
     avatar:
-      "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg",
+      "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
     recentMessage: "Let's meet tomorrow.",
   },
   {
     id: 3,
     name: "User 3",
     avatar:
-      "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg",
+      "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
     recentMessage: "See you soon!",
   },
 ];
@@ -61,7 +61,7 @@ const selectedUser = {
   name: "John Doe",
   username: "@johndoe",
   avatar:
-    "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg",
+    "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
 };
 
 const UserList = () => {

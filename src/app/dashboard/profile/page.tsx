@@ -84,7 +84,7 @@ const Profile = () => {
       title: "Portfolio Website",
       description: "A personal website showcasing projects and skills.",
       imageUrl:
-        "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg",
+        "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp",
     },
     {
       id: 2,
@@ -92,7 +92,7 @@ const Profile = () => {
       description:
         "An online store for selling products and managing inventory.",
       imageUrl:
-        "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg",
+        "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp",
     },
     {
       id: 3,
@@ -100,7 +100,7 @@ const Profile = () => {
       description:
         "A platform for publishing articles, managing content, and engaging with readers.",
       imageUrl:
-        "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg",
+        "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp",
     },
     {
       id: 4,
@@ -108,7 +108,7 @@ const Profile = () => {
       description:
         "A social networking application for connecting with friends and sharing updates.",
       imageUrl:
-        "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg",
+        "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp",
     },
     {
       id: 5,
@@ -116,7 +116,7 @@ const Profile = () => {
       description:
         "A productivity tool for organizing tasks, setting deadlines, and tracking progress.",
       imageUrl:
-        "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg",
+        "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp",
     },
   ];
 
