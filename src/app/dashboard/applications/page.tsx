@@ -2,6 +2,7 @@
 
 import Sidebar from "@/components/Sidebar";
 import EditListingModal from "@/components/EditListingModal";
+import ViewApplicantsModal from "@/components/ViewApplicantsModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
@@ -18,14 +19,20 @@ const myListings = [
     author: {
       name: "Alice Nguyen",
       avatarUrl:
-        "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg",
+        "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
     },
     applicants: [
-      { id: 1, name: "John Doe", profilePic: "https://via.placeholder.com/50" },
+      {
+        id: 1,
+        name: "John Doe",
+        profilePic:
+          "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
+      },
       {
         id: 2,
         name: "Jane Smith",
-        profilePic: "https://via.placeholder.com/50",
+        profilePic:
+          "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
       },
     ],
   },
@@ -40,7 +47,7 @@ const myListings = [
     author: {
       name: "Bob Smith",
       avatarUrl:
-        "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg",
+        "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
     },
   },
 ];
@@ -57,7 +64,7 @@ const myApplications = [
     author: {
       name: "Eve Carter",
       avatarUrl:
-        "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg",
+        "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
     },
   },
   {
@@ -71,18 +78,28 @@ const myApplications = [
     author: {
       name: "Frank Miller",
       avatarUrl:
-        "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg",
+        "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
     },
   },
 ];
 
 const Applications = () => {
-  const [selectedProject, setSelectedProject] = useState(null);
+  const [selectedProject, setSelectedProject] = useState<any>(null);
 
   const handleEdit = (project: any) => {
     setSelectedProject(project);
     const modal = document.getElementById(
       "edit_listing_modal"
+    ) as HTMLFormElement;
+    if (modal) {
+      modal.showModal();
+    }
+  };
+
+  const handleViewApplicants = (project: any) => {
+    setSelectedProject(project);
+    const modal = document.getElementById(
+      "view_applicants_modal"
     ) as HTMLFormElement;
     if (modal) {
       modal.showModal();
@@ -152,7 +169,10 @@ const Applications = () => {
                       <div className="flex-grow"></div>
 
                       <div className="mt-4 flex">
-                        <button className="btn btn-secondary">
+                        <button
+                          className="btn btn-secondary"
+                          onClick={() => handleViewApplicants(project)}
+                        >
                           View Applicants
                         </button>
                         <button
@@ -225,6 +245,7 @@ const Applications = () => {
         </div>
       </div>
       <EditListingModal project={selectedProject} />
+      <ViewApplicantsModal applicants={selectedProject?.applicants || []} />
       <div className="fixed bottom-8 right-8">
         <button className="btn btn-primary">
           <FontAwesomeIcon icon={faPlus} color="white" />
