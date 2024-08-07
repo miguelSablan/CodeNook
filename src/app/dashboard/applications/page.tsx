@@ -140,7 +140,7 @@ const Applications = () => {
                   {myListings.map((project) => (
                     <div
                       key={project.id}
-                      className="bg-[#2c2c2c] text-white rounded-box p-5 flex flex-col border border-gray-900 hover:border-gray-400 transition"
+                      className="bg-[#2c2c2c] text-white rounded-box p-5 cursor-pointer shadow-md flex flex-col border border-gray-900 hover:border-gray-400 transition"
                     >
                       <h2 className="text-2xl font-bold mb-2">
                         {project.title}
