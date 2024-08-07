@@ -31,7 +31,7 @@ const projects: Project[] = [
     author: {
       name: "Alice Nguyen",
       avatarUrl:
-        "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg",
+        "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
     },
   },
   {
@@ -45,7 +45,7 @@ const projects: Project[] = [
     author: {
       name: "Bob Smith",
       avatarUrl:
-        "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg",
+        "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
     },
   },
   {
@@ -59,7 +59,7 @@ const projects: Project[] = [
     author: {
       name: "Elena Rodriguez",
       avatarUrl:
-        "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg",
+        "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
     },
   },
   {
@@ -73,7 +73,7 @@ const projects: Project[] = [
     author: {
       name: "Michael Johnson",
       avatarUrl:
-        "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg",
+        "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
     },
   },
   {
@@ -87,7 +87,7 @@ const projects: Project[] = [
     author: {
       name: "Sophie Brown",
       avatarUrl:
-        "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg",
+        "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
     },
   },
   {
@@ -101,7 +101,7 @@ const projects: Project[] = [
     author: {
       name: "Emma Thompson",
       avatarUrl:
-        "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg",
+        "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
     },
   },
   {
@@ -115,7 +115,7 @@ const projects: Project[] = [
     author: {
       name: "Oliver Davis",
       avatarUrl:
-        "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg",
+        "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
     },
   },
   {
@@ -129,7 +129,7 @@ const projects: Project[] = [
     author: {
       name: "Liam Wilson",
       avatarUrl:
-        "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg",
+        "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
     },
   },
   {
@@ -143,7 +143,7 @@ const projects: Project[] = [
     author: {
       name: "Sophia Clark",
       avatarUrl:
-        "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg",
+        "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
     },
   },
 ];
