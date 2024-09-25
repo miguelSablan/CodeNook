@@ -59,7 +59,6 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <Team />
       </div>
       <Footer />
     </main>
