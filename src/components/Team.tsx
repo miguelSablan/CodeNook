@@ -2,8 +2,8 @@
 
 import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-import React from "react";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import Link from "next/link";
 
 const Team = () => {
   return (
@@ -15,8 +15,8 @@ const Team = () => {
         <div className="flex gap-4">
           {/* Photo */}
           <img
-            alt="https://media.licdn.com/dms/image/v2/D4E12AQEud3Ll5MI7cQ/article-inline_image-shrink_1500_2232/article-inline_image-shrink_1500_2232/0/1660833954461?e=1732752000&v=beta&t=P1SgIh0_eUhjQvsur2IIl9bI9cYrxG28nm6a4G7WJUo"
-            src="https://media.licdn.com/dms/image/v2/D4E35AQEGCC7CUcp6zQ/profile-framedphoto-shrink_200_200/profile-framedphoto-shrink_200_200/0/1682979942234?e=1727823600&v=beta&t=-6sMG52MPVf9NLjNPI0w9brT7KSwYjYUrJryVMfpGp4"
+            alt="Miguel Photo"
+            src="https://media.licdn.com/dms/image/D4E03AQEHxnnUfDi1Lw/profile-displayphoto-shrink_400_400/0/1682184457215?e=2147483647&v=beta&t=lc9jeQ9r67VsNkDuzVQ3eBN1vlLi3RKxdaFKFIaLOlo"
             className="rounded-full w-24"
           />
 
@@ -25,28 +25,25 @@ const Team = () => {
             <h3 className="font-bold">Miguel Sablan</h3>
 
             {/* Role*/}
-            <span className="text-sm">Lead</span>
+            <span className="text-sm text-left text-gray-400">Lead</span>
 
             {/* Socials */}
             <div className="flex text-accent text-xs">
-              <a
+              <Link
                 className="btn btn-ghost btn-sm btn-circle"
                 href="https://github.com/miguelSablan"
+                target="_blank"
               >
-                <FontAwesomeIcon icon={faGithub} />
-              </a>
+                <FontAwesomeIcon icon={faGithub as IconProp} size="xl" />
+              </Link>
 
-              <a
-                className="btn btn-ghost btn-sm btn-circle href"
+              <Link
+                className="btn btn-ghost btn-sm btn-circle"
                 href="https://www.linkedin.com/in/miguel-sablan/"
+                target="_blank"
               >
-                {/*<i className="fa-brands fa-twitter text-lg"></i>*/}
-                <FontAwesomeIcon icon={faLinkedin} />
-              </a>
-
-              <a className="btn btn-ghost btn-sm btn-circle">
-                <i className="fa-brands fa-facebook text-lg"></i>
-              </a>
+                <FontAwesomeIcon icon={faLinkedin as IconProp} size="xl" />
+              </Link>
             </div>
           </div>
         </div>
@@ -55,7 +52,7 @@ const Team = () => {
         <div className="flex gap-4">
           {/* Photo */}
           <img
-            alt="https://media.licdn.com/dms/image/v2/D4E12AQEud3Ll5MI7cQ/article-inline_image-shrink_1500_2232/article-inline_image-shrink_1500_2232/0/1660833954461?e=1732752000&v=beta&t=P1SgIh0_eUhjQvsur2IIl9bI9cYrxG28nm6a4G7WJUo"
+            alt="Samuel Photo"
             src="https://media.licdn.com/dms/image/v2/C5603AQEPCu9IKyU7Rg/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1659988510875?e=2147483647&v=beta&t=DDNGq9veF0j41HXZMKXGZ1-m3vn7AdxrAa2ZX4N5GRY"
             className="rounded-full w-24"
           />
@@ -65,29 +62,25 @@ const Team = () => {
             <h3 className="font-bold">Samuel Pellot</h3>
 
             {/* Role */}
-            <span className="text-sm">Co-Lead</span>
+            <span className="text-sm text-left text-gray-400">Co-Lead</span>
 
             {/* Socials */}
             <div className="flex text-accent text-xs">
-              <a
+              <Link
                 className="btn btn-ghost btn-sm btn-circle"
                 href="https://github.com/MasterShakezula"
+                target="_blank"
               >
-                <i className="fa-brands fa-github text-lg"></i>
-                <FontAwesomeIcon icon={faGithub} />
-              </a>
+                <FontAwesomeIcon icon={faGithub as IconProp} size="xl" />
+              </Link>
 
-              <a
+              <Link
                 className="btn btn-ghost btn-sm btn-circle"
                 href="https://www.linkedin.com/in/samuelpellot/"
+                target="_blank"
               >
-                <i className="fa-brands fa-twitter text-lg"></i>
-                <FontAwesomeIcon icon={faLinkedin} />
-              </a>
-
-              <a className="btn btn-ghost btn-sm btn-circle">
-                <i className="fa-brands fa-facebook text-lg"></i>
-              </a>
+                <FontAwesomeIcon icon={faLinkedin as IconProp} size="xl" />
+              </Link>
             </div>
           </div>
         </div>
