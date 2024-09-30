@@ -3,6 +3,7 @@
 import { ProjectCardSkeleton } from "@/components/ProjectCardSkeleton";
 import Sidebar from "@/components/Sidebar";
 import { useState, ChangeEvent, useEffect } from "react";
+import { format } from "date-fns";
 
 interface Author {
   name: string;
@@ -203,7 +204,9 @@ const Projects = () => {
                     <p className="text-sm font-semibold">
                       {project.author.name}
                     </p>
-                    <p className="text-sm text-gray-400">{project.createdAt}</p>
+                    <p className="text-sm text-gray-400">
+                      {format(new Date(project.createdAt), "MMM dd, yyyy")}
+                    </p>
                   </div>
                 </div>
 
