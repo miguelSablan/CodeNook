@@ -103,6 +103,31 @@ const Projects = () => {
     setFilteredProjects(filtered);
   };
 
+  const applyToProject = async (projectId: number) => {
+    try {
+      const response = await fetch("/api/apply", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          projectId,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to apply for the project.");
+      }
+
+      const data = await response.json();
+      alert(data.message || "Application submitted successfully!");
+    } catch (error) {
+      console.error("Error applying for project:", error);
+      alert(error || "An error occurred while applying.");
+    }
+  };
+
   return (
     <div className="h-screen flex md:flex-row">
       <Sidebar />
@@ -255,7 +280,10 @@ const Projects = () => {
                     </span>
                   ))}
                 </div>
-                <button className="btn btn-primary mt-auto self-start">
+                <button
+                  className="btn btn-primary mt-auto self-start"
+                  onClick={() => applyToProject(project.id)}
+                >
                   Apply
                 </button>
               </div>
