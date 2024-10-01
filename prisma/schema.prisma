@@ -52,12 +52,13 @@ model User {
 }
 
 model Project {
-  id            Int       @id @default(autoincrement())
+  id            String    @id @default(cuid())
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   title         String
   description   String
   tags          String[]
+  role          String
   authorId      String
   author        User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
 }

@@ -5,17 +5,27 @@ const listingSchema = z.object({
   title: z.string().min(1, "Title is required"),
   description: z.string().min(1, "Description is required"),
   tags: z.array(z.string()).min(1, "Tags are required"),
-  // role: z.string().min(1, "Role is required"),
+  role: z.string().min(1, "Role is required"),
 });
 
 type ListingData = z.infer<typeof listingSchema>;
+
+const roles = [
+  "Frontend Developer",
+  "Backend Developer",
+  "Fullstack Developer",
+  "UI/UX Designer",
+  "Project Manager",
+  "Game Developer",
+  "Mobile App Developer"
+];
 
 const CreateListingModal = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [tags, setTags] = useState<string[]>([]);
   const [newTag, setNewTag] = useState("");
-  // const [role, setRole] = useState("");
+  const [role, setRole] = useState("");
 
   const handleAddTag = () => {
     if (newTag.trim() && !tags.includes(newTag.trim())) {
@@ -35,7 +45,7 @@ const CreateListingModal = () => {
       title,
       description,
       tags,
-      // role,
+      role,
     };
 
     const validation = listingSchema.safeParse(formData);
@@ -76,7 +86,7 @@ const CreateListingModal = () => {
       setDescription("");
       setTags([]);
       setNewTag("");
-      // setRole("");
+      setRole("");
     } catch (error) {
       console.error("Error during fetch:", error);
     }
@@ -160,18 +170,25 @@ const CreateListingModal = () => {
           </div>
 
           {/* Role Field */}
-          {/* <div className="form-control">
+          <div className="form-control">
             <label className="label">
               <span className="label-text text-white">Role</span>
             </label>
-            <input
-              type="text"
-              placeholder="Role"
-              className="input input-bordered w-full"
+            <select
+              className="select select-bordered w-full"
               value={role}
               onChange={(e) => setRole(e.target.value)}
-            />
-          </div> */}
+            >
+              <option value="" disabled>
+                Select a role
+              </option>
+              {roles.map((r, index) => (
+                <option key={index} value={r}>
+                  {r}
+                </option>
+              ))}
+            </select>
+          </div>
 
           {/* Modal Actions */}
           <div className="modal-action">

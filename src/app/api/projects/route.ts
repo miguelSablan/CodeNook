@@ -36,7 +36,7 @@ export async function POST(req: Request) {
   const session = await getServerSession(authOptions);
 
   const body = await req.json();
-  const { title, description, tags } = body;
+  const { title, description, tags, role } = body;
 
   if (!session || !session.user?.id) {
     return NextResponse.json(
@@ -51,6 +51,7 @@ export async function POST(req: Request) {
         title,
         description,
         tags,
+        role,
         author: {
           connect: { id: session.user?.id }, // Links to the author
         },
