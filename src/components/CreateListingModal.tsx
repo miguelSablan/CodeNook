@@ -5,7 +5,7 @@ const listingSchema = z.object({
   title: z.string().min(1, "Title is required"),
   description: z.string().min(1, "Description is required"),
   tags: z.array(z.string()).min(1, "Tags are required"),
-  role: z.string().min(1, "Role is required"),
+  // role: z.string().min(1, "Role is required"),
 });
 
 type ListingData = z.infer<typeof listingSchema>;
@@ -15,7 +15,7 @@ const CreateListingModal = () => {
   const [description, setDescription] = useState("");
   const [tags, setTags] = useState<string[]>([]);
   const [newTag, setNewTag] = useState("");
-  const [role, setRole] = useState("");
+  // const [role, setRole] = useState("");
 
   const handleAddTag = () => {
     if (newTag.trim() && !tags.includes(newTag.trim())) {
@@ -35,7 +35,7 @@ const CreateListingModal = () => {
       title,
       description,
       tags,
-      role,
+      // role,
     };
 
     const validation = listingSchema.safeParse(formData);
@@ -46,12 +46,39 @@ const CreateListingModal = () => {
       return;
     }
 
-    console.log("New listing:", formData);
+    try {
+      const response = await fetch("/api/projects", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-    if (document) {
-      (
-        document.getElementById("create_listing_modal") as HTMLDialogElement
-      ).close();
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("Error creating listing:", errorData.error);
+        return;
+      }
+
+      const createdProject = await response.json();
+      console.log("New listing created:", createdProject);
+
+      // Close the modal after successful creation
+      if (document) {
+        (
+          document.getElementById("create_listing_modal") as HTMLDialogElement
+        ).close();
+      }
+
+      // Reset the form fields
+      setTitle("");
+      setDescription("");
+      setTags([]);
+      setNewTag("");
+      // setRole("");
+    } catch (error) {
+      console.error("Error during fetch:", error);
     }
   };
 
@@ -133,7 +160,7 @@ const CreateListingModal = () => {
           </div>
 
           {/* Role Field */}
-          <div className="form-control">
+          {/* <div className="form-control">
             <label className="label">
               <span className="label-text text-white">Role</span>
             </label>
@@ -144,7 +171,7 @@ const CreateListingModal = () => {
               value={role}
               onChange={(e) => setRole(e.target.value)}
             />
-          </div>
+          </div> */}
 
           {/* Modal Actions */}
           <div className="modal-action">
