@@ -2,16 +2,21 @@
 
 import { ProjectCardSkeleton } from "@/components/ProjectCardSkeleton";
 import Sidebar from "@/components/Sidebar";
+import Image from "next/image";
 import { useState, ChangeEvent, useEffect } from "react";
+import { format } from "date-fns";
+import CreateListingModal from "@/components/CreateListingModal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 interface Author {
   name: string;
-  avatarUrl: string;
+  image: string;
 }
 
 interface Project {
   id: number;
-  date: string;
+  createdAt: string;
   title: string;
   description: string;
   tags: string[];
@@ -19,148 +24,30 @@ interface Project {
   author: Author;
 }
 
-const projects: Project[] = [
-  {
-    id: 1,
-    date: "Jan 14, 2024",
-    title: "MindSync: Neural Interface Project",
-    description:
-      "Join our team to develop MindSync, a groundbreaking neural interface project aiming to enhance cognitive interaction and immersive experiences. We are seeking Frontend Developers to collaborate with neuroscientists and engineers to pioneer the future of human-computer interfaces.",
-    tags: ["React", "TypeScript", "Node.js"],
-    role: "Frontend Developer",
-    author: {
-      name: "Alice Nguyen",
-      avatarUrl:
-        "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
-    },
-  },
-  {
-    id: 2,
-    date: "Jan 12, 2024",
-    title: "EcoEats: Eco-Friendly Delivery Platform",
-    description:
-      "Join EcoEats to develop a sustainable eco-friendly delivery platform, promoting green consumer habits and integrating carbon footprint tracking. We are seeking Full Stack Developers to help revolutionize the food delivery industry with innovative green technology solutions.",
-    tags: ["Vue", "Node.js", "Express.js"],
-    role: "Full Stack Developer",
-    author: {
-      name: "Bob Smith",
-      avatarUrl:
-        "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
-    },
-  },
-  {
-    id: 3,
-    date: "Jan 11, 2024",
-    title: "NeuroSpark: AI-powered Analytics Dashboard",
-    description:
-      "Build NeuroSpark, an AI-powered analytics dashboard to automate data insights and visualize predictive analytics for business intelligence. We are seeking Backend Developers to empower businesses with actionable insights and data-driven decision-making capabilities.",
-    tags: ["Python", "Flask"],
-    role: "Backend Developer",
-    author: {
-      name: "Elena Rodriguez",
-      avatarUrl:
-        "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
-    },
-  },
-  {
-    id: 4,
-    date: "Jan 10, 2024",
-    title: "NomadNest: Remote Work Platform",
-    description:
-      "Develop NomadNest, a global remote work platform fostering collaboration and interactive workspaces. We are seeking Frontend Developers to connect remote workers worldwide and create a seamless virtual office environment.",
-    tags: ["Angular", "Node.js"],
-    role: "Frontend Developer",
-    author: {
-      name: "Michael Johnson",
-      avatarUrl:
-        "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
-    },
-  },
-  {
-    id: 5,
-    date: "Jan 9, 2024",
-    title: "GenoQuest: Genetic Research App",
-    description:
-      "Create GenoQuest, a genetic research app exploring genomic data and developing tools for genomic analysis. We are seeking iOS Developers to contribute to advancements in genetic research and personalized medicine.",
-    tags: ["Swift", "SwiftUI"],
-    role: "iOS Developer",
-    author: {
-      name: "Sophie Brown",
-      avatarUrl:
-        "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
-    },
-  },
-  {
-    id: 6,
-    date: "Jan 8, 2024",
-    title: "HealthHub: Personal Wellness Tracker",
-    description:
-      "Develop HealthHub, a personal wellness tracker app to monitor health metrics and track fitness goals. We are seeking Frontend Developers to empower users to achieve their health and wellness objectives with personalized insights and analytics.",
-    tags: ["React", "Tailwind"],
-    role: "Frontend Developer",
-    author: {
-      name: "Emma Thompson",
-      avatarUrl:
-        "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
-    },
-  },
-  {
-    id: 7,
-    date: "Jan 7, 2024",
-    title: "CodeLink: Real-time Code Collaboration",
-    description:
-      "Build CodeLink, an online platform for real-time code collaboration and pair programming. We are seeking Full Stack Developers to enhance developer productivity and streamline software development processes with collaborative coding tools.",
-    tags: ["React", "TypeScript", "Node.js", "MongoDB"],
-    role: "Full Stack Developer",
-    author: {
-      name: "Oliver Davis",
-      avatarUrl:
-        "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
-    },
-  },
-  {
-    id: 8,
-    date: "Jan 6, 2024",
-    title: "StreamView: Live Video Streaming App",
-    description:
-      "Develop StreamView, a live video streaming app with interactive viewer engagement features. We are seeking Backend Developers to create dynamic and engaging live streaming experiences for users across different platforms.",
-    tags: ["Node.js", "Express.js"],
-    role: "Backend Developer",
-    author: {
-      name: "Liam Wilson",
-      avatarUrl:
-        "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
-    },
-  },
-  {
-    id: 9,
-    date: "Jan 5, 2024",
-    title: "HealthHero: AI-driven Healthcare Companion",
-    description:
-      "Build HealthHero, an AI-driven healthcare companion app offering AI diagnostics and personalized health recommendations. We are seeking Full Stack Developers to empower users with proactive health monitoring and personalized wellness plans.",
-    tags: ["React Native", "Node.js"],
-    role: "Full Stack Developer",
-    author: {
-      name: "Sophia Clark",
-      avatarUrl:
-        "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
-    },
-  },
-];
-
 const Projects = () => {
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [filteredProjects, setFilteredProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [selectedTechnology, setSelectedTechnology] = useState<string>("");
   const [selectedRole, setSelectedRole] = useState<string>("");
-  const [filteredProjects, setFilteredProjects] = useState<Project[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    // Simulate API call
-    setTimeout(() => {
-      setFilteredProjects(projects);
-      setLoading(false);
-    }, 2000);
+    const fetchProjects = async () => {
+      try {
+        const response = await fetch("/api/projects");
+        const data: Project[] = await response.json();
+
+        setProjects(data);
+        setFilteredProjects(data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching projects:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchProjects();
   }, []);
 
   const handleTechnologyChange = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -188,6 +75,15 @@ const Projects = () => {
     setFilteredProjects(projects);
   };
 
+  const handleCreate = () => {
+    const modal = document.getElementById(
+      "create_listing_modal"
+    ) as HTMLFormElement;
+    if (modal) {
+      modal.showModal();
+    }
+  };
+
   const filterProjects = (tech: string, query: string, role: string) => {
     const filtered: Project[] = projects.filter((project) => {
       const techMatch: boolean = tech ? project.tags.includes(tech) : true;
@@ -211,7 +107,13 @@ const Projects = () => {
     <div className="h-screen flex md:flex-row">
       <Sidebar />
       <div className="bg-[#242323] flex flex-col flex-1 p-4 pt-20 md:p-7">
-        <h1 className="text-white text-4xl p-4 font-bold">Projects</h1>
+        <div className="flex justify-between items-center">
+          <h1 className="text-white text-4xl p-4 font-bold">Projects</h1>
+          <button className="btn btn-primary" onClick={() => handleCreate()}>
+            <FontAwesomeIcon icon={faPlus} color="white" />
+            Create Listing
+          </button>
+        </div>
 
         <div className="flex flex-col md:flex-row p-4 gap-3">
           <button className="btn btn-primary" onClick={handleResetFilters}>
@@ -312,16 +214,32 @@ const Projects = () => {
                 <h2 className="text-2xl font-bold mb-2">{project.title}</h2>
 
                 <div className="flex items-center mb-2">
-                  <img
-                    src={project.author.avatarUrl}
-                    alt={project.author.name}
-                    className="w-10 h-10 rounded-full mr-3"
-                  />
+                  <div className="w-10 h-10 rounded-full mr-3">
+                    {project.author.image ? (
+                      <Image
+                        src={project.author.image}
+                        className="rounded-full"
+                        alt={`${project.author.name}'s avatar`}
+                        height="128"
+                        width="128"
+                        priority
+                        layout="intrinsic"
+                      />
+                    ) : (
+                      <div className="rounded-full bg-blue-500 h-full w-full text-white text-lg leading-[128px] flex items-center justify-center">
+                        <span className="text-white">
+                          {project.author.name?.charAt(0).toUpperCase()}
+                        </span>
+                      </div>
+                    )}
+                  </div>
                   <div>
                     <p className="text-sm font-semibold">
                       {project.author.name}
                     </p>
-                    <p className="text-sm text-gray-400">{project.date}</p>
+                    <p className="text-sm text-gray-400">
+                      {format(new Date(project.createdAt), "MMM dd, yyyy")}
+                    </p>
                   </div>
                 </div>
 
@@ -344,6 +262,8 @@ const Projects = () => {
             ))}
           </div>
         )}
+
+        <CreateListingModal />
       </div>
     </div>
   );

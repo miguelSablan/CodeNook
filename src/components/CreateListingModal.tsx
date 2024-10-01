@@ -10,6 +10,16 @@ const listingSchema = z.object({
 
 type ListingData = z.infer<typeof listingSchema>;
 
+const roles = [
+  "Frontend Developer",
+  "Backend Developer",
+  "Fullstack Developer",
+  "UI/UX Designer",
+  "Project Manager",
+  "Game Developer",
+  "Mobile App Developer"
+];
+
 const CreateListingModal = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -46,12 +56,39 @@ const CreateListingModal = () => {
       return;
     }
 
-    console.log("New listing:", formData);
+    try {
+      const response = await fetch("/api/projects", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-    if (document) {
-      (
-        document.getElementById("create_listing_modal") as HTMLDialogElement
-      ).close();
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("Error creating listing:", errorData.error);
+        return;
+      }
+
+      const createdProject = await response.json();
+      console.log("New listing created:", createdProject);
+
+      // Close the modal after successful creation
+      if (document) {
+        (
+          document.getElementById("create_listing_modal") as HTMLDialogElement
+        ).close();
+      }
+
+      // Reset the form fields
+      setTitle("");
+      setDescription("");
+      setTags([]);
+      setNewTag("");
+      setRole("");
+    } catch (error) {
+      console.error("Error during fetch:", error);
     }
   };
 
@@ -137,13 +174,20 @@ const CreateListingModal = () => {
             <label className="label">
               <span className="label-text text-white">Role</span>
             </label>
-            <input
-              type="text"
-              placeholder="Role"
-              className="input input-bordered w-full"
+            <select
+              className="select select-bordered w-full"
               value={role}
               onChange={(e) => setRole(e.target.value)}
-            />
+            >
+              <option value="" disabled>
+                Select a role
+              </option>
+              {roles.map((r, index) => (
+                <option key={index} value={r}>
+                  {r}
+                </option>
+              ))}
+            </select>
           </div>
 
           {/* Modal Actions */}

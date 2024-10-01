@@ -3,9 +3,6 @@
 import Sidebar from "@/components/Sidebar";
 import EditListingModal from "@/components/EditListingModal";
 import ViewApplicantsModal from "@/components/ViewApplicantsModal";
-import CreateListingModal from "@/components/CreateListingModal";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 
 const myListings = [
@@ -107,19 +104,10 @@ const Applications = () => {
     }
   };
 
-  const handleCreate = () => {
-    const modal = document.getElementById(
-      "create_listing_modal"
-    ) as HTMLFormElement;
-    if (modal) {
-      modal.showModal();
-    }
-  };
-
   return (
-    <div className="min-h-screen flex md:flex-row">
+    <div className="h-screen flex md:flex-row">
       <Sidebar />
-      <div className="bg-[#242323] flex flex-1 flex-col p-4 pt-20 md:p-7 min-h-screen text-white">
+      <div className="bg-[#242323] flex flex-1 flex-col p-4 pt-20 md:p-7 text-white">
         <h1 className="text-4xl p-4 font-bold">Applications</h1>
 
         <div className="flex flex-col flex-1 p-4">
@@ -256,13 +244,6 @@ const Applications = () => {
       </div>
       <EditListingModal project={selectedProject} />
       <ViewApplicantsModal applicants={selectedProject?.applicants || []} />
-      <CreateListingModal />
-      <div className="fixed bottom-8 right-8">
-        <button className="btn btn-primary" onClick={() => handleCreate()}>
-          <FontAwesomeIcon icon={faPlus} color="white" />
-          Create Listing
-        </button>
-      </div>
     </div>
   );
 };
