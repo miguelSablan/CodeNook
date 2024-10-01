@@ -2,6 +2,7 @@
 
 import { ProjectCardSkeleton } from "@/components/ProjectCardSkeleton";
 import Sidebar from "@/components/Sidebar";
+import Image from "next/image";
 import { useState, ChangeEvent, useEffect } from "react";
 import { format } from "date-fns";
 
@@ -195,11 +196,25 @@ const Projects = () => {
                 <h2 className="text-2xl font-bold mb-2">{project.title}</h2>
 
                 <div className="flex items-center mb-2">
-                  <img
-                    src={project.author.image}
-                    alt={project.author.name}
-                    className="w-10 h-10 rounded-full mr-3"
-                  />
+                  <div className="w-10 h-10 rounded-full mr-3">
+                    {project.author.image ? (
+                      <Image
+                        src={project.author.image}
+                        className="rounded-full"
+                        alt={`${project.author.name}'s avatar`}
+                        height="128"
+                        width="128"
+                        priority
+                        layout="intrinsic"
+                      />
+                    ) : (
+                      <div className="rounded-full bg-blue-500 h-full w-full text-white text-lg leading-[128px] flex items-center justify-center">
+                        <span className="text-white">
+                          {project.author.name?.charAt(0).toUpperCase()}
+                        </span>
+                      </div>
+                    )}
+                  </div>
                   <div>
                     <p className="text-sm font-semibold">
                       {project.author.name}
