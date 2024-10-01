@@ -1,7 +1,10 @@
 interface Applicant {
   id: number;
-  name: string;
-  profilePic: string;
+  user: {
+    id: string;
+    name: string;
+    image: string;
+  };
 }
 
 interface ViewApplicantsModalProps {
@@ -28,13 +31,15 @@ function ViewApplicantsModal({ applicants }: ViewApplicantsModalProps) {
                   className="flex items-center p-3 bg-gray-800 rounded-lg"
                 >
                   <img
-                    src={applicant.profilePic}
-                    alt={applicant.name}
+                    src={applicant.user.image}
+                    alt={`${applicant.user.name}'s avatar`}
                     className="w-12 h-12 rounded-full mr-4"
                   />
-                  <p className="text-white text-lg font-semibold flex-1">
-                    {applicant.name}
-                  </p>
+                  <div className="flex flex-col flex-1">
+                    <p className="text-white text-lg font-semibold">
+                      {applicant.user.name}
+                    </p>
+                  </div>
                   <button className="btn btn-neutral ml-4">Accept</button>
                 </li>
               ))}
