@@ -5,6 +5,9 @@ import Sidebar from "@/components/Sidebar";
 import Image from "next/image";
 import { useState, ChangeEvent, useEffect } from "react";
 import { format } from "date-fns";
+import CreateListingModal from "@/components/CreateListingModal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 interface Author {
   name: string;
@@ -72,6 +75,15 @@ const Projects = () => {
     setFilteredProjects(projects);
   };
 
+  const handleCreate = () => {
+    const modal = document.getElementById(
+      "create_listing_modal"
+    ) as HTMLFormElement;
+    if (modal) {
+      modal.showModal();
+    }
+  };
+
   const filterProjects = (tech: string, query: string, role: string) => {
     const filtered: Project[] = projects.filter((project) => {
       const techMatch: boolean = tech ? project.tags.includes(tech) : true;
@@ -95,7 +107,13 @@ const Projects = () => {
     <div className="h-screen flex md:flex-row">
       <Sidebar />
       <div className="bg-[#242323] flex flex-col flex-1 p-4 pt-20 md:p-7">
-        <h1 className="text-white text-4xl p-4 font-bold">Projects</h1>
+        <div className="flex justify-between items-center">
+          <h1 className="text-white text-4xl p-4 font-bold">Projects</h1>
+          <button className="btn btn-primary" onClick={() => handleCreate()}>
+            <FontAwesomeIcon icon={faPlus} color="white" />
+            Create Listing
+          </button>
+        </div>
 
         <div className="flex flex-col md:flex-row p-4 gap-3">
           <button className="btn btn-primary" onClick={handleResetFilters}>
@@ -244,6 +262,8 @@ const Projects = () => {
             ))}
           </div>
         )}
+
+        <CreateListingModal />
       </div>
     </div>
   );
