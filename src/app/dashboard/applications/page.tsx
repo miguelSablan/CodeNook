@@ -281,7 +281,7 @@ const Applications = () => {
           </div>
         </div>
       </div>
-      {/* <EditListingModal project={selectedProject} /> */}
+      <EditListingModal project={selectedProject} />
       <ViewApplicantsModal applicants={selectedProject?.applications || []} />
     </div>
   );
