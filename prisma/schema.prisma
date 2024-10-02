@@ -37,9 +37,9 @@ model Session {
 model Application {
   id           String   @id @default(cuid())
   userId       String 
-  user         User     @relation(fields: [userId], references: [id])
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)  
   projectId    String  
-  project      Project  @relation(fields: [projectId], references: [id])
+  project      Project  @relation(fields: [projectId], references: [id], onDelete: Cascade) 
   appliedAt    DateTime @default(now())
 }
 
@@ -70,7 +70,7 @@ model Project {
   tags          String[]
   role          String
   authorId      String
-  author        User      @relation("ProjectOwner", fields: [authorId], references: [id])
+  author        User      @relation("ProjectOwner", fields: [authorId], references: [id], onDelete: Cascade)
   applications  Application[]  // Track applications for the project
 }
 
