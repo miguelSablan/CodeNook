@@ -13,7 +13,7 @@ type ListingData = z.infer<typeof listingSchema>;
 const roles = [
   "Frontend Developer",
   "Backend Developer",
-  "Fullstack Developer",
+  "Full Stack Developer",
   "UI/UX Designer",
   "Project Manager",
   "Game Developer",

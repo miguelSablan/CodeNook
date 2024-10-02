@@ -32,7 +32,7 @@ type ProjectData = z.infer<typeof projectSchema>;
 const roles = [
   "Frontend Developer",
   "Backend Developer",
-  "Fullstack Developer",
+  "Full Stack Developer",
   "UI/UX Designer",
   "Project Manager",
   "Game Developer",
