@@ -226,8 +226,17 @@ const Projects = () => {
             ))}
           </div>
         ) : filteredProjects.length === 0 ? (
-          <div className="text-white text-center py-10 flex items-center justify-center w-full">
-            No projects found.
+          <div className="text-white text-center py-10 flex flex-col items-center justify-center w-full">
+            <p className="text-lg font-bold">Hmmm... nothing here!</p>
+            <div className="relative w-80 h-80">
+              <Image
+                src="/noresultsfound.png"
+                className="object-contain"
+                alt="no results found"
+                priority
+                layout="fill"
+              />
+            </div>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 overflow-y-auto project-scrollbar">
