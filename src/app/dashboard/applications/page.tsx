@@ -34,84 +34,28 @@ type Project = {
   applications?: Applicant[];
 };
 
-// const myListings = [
-//   {
-//     id: 1,
-//     date: "Jan 14, 2024",
-//     title: "MindSync: Neural Interface Project",
-//     description:
-//       "Join our team to develop MindSync, a groundbreaking neural interface project aiming to enhance cognitive interaction and immersive experiences. We are seeking Frontend Developers to collaborate with neuroscientists and engineers to pioneer the future of human-computer interfaces.",
-//     tags: ["React", "TypeScript", "Node.js"],
-//     role: "Frontend Developer",
-//     author: {
-//       name: "Alice Nguyen",
-//       avatarUrl:
-//         "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
-//     },
-//     applicants: [
-//       {
-//         id: 1,
-//         name: "John Doe",
-//         profilePic:
-//           "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
-//       },
-//       {
-//         id: 2,
-//         name: "Jane Smith",
-//         profilePic:
-//           "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
-//       },
-//     ],
-//   },
-//   {
-//     id: 2,
-//     date: "Jan 12, 2024",
-//     title: "EcoEats: Eco-Friendly Delivery Platform",
-//     description:
-//       "Join EcoEats to develop a sustainable eco-friendly delivery platform, promoting green consumer habits and integrating carbon footprint tracking. We are seeking Full Stack Developers to help revolutionize the food delivery industry with innovative green technology solutions.",
-//     tags: ["Vue", "Node.js", "Express.js"],
-//     role: "Full Stack Developer",
-//     author: {
-//       name: "Bob Smith",
-//       avatarUrl:
-//         "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
-//     },
-//   },
-// ];
-
-// const myApplications = [
-//   {
-//     id: 1,
-//     date: "Jan 15, 2024",
-//     title: "Project Alpha: AI Research Initiative",
-//     description:
-//       "Contribute to Project Alpha, focusing on cutting-edge AI research and development. We are looking for Research Scientists to advance our AI capabilities.",
-//     tags: ["Python", "TensorFlow", "AI"],
-//     role: "Research Scientist",
-//     author: {
-//       name: "Eve Carter",
-//       avatarUrl:
-//         "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
-//     },
-//   },
-//   {
-//     id: 2,
-//     date: "Jan 13, 2024",
-//     title: "TechVentures: Startup Incubator Program",
-//     description:
-//       "Join TechVentures to participate in our startup incubator program, supporting innovative startups with cutting-edge technologies. We need Business Analysts and Product Managers.",
-//     tags: ["JavaScript", "Startup", "Product Management"],
-//     role: "Product Manager",
-//     author: {
-//       name: "Frank Miller",
-//       avatarUrl:
-//         "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
-//     },
-//   },
-// ];
+interface Application {
+  id: string;
+  userId: string;
+  projectId: string;
+  appliedAt: string;
+  project: {
+    id: string;
+    createdAt: string;
+    title: string;
+    description: string;
+    tags: string[];
+    author: {
+      id: string;
+      name: string;
+      image: string;
+    };
+  };
+}
 
 const Applications = () => {
   const [projects, setProjects] = useState<any[]>([]);
+  const [applications, setApplications] = useState<any[]>([]);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   const { data: session } = useSession();
@@ -147,7 +91,19 @@ const Applications = () => {
     };
 
     fetchProjects();
-  }, [projects, session]);
+  }, [session]);
+
+  useEffect(() => {
+    const fetchApplications = async () => {
+      if (session) {
+        const response = await fetch(`/api/apply`);
+        const data = await response.json();
+        setApplications(data);
+      }
+    };
+
+    fetchApplications();
+  }, [session]);
 
   return (
     <div className="h-screen flex md:flex-row">
@@ -256,49 +212,70 @@ const Applications = () => {
               />
 
               <div role="tabpanel" className="tab-content">
-                {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 overflow-y-auto project-scrollbar">
-                  {myApplications.map((project) => (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 overflow-y-auto project-scrollbar">
+                  {applications.map((application: Application) => (
                     <div
-                      key={project.id}
+                      key={application.id}
                       className="bg-[#2c2c2c] text-white rounded-box p-5 cursor-pointer shadow-md flex flex-col border border-gray-900 hover:border-gray-400 transition"
                     >
                       <h2 className="text-2xl font-bold mb-2">
-                        {project.title}
+                        {application.project.title}
                       </h2>
 
                       <div className="flex items-center mb-2">
-                        <img
-                          src={project.author.avatarUrl}
-                          alt={project.author.name}
-                          className="w-10 h-10 rounded-full mr-3"
-                        />
+                        <div className="w-10 h-10 rounded-full mr-3">
+                          {application.project.author.image ? (
+                            <Image
+                              src={application.project.author.image}
+                              className="rounded-full"
+                              alt={`${application.project.author.name}'s avatar`}
+                              height="128"
+                              width="128"
+                              priority
+                              layout="intrinsic"
+                            />
+                          ) : (
+                            <div className="rounded-full bg-blue-500 h-full w-full text-white text-lg leading-[128px] flex items-center justify-center">
+                              <span className="text-white">
+                                {application.project.author.name
+                                  ?.charAt(0)
+                                  .toUpperCase()}
+                              </span>
+                            </div>
+                          )}
+                        </div>
                         <div>
                           <p className="text-sm font-semibold">
-                            {project.author.name}
+                            {application.project.author.name}
                           </p>
                           <p className="text-sm text-gray-400">
-                            {project.date}
+                            {format(
+                              new Date(application.project.createdAt),
+                              "MMM dd, yyyy"
+                            )}
                           </p>
                         </div>
                       </div>
 
                       <p className="text-gray-300 mb-3">
-                        {project.description}
+                        {application.project.description}
                       </p>
 
                       <div className="mb-3">
-                        {project.tags.map((tag, index) => (
-                          <span
-                            key={index}
-                            className="badge badge-ghost text-sm mr-2 mb-2"
-                          >
-                            {tag}
-                          </span>
-                        ))}
+                        {application.project.tags.map(
+                          (tag: string, index: number) => (
+                            <span
+                              key={index}
+                              className="badge badge-ghost text-sm mr-2 mb-2"
+                            >
+                              {tag}
+                            </span>
+                          )
+                        )}
                       </div>
                     </div>
                   ))}
-                </div> */}
+                </div>
               </div>
             </div>
           </div>

@@ -75,3 +75,45 @@ export async function POST(req: Request) {
     );
   }
 }
+
+export async function GET(req: Request) {
+  const session = await getServerSession(authOptions);
+
+  // Check if user is authenticated
+  if (!session || !session.user?.id) {
+    return NextResponse.json(
+      { error: "User not authenticated" },
+      { status: 401 }
+    );
+  }
+
+  try {
+    // Fetch applications for the authenticated user
+    const applications = await prisma.application.findMany({
+      where: {
+        userId: session.user.id,
+      },
+      include: {
+        project: {
+          include: {
+            author: {
+              select: {
+                id: true,
+                name: true,
+                image: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    return NextResponse.json(applications, { status: 200 });
+  } catch (error) {
+    console.error("Error fetching applications:", error);
+    return NextResponse.json(
+      { error: "Error fetching applications" },
+      { status: 500 }
+    );
+  }
+}
