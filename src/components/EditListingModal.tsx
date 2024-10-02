@@ -3,12 +3,12 @@ import { z } from "zod";
 
 interface Author {
   name: string;
-  avatarUrl: string;
+  image: string;
 }
 
 interface Project {
   id: number;
-  date: string;
+  createdAt: string;
   title: string;
   description: string;
   tags: string[];
@@ -28,6 +28,16 @@ const projectSchema = z.object({
 });
 
 type ProjectData = z.infer<typeof projectSchema>;
+
+const roles = [
+  "Frontend Developer",
+  "Backend Developer",
+  "Fullstack Developer",
+  "UI/UX Designer",
+  "Project Manager",
+  "Game Developer",
+  "Mobile App Developer",
+];
 
 function EditListingModal({ project }: EditListingModalProps) {
   const [title, setTitle] = useState("");
@@ -165,13 +175,20 @@ function EditListingModal({ project }: EditListingModalProps) {
             <label className="label">
               <span className="label-text text-white">Role</span>
             </label>
-            <input
-              type="text"
-              placeholder="Role"
-              className="input input-bordered w-full"
+            <select
+              className="select select-bordered w-full"
               value={role}
               onChange={(e) => setRole(e.target.value)}
-            />
+            >
+              <option value="" disabled>
+                Select a role
+              </option>
+              {roles.map((r, index) => (
+                <option key={index} value={r}>
+                  {r}
+                </option>
+              ))}
+            </select>
           </div>
 
           {/* Modal Actions */}

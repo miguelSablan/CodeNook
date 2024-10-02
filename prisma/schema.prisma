@@ -34,6 +34,15 @@ model Session {
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+model Application {
+  id           String   @id @default(cuid())
+  userId       String 
+  user         User     @relation(fields: [userId], references: [id])
+  projectId    String  
+  project      Project  @relation(fields: [projectId], references: [id])
+  appliedAt    DateTime @default(now())
+}
+
 model User {
   id            String    @id @default(cuid())
   username      String?   @unique
@@ -48,7 +57,8 @@ model User {
   skills        String[]
   accounts      Account[]
   sessions      Session[]
-  projects      Project[]
+  applications  Application[]  // Track applications the user made
+  projects      Project[]   @relation("ProjectOwner") // Projects owned by the user
 }
 
 model Project {
@@ -60,7 +70,8 @@ model Project {
   tags          String[]
   role          String
   authorId      String
-  author        User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  author        User      @relation("ProjectOwner", fields: [authorId], references: [id])
+  applications  Application[]  // Track applications for the project
 }
 
 model VerificationToken {
