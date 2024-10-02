@@ -105,11 +105,11 @@ const CreateListingModal = () => {
           {/* Title Field */}
           <div className="form-control">
             <label className="label">
-              <span className="label-text text-white">Title</span>
+              <span className="label-text text-white">Project Title</span>
             </label>
             <input
               type="text"
-              placeholder="Title"
+              placeholder="Enter the title of your project"
               className="input input-bordered w-full text-black"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
@@ -119,10 +119,10 @@ const CreateListingModal = () => {
           {/* Description Field */}
           <div className="form-control">
             <label className="label">
-              <span className="label-text text-white">Description</span>
+              <span className="label-text text-white">Project Description</span>
             </label>
             <textarea
-              placeholder="Enter a brief description"
+              placeholder="Briefly describe your project"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               className="textarea textarea-bordered w-full text-black"
@@ -132,12 +132,12 @@ const CreateListingModal = () => {
           {/* Tags Field */}
           <div className="form-control">
             <label className="label">
-              <span className="label-text text-white">Tags</span>
+              <span className="label-text text-white">Skill Tags</span>
             </label>
             <div className="flex items-center space-x-2">
               <input
                 type="text"
-                placeholder="Add Tag"
+                placeholder="Add relevant tags (e.g., React, Python)"
                 className="input input-bordered flex-grow text-black"
                 value={newTag}
                 onChange={(e) => setNewTag(e.target.value)}
@@ -180,7 +180,7 @@ const CreateListingModal = () => {
               onChange={(e) => setRole(e.target.value)}
             >
               <option value="" disabled>
-                Select a role
+                Select the role you are looking to fill
               </option>
               {roles.map((r, index) => (
                 <option key={index} value={r}>
