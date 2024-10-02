@@ -17,7 +17,7 @@ const roles = [
   "UI/UX Designer",
   "Project Manager",
   "Game Developer",
-  "Mobile App Developer"
+  "Mobile App Developer",
 ];
 
 const CreateListingModal = () => {
@@ -110,7 +110,7 @@ const CreateListingModal = () => {
             <input
               type="text"
               placeholder="Title"
-              className="input input-bordered w-full"
+              className="input input-bordered w-full text-black"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
@@ -125,7 +125,7 @@ const CreateListingModal = () => {
               placeholder="Enter a brief description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="textarea textarea-bordered w-full"
+              className="textarea textarea-bordered w-full text-black"
             ></textarea>
           </div>
 
@@ -138,7 +138,7 @@ const CreateListingModal = () => {
               <input
                 type="text"
                 placeholder="Add Tag"
-                className="input input-bordered flex-grow"
+                className="input input-bordered flex-grow text-black"
                 value={newTag}
                 onChange={(e) => setNewTag(e.target.value)}
               />
@@ -175,7 +175,7 @@ const CreateListingModal = () => {
               <span className="label-text text-white">Role</span>
             </label>
             <select
-              className="select select-bordered w-full"
+              className="select select-bordered w-full text-black"
               value={role}
               onChange={(e) => setRole(e.target.value)}
             >

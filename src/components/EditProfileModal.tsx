@@ -122,7 +122,7 @@ export default function EditProfileModal({
               placeholder="Name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="input input-bordered w-full"
+              className="input input-bordered w-full text-black"
             />
           </div>
 
@@ -136,7 +136,7 @@ export default function EditProfileModal({
               placeholder="Username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="input input-bordered w-full"
+              className="input input-bordered w-full text-black"
             />
           </div>
 
@@ -150,7 +150,7 @@ export default function EditProfileModal({
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="input input-bordered w-full"
+              className="input input-bordered w-full text-black"
             />
           </div>
 
@@ -163,7 +163,7 @@ export default function EditProfileModal({
               placeholder="Enter a brief bio"
               value={bio}
               onChange={(e) => setBio(e.target.value)}
-              className="textarea textarea-bordered w-full"
+              className="textarea textarea-bordered w-full text-black"
             ></textarea>
           </div>
 
@@ -178,7 +178,7 @@ export default function EditProfileModal({
                 placeholder="Add Skills"
                 value={newSkill}
                 onChange={(e) => setNewSkill(e.target.value)}
-                className="input input-bordered flex-grow"
+                className="input input-bordered flex-grow text-black"
               />
               <button
                 type="button"
