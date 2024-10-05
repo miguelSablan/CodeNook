@@ -4,9 +4,12 @@ import Link from "next/link";
 import { faCodeBranch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
+import Avatar from "./Avatar";
 
 const Navbar = () => {
   const [hasScrolled, setHasScrolled] = useState(false);
+  const { data: session } = useSession();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -34,17 +37,27 @@ const Navbar = () => {
         </div>
       </Link>
 
-      <div className="mr-4">
-        <Link className="py-2 mr-3 rounded hover:opacity-75" href="/login">
-          Log in
-        </Link>
-
-        <Link
-          className="rounded-full border border-black bg-primary px-4 py-1.5 text-sm text-white transition-all hover:opacity-75"
-          href="/signup"
-        >
-          Sign Up
-        </Link>
+      <div>
+        {session ? (
+          <Link className="btn btn-ghost" href="/dashboard/projects">
+            <div className="flex gap-3 items-center">
+              Dashboard
+              <Avatar />
+            </div>
+          </Link>
+        ) : (
+          <>
+            <Link className="py-2 mr-3 rounded hover:opacity-75" href="/login">
+              Log in
+            </Link>
+            <Link
+              className="rounded-full border border-black bg-primary px-4 py-1.5 text-sm text-white transition-all hover:opacity-75"
+              href="/signup"
+            >
+              Sign Up
+            </Link>
+          </>
+        )}
       </div>
     </div>
   );

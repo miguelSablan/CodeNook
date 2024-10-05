@@ -21,12 +21,15 @@ const Avatar = () => {
           src={userImage}
           className="rounded-full"
           alt={`${userName}'s avatar`}
-          height="128"
-          width="128"
+          height={40}
+          width={40}
           priority
         />
       ) : (
-        <div className="rounded-full bg-blue-500 h-full w-full text-white text-lg leading-[128px] flex items-center justify-center">
+        <div
+          className="rounded-full bg-blue-500 h-full w-full text-white text-lg flex items-center justify-center"
+          aria-label={`${userName}'s avatar`}
+        >
           <span className="text-white">{userName.charAt(0).toUpperCase()}</span>
         </div>
       )}
