@@ -35,9 +35,9 @@ export default function EditProfileModal({
   const [bio, setBio] = useState(userBio);
   const [skills, setSkills] = useState<string[]>(userSkills);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
   const [newSkill, setNewSkill] = useState("");
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [success, setSuccess] = useState<string | null>(null);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -50,15 +50,19 @@ export default function EditProfileModal({
       skills,
     };
 
-    // Validate form data
     const validation = profileSchema.safeParse(formData);
+
     if (!validation.success) {
-      setError(validation.error.errors.map(err => err.message).join(", "));
+      const fieldErrors: Record<string, string> = {};
+      validation.error.errors.forEach((error) => {
+        fieldErrors[error.path[0] as string] = error.message;
+      });
+      setErrors(fieldErrors);
       return;
     }
 
     setLoading(true);
-    setError(null);
+    setErrors({});
     setSuccess(null);
 
     try {
@@ -71,17 +75,13 @@ export default function EditProfileModal({
       });
 
       if (response.ok) {
-        const updatedProfile = await response.json();
-        console.log("Profile updated successfully:", updatedProfile);
         setSuccess("Profile updated successfully!");
       } else {
         const errorData = await response.json();
-        console.error("Failed to update profile:", errorData);
-        setError(errorData.error || "Failed to update profile");
+        setErrors({ general: errorData.error || "Failed to update profile" });
       }
     } catch (error) {
-      console.error("Error updating profile:", error);
-      setError("An error occurred while updating the profile.");
+      setErrors({ general: "An error occurred while updating the profile." });
     } finally {
       setLoading(false);
     }
@@ -108,8 +108,7 @@ export default function EditProfileModal({
         </form>
         <h3 className="font-bold text-xl text-white">Edit Profile</h3>
         <div className="space-y-4">
-          {/* Error and Success Messages */}
-          {error && <p className="text-error">{error}</p>}
+          {errors.general && <p className="text-error">{errors.general}</p>}
           {success && <p className="text-success">{success}</p>}
 
           {/* Name Field */}
@@ -122,8 +121,11 @@ export default function EditProfileModal({
               placeholder="Name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="input input-bordered w-full text-black"
+              className="input input-bordered input-primary w-full bg-transparent focus:outline-none"
             />
+            {errors.name && (
+              <p className="text-red-500 text-sm mt-1">{errors.name}</p>
+            )}
           </div>
 
           {/* Username Field */}
@@ -136,8 +138,11 @@ export default function EditProfileModal({
               placeholder="Username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="input input-bordered w-full text-black"
+              className="input input-bordered input-primary w-full bg-transparent focus:outline-none"
             />
+            {errors.username && (
+              <p className="text-red-500 text-sm mt-1">{errors.username}</p>
+            )}
           </div>
 
           {/* Email Field */}
@@ -150,8 +155,11 @@ export default function EditProfileModal({
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="input input-bordered w-full text-black"
+              className="input input-bordered input-primary w-full bg-transparent focus:outline-none"
             />
+            {errors.email && (
+              <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+            )}
           </div>
 
           {/* Bio Field */}
@@ -163,7 +171,7 @@ export default function EditProfileModal({
               placeholder="Enter a brief bio"
               value={bio}
               onChange={(e) => setBio(e.target.value)}
-              className="textarea textarea-bordered w-full text-black"
+              className="textarea textarea-bordered textarea-primary w-full bg-transparent h-32 resize-none focus:outline-none"
             ></textarea>
           </div>
 
@@ -178,7 +186,7 @@ export default function EditProfileModal({
                 placeholder="Add Skills"
                 value={newSkill}
                 onChange={(e) => setNewSkill(e.target.value)}
-                className="input input-bordered flex-grow text-black"
+                className="input input-bordered input-primary flex-grow bg-transparent focus:outline-none"
               />
               <button
                 type="button"
@@ -192,9 +200,9 @@ export default function EditProfileModal({
               {skills.map((skill, index) => (
                 <div
                   key={index}
-                  className="inline-flex items-center px-2 py-1 bg-gray-700 rounded-lg"
+                  className="inline-flex items-center px-3 py-1 bg-primary rounded-full cursor-pointer text-sm"
                 >
-                  <span className="text-white">{skill}</span>
+                  <span>{skill}</span>
                   <button
                     type="button"
                     className="ml-2 text-white"
@@ -207,7 +215,6 @@ export default function EditProfileModal({
             </div>
           </div>
 
-          {/* Modal Actions */}
           <div className="modal-action">
             <button
               type="button"

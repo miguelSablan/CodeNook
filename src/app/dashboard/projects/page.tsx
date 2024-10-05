@@ -7,7 +7,7 @@ import { useState, ChangeEvent, useEffect } from "react";
 import { format } from "date-fns";
 import CreateListingModal from "@/components/CreateListingModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
 
 interface Author {
   name: string;
@@ -135,7 +135,7 @@ const Projects = () => {
         <div className="flex justify-between items-center">
           <h1 className="text-white text-4xl p-4 font-bold">Projects</h1>
           <button className="btn btn-primary" onClick={() => handleCreate()}>
-            <FontAwesomeIcon icon={faPlus} color="white" />
+            <FontAwesomeIcon icon={faEdit} color="white" />
             Create Listing
           </button>
         </div>
