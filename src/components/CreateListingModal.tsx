@@ -4,7 +4,7 @@ import { z } from "zod";
 const listingSchema = z.object({
   title: z.string().min(1, "Title is required"),
   description: z.string().min(1, "Description is required"),
-  tags: z.array(z.string()).min(1, "Tags are required"),
+  tags: z.array(z.string()).min(1, "At least one tag is required"),
   role: z.string().min(1, "Role is required"),
 });
 
@@ -27,6 +27,13 @@ const CreateListingModal = () => {
   const [newTag, setNewTag] = useState("");
   const [role, setRole] = useState("");
 
+  // Error state for individual fields
+  const [titleError, setTitleError] = useState("");
+  const [descriptionError, setDescriptionError] = useState("");
+  const [tagsError, setTagsError] = useState("");
+  const [roleError, setRoleError] = useState("");
+
+  // Add tag functionality
   const handleAddTag = () => {
     if (newTag.trim() && !tags.includes(newTag.trim())) {
       setTags([...tags, newTag.trim()]);
@@ -34,6 +41,7 @@ const CreateListingModal = () => {
     }
   };
 
+  // Remove tag functionality
   const handleRemoveTag = (tagToRemove: string) => {
     setTags(tags.filter((tag) => tag !== tagToRemove));
   };
@@ -49,10 +57,33 @@ const CreateListingModal = () => {
     };
 
     const validation = listingSchema.safeParse(formData);
+
     if (!validation.success) {
-      console.error(
-        validation.error.errors.map((err) => err.message).join(", ")
-      );
+      // Reset all error states
+      setTitleError("");
+      setDescriptionError("");
+      setTagsError("");
+      setRoleError("");
+
+      // Set specific error messages based on validation errors
+      validation.error.errors.forEach((err) => {
+        switch (err.path[0]) {
+          case "title":
+            setTitleError(err.message);
+            break;
+          case "description":
+            setDescriptionError(err.message);
+            break;
+          case "tags":
+            setTagsError(err.message);
+            break;
+          case "role":
+            setRoleError(err.message);
+            break;
+          default:
+            break;
+        }
+      });
       return;
     }
 
@@ -75,10 +106,11 @@ const CreateListingModal = () => {
       console.log("New listing created:", createdProject);
 
       // Close the modal after successful creation
-      if (document) {
-        (
-          document.getElementById("create_listing_modal") as HTMLDialogElement
-        ).close();
+      const modal = document.getElementById(
+        "create_listing_modal"
+      ) as HTMLDialogElement;
+      if (modal) {
+        modal.close();
       }
 
       // Reset the form fields
@@ -87,6 +119,10 @@ const CreateListingModal = () => {
       setTags([]);
       setNewTag("");
       setRole("");
+      setTitleError("");
+      setDescriptionError("");
+      setTagsError("");
+      setRoleError("");
     } catch (error) {
       console.error("Error during fetch:", error);
     }
@@ -100,45 +136,60 @@ const CreateListingModal = () => {
             ✕
           </button>
         </form>
-        <h3 className="font-bold text-xl text-white">Create New Listing</h3>
+        <h3 className="font-bold text-2xl">Launch your Project</h3>
+        <p className="text-sm text-gray-400">
+          Share your project to connect with developers.
+        </p>
         <div className="space-y-4">
           {/* Title Field */}
           <div className="form-control">
             <label className="label">
-              <span className="label-text text-white">Project Title</span>
+              <span className="label-text">Project Title</span>
             </label>
             <input
               type="text"
-              placeholder="Enter the title of your project"
-              className="input input-bordered w-full text-black"
+              placeholder="Enter your project title"
+              className={`input input-bordered input-primary w-full bg-transparent focus:outline-none ${
+                titleError && "input-error"
+              }`}
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
+            {titleError && (
+              <p className="text-red-500 text-sm mt-1">{titleError}</p>
+            )}
           </div>
 
           {/* Description Field */}
           <div className="form-control">
             <label className="label">
-              <span className="label-text text-white">Project Description</span>
+              <span className="label-text">Project Description</span>
             </label>
             <textarea
-              placeholder="Briefly describe your project"
+              placeholder="Provide a brief overview of your project"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="textarea textarea-bordered w-full text-black"
+              className={`textarea textarea-bordered textarea-primary w-full bg-transparent h-36 resize-none focus:outline-none ${
+                descriptionError && "textarea-error"
+              }`}
             ></textarea>
+            {descriptionError && (
+              <p className="text-red-500 text-sm mt-1">{descriptionError}</p>
+            )}
           </div>
 
           {/* Tags Field */}
           <div className="form-control">
             <label className="label">
-              <span className="label-text text-white">Skill Tags</span>
+              <span className="label-text">Skill Tags</span>
             </label>
             <div className="flex items-center space-x-2">
               <input
                 type="text"
                 placeholder="Add relevant tags (e.g., React, Python)"
-                className="input input-bordered flex-grow text-black"
+                className={`input input-bordered input-primary flex-grow bg-transparent focus:outline-none ${
+                  tagsError && "input-error"
+                }`}
                 value={newTag}
                 onChange={(e) => setNewTag(e.target.value)}
               />
@@ -150,13 +201,16 @@ const CreateListingModal = () => {
                 Add
               </button>
             </div>
+            {tagsError && (
+              <p className="text-red-500 text-sm mt-1">{tagsError}</p>
+            )}
             <div className="mt-2 space-x-2">
               {tags.map((tag, index) => (
                 <div
                   key={index}
-                  className="inline-flex items-center px-2 py-1 bg-gray-700 rounded-lg"
+                  className="inline-flex items-center px-3 py-1 bg-primary rounded-full cursor-pointer text-sm"
                 >
-                  <span className="text-white">{tag}</span>
+                  <span>{tag}</span>
                   <button
                     type="button"
                     className="ml-2 text-white"
@@ -172,15 +226,17 @@ const CreateListingModal = () => {
           {/* Role Field */}
           <div className="form-control">
             <label className="label">
-              <span className="label-text text-white">Role</span>
+              <span className="label-text">Role</span>
             </label>
             <select
-              className="select select-bordered w-full text-black"
+              className={`select select-bordered select-primary w-full bg-[#242323] focus:outline-none ${
+                roleError && "select-error"
+              }`}
               value={role}
               onChange={(e) => setRole(e.target.value)}
             >
               <option value="" disabled>
-                Select the role you are looking to fill
+                Select the role needed for your project
               </option>
               {roles.map((r, index) => (
                 <option key={index} value={r}>
@@ -188,20 +244,23 @@ const CreateListingModal = () => {
                 </option>
               ))}
             </select>
+            {roleError && (
+              <p className="text-red-500 text-sm mt-1">{roleError}</p>
+            )}
           </div>
 
           {/* Modal Actions */}
-          <div className="modal-action">
+          <div className="modal-action flex w-full">
+            <form method="dialog" className="w-1/2">
+              <button className="btn btn-ghost w-full">Cancel</button>
+            </form>
             <button
               type="button"
-              className="btn btn-primary"
+              className="btn btn-primary w-1/2"
               onClick={handleSubmit}
             >
               Create
             </button>
-            <form method="dialog">
-              <button className="btn btn-secondary">Cancel</button>
-            </form>
           </div>
         </div>
       </div>
