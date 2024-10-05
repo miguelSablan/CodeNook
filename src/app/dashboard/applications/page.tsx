@@ -115,10 +115,11 @@ const Applications = () => {
       <div className="bg-[#242323] flex flex-1 flex-col p-4 pt-20 md:p-7 text-white">
         <h1 className="text-4xl p-4 font-bold">Applications</h1>
 
-        <div className="flex flex-col flex-1 p-4">
+        <div className="flex flex-col flex-1 md:p-4 overflow-hidden">
           {/* Tabs Section */}
-          <div className="overflow-x-auto">
+          <div>
             <div role="tablist" className="tabs tabs-bordered">
+              {/* My Listings Tab */}
               <input
                 type="radio"
                 name="my_tabs_1"
@@ -129,7 +130,7 @@ const Applications = () => {
               />
 
               <div role="tabpanel" className="tab-content">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 overflow-y-auto">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 overflow-y-auto max-h-[calc(100vh-200px)] project-scrollbar">
                   {loadingProjects ? (
                     <div className="col-span-1 md:col-span-2 lg:col-span-3 text-center">
                       <p className="text-lg">Loading...</p>
@@ -217,6 +218,7 @@ const Applications = () => {
                 </div>
               </div>
 
+              {/* My Applications Tab */}
               <input
                 type="radio"
                 name="my_tabs_1"
@@ -226,14 +228,14 @@ const Applications = () => {
               />
 
               <div role="tabpanel" className="tab-content">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 overflow-y-auto project-scrollbar">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 overflow-y-auto max-h-[calc(100vh-200px)] project-scrollbar">
                   {loadingApplications ? (
                     <div className="col-span-1 md:col-span-2 lg:col-span-3 text-center">
                       <p className="text-lg">Loading...</p>
                     </div>
                   ) : applications.length === 0 ? (
                     <div className="col-span-1 md:col-span-2 lg:col-span-3 text-center">
-                      <p className="text-lg">No applications found!</p>
+                      <p className="text-lg">No applications submitted!</p>
                     </div>
                   ) : (
                     applications.map((application: Application) => (
