@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 
 interface Applicant {
   id: number;
@@ -15,7 +16,16 @@ interface ViewApplicantsModalProps {
 }
 
 function ViewApplicantsModal({ applicants }: ViewApplicantsModalProps) {
-  const handleAccept = async (applicationId: any) => {
+  const [loading, setLoading] = useState<number | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleAccept = async (applicationId: number) => {
+    const confirmAccept = window.confirm(
+      "Are you sure you want to accept this applicant?"
+    );
+    if (!confirmAccept) return;
+
+    setLoading(applicationId);
     try {
       const response = await fetch("/api/accept", {
         method: "PUT",
@@ -31,11 +41,11 @@ function ViewApplicantsModal({ applicants }: ViewApplicantsModalProps) {
       if (!response.ok) {
         throw new Error("Failed to update application status");
       }
-
-      const updatedApplication = await response.json();
-      console.log(updatedApplication);
     } catch (error) {
       console.error("Error accepting applicant:", error);
+      setError("Failed to update application status. Please try again.");
+    } finally {
+      setLoading(null);
     }
   };
 
@@ -48,6 +58,7 @@ function ViewApplicantsModal({ applicants }: ViewApplicantsModalProps) {
           </button>
         </form>
         <h3 className="font-bold text-xl text-white">Applicants</h3>
+        {error && <p className="text-red-500">{error}</p>}
         <div className="space-y-4 mt-4">
           {/* Applicants List */}
           {applicants.length > 0 ? (
@@ -89,8 +100,9 @@ function ViewApplicantsModal({ applicants }: ViewApplicantsModalProps) {
                   <button
                     className="btn btn-neutral ml-4"
                     onClick={() => handleAccept(applicant.id)}
+                    disabled={loading === applicant.id}
                   >
-                    Accept
+                    {loading === applicant.id ? "Accepting..." : "Accept"}
                   </button>
                 </li>
               ))}
