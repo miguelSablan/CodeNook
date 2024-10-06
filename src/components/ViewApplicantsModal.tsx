@@ -15,6 +15,30 @@ interface ViewApplicantsModalProps {
 }
 
 function ViewApplicantsModal({ applicants }: ViewApplicantsModalProps) {
+  const handleAccept = async (applicationId: any) => {
+    try {
+      const response = await fetch("/api/accept", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          applicationId: applicationId,
+          status: "accepted",
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to update application status");
+      }
+
+      const updatedApplication = await response.json();
+      console.log(updatedApplication);
+    } catch (error) {
+      console.error("Error accepting applicant:", error);
+    }
+  };
+
   return (
     <dialog id="view_applicants_modal" className="modal">
       <div className="modal-box bg-[#242323] relative">
@@ -62,7 +86,12 @@ function ViewApplicantsModal({ applicants }: ViewApplicantsModalProps) {
                       </p>
                     </div>
                   </Link>
-                  <button className="btn btn-neutral ml-4">Accept</button>
+                  <button
+                    className="btn btn-neutral ml-4"
+                    onClick={() => handleAccept(applicant.id)}
+                  >
+                    Accept
+                  </button>
                 </li>
               ))}
             </ul>
