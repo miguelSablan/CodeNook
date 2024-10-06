@@ -16,6 +16,7 @@ type Author = {
 
 type Applicant = {
   id: number;
+  status: string;
   user: {
     id: string;
     name: string;
