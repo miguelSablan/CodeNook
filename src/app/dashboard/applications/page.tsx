@@ -16,6 +16,7 @@ type Author = {
 
 type Applicant = {
   id: number;
+  status: string;
   user: {
     id: string;
     name: string;
@@ -39,6 +40,7 @@ interface Application {
   userId: string;
   projectId: string;
   appliedAt: string;
+  status: string;
   project: {
     id: string;
     createdAt: string;
@@ -300,13 +302,23 @@ const Applications = () => {
                         </div>
                         <div className="flex-grow"></div>
 
-                        <p className="text-sm text-gray-400">
-                          Applied at:{" "}
-                          {format(
-                            new Date(application.appliedAt),
-                            "MMM dd, yyyy"
-                          )}
-                        </p>
+                        <div className="flex justify-between">
+                          <p
+                            className={`badge font-semibold ${getStatusStyle(
+                              application.status
+                            )}`}
+                          >
+                            Status: {application.status.toUpperCase()}
+                          </p>
+
+                          <p className="text-sm text-gray-400">
+                            Applied at:{" "}
+                            {format(
+                              new Date(application.appliedAt),
+                              "MMM dd, yyyy"
+                            )}
+                          </p>
+                        </div>
                       </div>
                     ))
                   )}
@@ -323,3 +335,16 @@ const Applications = () => {
 };
 
 export default Applications;
+
+const getStatusStyle = (status: string) => {
+  switch (status) {
+    case "pending":
+      return "badge-warning";
+    case "accepted":
+      return "badge-success";
+    case "rejected":
+      return "badge-error";
+    default:
+      return "text-gray-300";
+  }
+};

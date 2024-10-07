@@ -41,6 +41,7 @@ model Application {
   projectId    String  
   project      Project  @relation(fields: [projectId], references: [id], onDelete: Cascade) 
   appliedAt    DateTime @default(now())
+  status       String   @default("pending") // tracking status ("pending", "accepted", "rejected")
 }
 
 model User {
