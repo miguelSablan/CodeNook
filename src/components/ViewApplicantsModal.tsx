@@ -119,57 +119,57 @@ function ViewApplicantsModal({ applicants }: ViewApplicantsModalProps) {
           )}
 
           {/* Pending Applicants */}
+          <h4 className="text-md">Pending Applicants</h4>
           {pendingApplicants.length > 0 ? (
-            <>
-              <h4 className="text-md">Pending Applicants</h4>
-              <ul className="space-y-2">
-                {pendingApplicants.map((applicant) => (
-                  <li
-                    key={applicant.id}
-                    className="flex items-center p-3 bg-gray-800 rounded-lg"
+            <ul className="space-y-2">
+              {pendingApplicants.map((applicant) => (
+                <li
+                  key={applicant.id}
+                  className="flex items-center p-3 bg-gray-800 rounded-lg"
+                >
+                  <Link
+                    href={`/dashboard/users/${applicant.user.id}`}
+                    className="flex items-center flex-1"
                   >
-                    <Link
-                      href={`/dashboard/users/${applicant.user.id}`}
-                      className="flex items-center flex-1"
-                    >
-                      <div className="w-12 h-12 rounded-full mr-4">
-                        {applicant.user.image ? (
-                          <Image
-                            src={applicant.user.image}
-                            className="rounded-full"
-                            alt={`${applicant.user.name}'s avatar`}
-                            height="128"
-                            width="128"
-                            priority
-                            layout="intrinsic"
-                          />
-                        ) : (
-                          <div className="rounded-full bg-primary h-full w-full text-white text-lg leading-[128px] flex items-center justify-center">
-                            <span className="text-white">
-                              {applicant.user.name?.charAt(0).toUpperCase()}
-                            </span>
-                          </div>
-                        )}
-                      </div>
-                      <div className="flex flex-col">
-                        <p className="text-white text-lg font-semibold">
-                          {applicant.user.name}
-                        </p>
-                      </div>
-                    </Link>
-                    <button
-                      className="btn btn-neutral ml-4"
-                      onClick={() => handleAccept(applicant.id)}
-                      disabled={loading === applicant.id}
-                    >
-                      {loading === applicant.id ? "Accepting..." : "Accept"}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </>
+                    <div className="w-12 h-12 rounded-full mr-4">
+                      {applicant.user.image ? (
+                        <Image
+                          src={applicant.user.image}
+                          className="rounded-full"
+                          alt={`${applicant.user.name}'s avatar`}
+                          height="128"
+                          width="128"
+                          priority
+                          layout="intrinsic"
+                        />
+                      ) : (
+                        <div className="rounded-full bg-primary h-full w-full text-white text-lg leading-[128px] flex items-center justify-center">
+                          <span className="text-white">
+                            {applicant.user.name?.charAt(0).toUpperCase()}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                    <div className="flex flex-col">
+                      <p className="text-white text-lg font-semibold">
+                        {applicant.user.name}
+                      </p>
+                    </div>
+                  </Link>
+                  <button
+                    className="btn btn-neutral ml-4"
+                    onClick={() => handleAccept(applicant.id)}
+                    disabled={loading === applicant.id}
+                  >
+                    {loading === applicant.id ? "Accepting..." : "Accept"}
+                  </button>
+                </li>
+              ))}
+            </ul>
           ) : (
-            <p className="text-white">No pending applicants yet.</p>
+            <p className="text-sm text-center text-gray-400 italic mt-2">
+              No pending applicants yet.
+            </p>
           )}
         </div>
         <div className="modal-action">
