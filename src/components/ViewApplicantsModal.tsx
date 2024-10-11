@@ -71,7 +71,8 @@ function ViewApplicantsModal({ applicants }: ViewApplicantsModalProps) {
           Review the applications submitted for your project.
         </p>
         {error && <p className="text-red-500">{error}</p>}
-        <div className="space-y-4 mt-4">
+
+        <div className="space-y-4 mt-4 max-h-[400px] overflow-y-auto">
           {/* Accepted Applicants */}
           {acceptedApplicants.length > 0 && (
             <>
