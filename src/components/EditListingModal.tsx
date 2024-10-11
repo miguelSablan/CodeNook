@@ -101,17 +101,18 @@ function EditListingModal({ project }: EditListingModalProps) {
             ✕
           </button>
         </form>
-        <h3 className="font-bold text-xl text-white">Edit Listing</h3>
+        <h3 className="font-bold text-2xl text-white">Edit Listing</h3>
+        <p className="text-sm text-gray-400">Edit your project details.</p>
         <div className="space-y-4">
           {/* Title Field */}
           <div className="form-control">
             <label className="label">
-              <span className="label-text text-white">Title</span>
+              <span className="label-text text-white">Project Title</span>
             </label>
             <input
               type="text"
-              placeholder="Title"
-              className="input input-bordered w-full text-black"
+              placeholder="Project title"
+              className="input input-bordered input-primary w-full bg-transparent focus:outline-none"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
@@ -123,10 +124,10 @@ function EditListingModal({ project }: EditListingModalProps) {
               <span className="label-text text-white">Description</span>
             </label>
             <textarea
-              placeholder="Enter a brief description"
+              placeholder="Project description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="textarea textarea-bordered w-full text-black"
+              className="textarea textarea-bordered textarea-primary w-full bg-transparent h-36 resize-none focus:outline-none"
             ></textarea>
           </div>
 
@@ -138,8 +139,8 @@ function EditListingModal({ project }: EditListingModalProps) {
             <div className="flex items-center space-x-2">
               <input
                 type="text"
-                placeholder="Add Tag"
-                className="input input-bordered flex-grow text-black"
+                placeholder="Add relevant tags (e.g., React, Python)"
+                className="input input-bordered input-primary flex-grow bg-transparent focus:outline-none"
                 value={newTag}
                 onChange={(e) => setNewTag(e.target.value)}
               />
@@ -155,7 +156,7 @@ function EditListingModal({ project }: EditListingModalProps) {
               {tags.map((tag, index) => (
                 <div
                   key={index}
-                  className="inline-flex items-center px-2 py-1 bg-gray-700 rounded-lg"
+                  className="inline-flex items-center px-3 py-1 bg-primary rounded-full cursor-pointer text-sm"
                 >
                   <span className="text-white">{tag}</span>
                   <button
@@ -176,7 +177,7 @@ function EditListingModal({ project }: EditListingModalProps) {
               <span className="label-text text-white">Role</span>
             </label>
             <select
-              className="select select-bordered w-full text-black"
+              className="select select-bordered select-primary w-full bg-[#242323] focus:outline-none"
               value={role}
               onChange={(e) => setRole(e.target.value)}
             >
@@ -192,13 +193,16 @@ function EditListingModal({ project }: EditListingModalProps) {
           </div>
 
           {/* Modal Actions */}
-          <div className="modal-action">
+          <div className="modal-action flex w-full">
+            <form method="dialog" className="w-1/2">
+              <button className="btn btn-ghost w-full">Cancel</button>
+            </form>
             <button
               type="button"
-              className={`btn btn-primary`}
+              className={"btn btn-primary w-1/2"}
               onClick={handleSubmit}
             >
-              Save
+              Save Changes
             </button>
           </div>
         </div>
