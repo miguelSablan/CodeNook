@@ -72,7 +72,7 @@ function ViewApplicantsModal({ applicants }: ViewApplicantsModalProps) {
         </p>
         {error && <p className="text-red-500">{error}</p>}
 
-        <div className="space-y-4 mt-4 max-h-[400px] overflow-y-auto">
+        <div className="space-y-4 mt-4 max-h-[400px] overflow-y-auto project-scrollbar">
           {/* Accepted Applicants */}
           {acceptedApplicants.length > 0 && (
             <>

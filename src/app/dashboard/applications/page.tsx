@@ -304,7 +304,7 @@ const Applications = () => {
 
                         <div className="flex justify-between">
                           <p
-                            className={`badge font-semibold ${getStatusStyle(
+                            className={`badge font-medium ${getStatusStyle(
                               application.status
                             )}`}
                           >
@@ -312,7 +312,7 @@ const Applications = () => {
                           </p>
 
                           <p className="text-sm text-gray-400">
-                            Applied at:{" "}
+                            Applied on:{" "}
                             {format(
                               new Date(application.appliedAt),
                               "MMM dd, yyyy"
